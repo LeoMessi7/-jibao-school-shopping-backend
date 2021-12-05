@@ -19,7 +19,7 @@ class AdministratorTest {
         administrator.setEmail("123");
         administrator.setName("123");
         administrator.setPassword("123");
-        Date date = new Date();
+        Date date = new Date();;
         System.out.println(date.getTime());
         administrator.setCreate_time(date);
         System.out.println(administrator);
