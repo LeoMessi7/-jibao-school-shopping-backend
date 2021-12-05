@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
-public class SelectPK implements Serializable {
+public class SelectionPK implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "uid")
@@ -18,4 +18,6 @@ public class SelectPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "gid")
     Goods goods;
+
+
 }

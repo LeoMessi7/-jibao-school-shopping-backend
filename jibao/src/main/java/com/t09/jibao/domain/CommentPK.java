@@ -11,9 +11,9 @@ import java.io.Serializable;
 public class CommentPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    User buyer;
+    User seller;
 
     @ManyToOne
     @JoinColumn(name = "buyer_id")
-    User receiver;
+    User buyer;
 }

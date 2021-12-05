@@ -4,4 +4,5 @@ import com.t09.jibao.domain.Feedback;
 
 public interface FeedbackService {
     Feedback save(Feedback feedback);
+    Feedback findById(Long id);
 }

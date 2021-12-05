@@ -10,19 +10,16 @@ import java.util.Date;
 
 @Entity(name = "upload")
 @Data
-public class Upload implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Upload{
 
-
-    @Column(name = "name", length = 20)
-    private String name;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "uid")
     User user;
 
-    @Id
     @OneToOne
     @JoinColumn(name = "gid")
     Goods goods;
@@ -30,7 +27,5 @@ public class Upload implements Serializable {
     @CreatedDate
     @Column(name = "upload_time")
     private Date upload_time;
-
-
 }
 

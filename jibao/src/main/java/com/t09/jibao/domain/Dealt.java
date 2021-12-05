@@ -10,10 +10,12 @@ import java.util.Date;
 
 @Entity(name = "dealt")
 @Data
-public class Dealt implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Dealt {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "fid")
     Feedback feedback;

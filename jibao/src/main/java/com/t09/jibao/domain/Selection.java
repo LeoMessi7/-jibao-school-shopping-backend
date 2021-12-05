@@ -8,14 +8,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity(name = "select")
+@Entity(name = "selection")
 @Data
-public class Select implements Serializable {
+public class Selection implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    SelectPK pk;
+    SelectionPK pk;
 
     @CreatedDate
     @Column(name = "select_time")

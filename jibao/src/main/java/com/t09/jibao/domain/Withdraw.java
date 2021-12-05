@@ -10,20 +10,20 @@ import java.util.Date;
 
 @Entity(name = "withdraw")
 @Data
-public class Withdraw implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Withdraw {
+
     @Id
-    @OneToOne
-    @JoinColumn(name = "gid")
-    Goods goods;
-
-    @Column(name = "name", length = 20)
-    private String name;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "uid")
     User user;
+
+    @OneToOne
+    @JoinColumn(name = "gid")
+    Goods goods;
+
 
     @CreatedDate
     @Column(name = "withdraw_time")
