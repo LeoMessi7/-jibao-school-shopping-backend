@@ -1,18 +1,10 @@
 package com.t09.jibao.domain;
 
-import com.t09.jibao.JibaoApplication;
 import com.t09.jibao.service.CategoryService;
-import com.t09.jibao.service.ChatService;
 import com.t09.jibao.service.GoodsService;
-import com.t09.jibao.service.UserService;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Date;
 
 
 @SpringBootTest
