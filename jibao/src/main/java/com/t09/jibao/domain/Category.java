@@ -2,14 +2,7 @@ package com.t09.jibao.domain;
 
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
 
 
 

@@ -3,7 +3,6 @@ package com.t09.jibao.domain;
 import lombok.Data;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
