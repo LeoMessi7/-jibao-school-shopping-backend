@@ -28,7 +28,7 @@ class AdministratorTest {
 
     @Test
     void testQuery(){
-        Administrator administrator = administratorService.findById(5L);
+        Administrator administrator = administratorService.findById(1L);
         System.out.println(administrator);
     }
 

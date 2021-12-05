@@ -17,15 +17,8 @@ public class Select implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "uid")
-    User user;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "gid")
-    Goods goods;
+    @EmbeddedId
+    SelectPK pk;
 
     @CreatedDate
     @Column(name = "select_time")

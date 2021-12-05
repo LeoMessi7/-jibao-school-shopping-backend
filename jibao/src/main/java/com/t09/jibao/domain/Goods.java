@@ -17,6 +17,10 @@ public class Goods {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "cid")
+    Category category;
+
     @Column(name = "name", length = 20)
     private String name;
 

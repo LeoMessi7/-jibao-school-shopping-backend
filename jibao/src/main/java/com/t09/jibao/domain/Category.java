@@ -29,11 +29,14 @@ public class Category {
     @Column(name = "sub_category", length = 20)
     private String sub_category;
 
-    @Column(name = "total_sold", length = 40)
+    @Column(name = "image_path", length = 40)
     private String image_path;
 
     @Column(name = "description", length = 512)
     private String description;
+
+    @Column(name = "total_sold")
+    private int total_sold;
 
 }
 

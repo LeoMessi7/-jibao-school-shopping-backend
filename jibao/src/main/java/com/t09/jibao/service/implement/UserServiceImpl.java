@@ -23,8 +23,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id){
         User user = userDAO.findById(id).get();
-        System.out.println(666);
-        System.out.println(user.getBalance());
         return user;
     }
 }
