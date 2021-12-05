@@ -54,6 +54,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.20.1.ALL</version>
+        </dependency>
     </dependencies>
 
 
