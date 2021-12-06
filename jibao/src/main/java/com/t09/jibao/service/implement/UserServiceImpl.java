@@ -14,6 +14,9 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private String common_avatar_path = "jibao/src/main/resources/static/images/common/avatar/avatar.png";
+    private String avatar_path_template = "jibao/src/main/resources/static/images/avatar/%d";
+
     @Autowired
     private UserDAO userDAO;
 
@@ -52,15 +55,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User activate(Long uid) throws IOException {
         User user = findById(uid);
-        String avatar_dir_path = String.format("src/main/resources/static/images/avatar/%d", uid);
+        String avatar_dir_path = String.format(avatar_path_template, uid);
         File file = new File(avatar_dir_path);
-        if(!file.exists())
+        if(!file.exists()) {
             file.mkdir();
-        File common_avatar_file = new File("src\\main\\resources\\static\\images\\common\\avatar\\avatar.png");
-        File user_avatar_file = new File(String.format("src\\main\\resources\\static\\images\\avatar\\%d\\avatar.png", uid));
+        }
+        File common_avatar_file = new File(common_avatar_path);
+        String avatar_path = String.format(avatar_path_template + "/avatar.png", uid);
+        File user_avatar_file = new File(avatar_path);
         if(!user_avatar_file.exists())
             Files.copy(common_avatar_file.toPath(), user_avatar_file.toPath());
-        user.setAvatar_path(user_avatar_file.getPath().substring(19));
+        System.out.println(user_avatar_file.getCanonicalPath());
+        user.setAvatar_path(avatar_path.substring(25));
         user.set_active(true);
         return save(user);
     }

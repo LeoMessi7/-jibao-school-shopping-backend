@@ -23,7 +23,6 @@ class UserTest {
         Date date = new Date();
         user.setCreate_time(date);
         userService.save(user);
-        userService.activate(23L);
     }
 
     @Test
@@ -39,6 +38,11 @@ class UserTest {
         User user = userService.findByEmail(email);
         System.out.println(user.getBalance());
         System.in.read();
+    }
+
+    @Test
+    void testActivate() throws IOException {
+        userService.activate(38L);
     }
 
 }

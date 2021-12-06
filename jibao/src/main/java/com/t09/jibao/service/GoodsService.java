@@ -8,4 +8,5 @@ public interface GoodsService {
 
     Goods findById(Long id);
 
+
 }

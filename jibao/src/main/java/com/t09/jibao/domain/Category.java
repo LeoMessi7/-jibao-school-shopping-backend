@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 
 @Entity(name = "category")
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"category", "sub_category"})})
 @Data
 public class Category {
 

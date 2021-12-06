@@ -2,6 +2,7 @@ package com.t09.jibao.service;
 
 
 import com.t09.jibao.domain.Category;
+import com.t09.jibao.domain.Goods;
 
 public interface CategoryService {
 
@@ -9,4 +10,5 @@ public interface CategoryService {
 
     Category findById(Long id);
 
+    Category create(String category, String sub_category, String description);
 }
