@@ -9,3 +9,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  mail:
+    default-encoding: utf-8
+    port: 25
+    host: smtp.163.com
+    protocol: smtp
+    username: TJzengle@163.com
+    password: KZQVRNDUKHIMJDVK
+  mvc:
+    static-path-pattern: /static/**
+
+
+expiredTime:
+  300000

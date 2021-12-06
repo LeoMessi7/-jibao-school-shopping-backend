@@ -2,6 +2,7 @@ package com.t09.jibao.domain;
 
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -28,12 +29,14 @@ public class User {
     @Column(name = "create_time")
     private Date create_time;
 
-    @Column(name = "avatar_path", length = 40)
+    @Column(name = "avatar_path", length = 60)
     private String avatar_path;
 
     @Column(name = "balance")
     private int balance;
 
-    
+    @Column(name = "active")
+    private boolean is_active = false;
+
 }
 
