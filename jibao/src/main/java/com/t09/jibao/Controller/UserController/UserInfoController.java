@@ -20,6 +20,9 @@ public class UserInfoController {
     private UserService userService;
 
 
+    @Autowired
+    private HttpServletRequest request;
+
 /*
     @PostMapping("/info/updateAvatar")
     public String registerCheck(@RequestParam Map<String,String> params){
@@ -29,9 +32,8 @@ public class UserInfoController {
 
     @PostMapping("user/info/getAvatar")
     public String getAvatar(@RequestParam Map<String,String> params){
-        String uid_str = params.get("uid");
+        Long uid = (long) request.getSession().getAttribute("uid");
         JSONObject response = new JSONObject();
-        Long uid = (long) Integer.parseInt(uid_str);
         String avatar_path = userService.getAvatarPath(uid);
         System.out.println(avatar_path);
         response.put("avatar_url", avatar_path);
