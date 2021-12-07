@@ -5,50 +5,47 @@ package com.t09.jibao.config;
  * @date 2021-12-5
  */
 
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
+@Configuration
 public class AlipayConfig {
-
     // 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
-    public static String APP_ID = "2021000118660468";
-
-    // 商户私钥，您的PKCS8格式RSA2私钥，这些就是我们刚才设置的
-    public static String RSA_PRIVATE_KEY = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC2rIIrLwBbVBZSZBDBTWdgSnZoXi6RVmkNdPRXpgX8s/B5ibA//ytxJlP5Tzei7wOZWyFnWDBl+EPC4Wc61wj96anvFPrrdT1/Gew4wiEIXnz0W/fr9tUFcCmSprp0MzCKuszY1Ynp30aR5zhiCSU/P9CbDkfd/vJt6e/9E+VtjBmGiC4uW52dOJ6Ap67QvSRIMny9yi3XGiUhMh2EGnzJqDafV4HrjphNJhcnS8SQSkjhyE3EtyCwzi9+KacSFFqp5ub2nyNZUUBAVasJ8MVdQEKRMAyg6Rtq4Lay5yIECnF9Xh814GrhkVQkdRFS0aYlA0oaBo47nVd3IVWjOsAtAgMBAAECggEBAISf2F274RltgktNJTECnoQ1a6Q4hLy2LM09VUzxV7Vxeqzyv0inXQXoWt1Nm0orF8TWefkK+RB/X8r0VTtN9dRLOjo/VDFwzDYkPvGyV8M4vqW2w9fIPD6XgUdcz1Af/iUqnCDtYBSxKw4w/imHFEjIbw60Ho9ZUu9kAf4O3Opbqz1qj7FOgrkqBKXFeU0yilBHUjJMUHaaPB5WyZPb72lOEwL8Hu55x9V6Ec1xqvo82m5VPNvFGYDaDZlVC0pcCP1BbvhQXXTN0B/SL5axjXqDAxnSJWbkz0QGlLiAvIQDF9xQECkIBDvoox8XvbXJWOb6xsKpjRpGgtDilCVaXKECgYEA6Bct7KFFuYOAiIuzHGYIu1Fs3kTJTQt4tdBZMR4Zq1AMw242arqjoUfJOPQ0efB+Uu6z0Nrprkoqelpv2dLBFEFcwwvIqxK2x3kU4hZdBnW4HVjvlJXUaT3nUs6QP1UDMVNNOtUVZvfUYH/X+x1S+4UUwzy1ubGNEALVZqy7fMkCgYEAyX4Vu2OBZmWcDjBXqnfw7MQfsCTER/UtzC068/Lr1WmAWmNvMQNoTX3hyWhHMKYMrqCV79jht+dl1kvX3Q7R9SoOUR+8LXN5QRP8N1sZRIYXiw8V+V/r8Hr9RVC0+H3M+jD8RxLkBuDDss52WuQZ8C9S5c7r+PAegm+14dMWLkUCgYEA0Jx9F/PBs0UDFDjVbpI8CPrga0zSz6CfCHVUpjSTCAv03PjEitxl1cKrmLjQLka/lRWfpPwQDSv20HFXlie8itNRaLO/1B0HE3a/EZTeWr8XFbHp7tlZyprswN6Qg4yLSRvCED6VdS8PwwlGfh1WiGOPTQnVoip4S8rwO9DI2RkCgYB12Rvm1OUrOcTTe6zalHpCUNdj061FlP4rTE0Nv4f181XSCBRRq3eG01iKz0XMC2KhhGUNumESifHDK+rebTuZ0/Y5toD+aGqECKdczRhzPqZoe/NTPqolphmaQAEI0bNgpeP3wfHCoBV18FHDCWSuWU93/9V+bRq7GZFcunRfrQKBgQCpZQ6PV5nbqHI7U0LiGtJRQGU9h5RV+yKV4PeXIzVZPXky3ky05R90huYhqKkVFwtl/IovFO/Ws9CKtC9BTkPtRDnlK75dMcVXK/fOCDuNzwmm/MOZ3JVusJ2wp8inTDNQMpznl7qpVvJQD6KOtStjfP5B7beRK3lV/krUcL6m9A==";
-
-    // 支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm
-    // 对应APPID下的支付宝公钥。，这些就是我们刚才设置的
-    public static String ALIPAY_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlu0ji6lyfOinclEIuXzGU2JEVHo5AdPftaBCIMtP5PfWO6wer4vvoU9mFhJtyjSrysj1PqjbU1eKN4jl/6wY8Ux3Iv851p42WLRKf/ELHe4QiSSBc1kFFvEt8yq1nTB1Y9+n0eCOstLxK6i4JAxOlsA50AuUO12av74bONDjDkqF/Hf8JWqMFlKfW/yQs1HzM8zibIueids27eeFCKSts58W53Vq2mBq1QxTM3RhXxcqrG7K31KtWRNmMwqq4LKC8UMp75TtEA/QR8JKlW6qXoQFiOFf1mCYgvHdxtHwc9meAwIFkIgycXOpVvbp8wzYbyInJUyFBRP+PJhWE0JSqwIDAQAB";
-
-    // 异步通知，在这里我们设计自己的后台代码
-    public static String notify_url = "http://localhost/pay/synnotify";;
-
-    // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String return_url = "http://localhost/pay/return_notify";
-
+    public static String app_id = "2021000118660468";
+    // 商户私钥
+    public static String merchant_private_key = "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCJM+QZvjQvFjEwo9wl1W4xvy/cHRRdShLwGqRUL60ZYmS0KMf+C5Z61fY2ls/CEfw6lRlHXwrV/RUJ2AK9xcYIcFgAkMOAo8Pco1YW+Zc0ZZu5WCSR4BFuHmvaY0kd1VKsJ2pds0Y8hyFwAzbjN3KQ3kEF6f58ZyA5FzUj8W7mBlRctKgrWxtdOcAZd/Y1J6zi5ZpbuToME7yh9VMCnwCdx1IiyECcua4mYHzp/8Zg97389nAumqt5NpLgU1+vh7u/DNUDiFcrV4lkaPGXk5VJvH9WZmbe1Zq0uNRJEJyK91SnckdnlvvTUSljjXAzj4byW/NHof0qypCxntLxse8hAgMBAAECggEASjV133KgGQPA0VUfgpshAektwrk7xYWGHrXaQeqTjpJIc6VHHqI33vKRPE9vycEekrUIOjEu1DURxwQ931T0WqYhAxVJmO96xYDW1JBk9yMqCiKhjQELjGsJ3NIsvuUd1R1wi4OmrqBMNqCWdGkOH0sHEmLQkYrZw+dIh8tTNzhNba7qNQtWRB2P/sOJe00ztjY/hgPjRWgWAFPcvsfbRZhGapwBvbAnslb+6VvxhDpQ1HLhJkw8Tpe1d/4h/hb0GHn0EE6zt4vnUO9J4XFDOHyJdBtTv7ZO5w6LTKldryvGhQDTtPVCKAym7V+QRYMlpnwlP6HtZhxqtd8MMnbzQQKBgQDztnN3JEx4ONBgpGb0wAOBuS74zZdDP6U38Rn2Xj0qjm3RDYrzvZIFRQWMPdpjNFt+egwKNZ7GgmJgGj2OjUrozELBoJzds+dfzs+LCse57Vche+r+dHvufbgE9wrZLfl/p/bJk7Ccu29TkEtDjQuOhiKkPauyrryJwczeVBhFGQKBgQCQHrzVc8f9K0YXpWZW9BBZ6IUvAR6ChXyn+Yw8kHlOtVDLWvj2dHFSYqzsSxcH5pgCIgT8UA60FipOb7Ze1CkQKqbMoU46hkvwCHRPOYZpfh/reSM8IwKtvkiLPJUpYqDuB/zKOznbhuh6zjifSRaKbSZWnc+D+qMR4EmJqRxzSQKBgBXjZw9mRS/u+lgTq+ODc00tUpip7lHt32rczpYf9KJj1F0YOEiX2At9HXhw/bI3O5hqYbZxBmeRwkAbWzf4XKf34G7/e9c1lyw1qNI2D6YVOOQa+woLcC4FQIfBoEnNJUFf1nxYNV5+PwtkRD425rjQN0BFAay0oN5Gd53oM53RAoGANTFzJyGV1gar1zxwGnX4twaQabnzBd+5E9KShSQZ8ggQKw6Hx4dQ8ESFaK2KcZsVzeu6hVoTIzrvIIYw/K03/sSPTgXXdthsnMqyCy/DQZqQs3vBmoedjH0oD2Qr9dt2ZITEM+xKPZF8qx8EXR4/2JXSybNzjVXr7EQpQEsPuikCgYA8pcHIptDmFyQOpvUHXzcJev2KGRwEs5rGlDS+zK2OzemvAgegwQO1FjijtlbqLUQgGSe1p9QvOh2BF2yEqeaLRAxDKQw1gl1au3vVYiAHYt4Vz2yjwKhpQOC+/2Khz9F8IzG8d/AhJggcpPUnU0JXy+UHDZayxiZTVsgWePz3kQ==";    // 支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
+    // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问，测试修改springboot端口和外网地址
+    public static String notify_url = "http://localhost:8080/notify_url";
+    // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网（通过netapp获取net123或自己购买生成）可以正常访问
+    public static String return_url = "http://localhost:8080/return_url";
+    //请求格式，固定值json
+    public static String format = "json";
     // 签名方式
-    public static String SIGN_TYPE = "RSA2";
-
+    public static String sign_type = "RSA2";
     // 字符编码格式
-    public static String CHARSET = "utf-8";
-
-    // 支付宝网关 https://openapi.alipaydev.com/gateway.do https://openapi.alipay.com/gateway.do
-    public static String GATEWAYURL = "https://openapi.alipaydev.com/gateway.do";
-
+    public static String charset = "utf-8";
     // 支付宝网关
-    public static String LOG_PATH = "D:\\alipay\\alipaylog";
+    public static String serverUrl = "https://openapi.alipaydev.com/gateway.do";
+    // 支付宝网关
+    public static String log_path = "D:/alipay";
+    //应用公钥证书路径
+    public static String appCertPath = "D:/JiBao-backend/jibao/src/main/resources/alipayCert/appCertPublicKey_2021000118660468.crt";
+    //支付宝公钥证书路径
+    public static String alipayCertPath = "D:/JiBao-backend/jibao/src/main/resources/alipayCert/alipayCertPublicKey_RSA2.crt";
+    //支付宝根证书路径
+    public static String alipayRootCertPath = "D:/JiBao-backend/jibao/src/main/resources/alipayCert/alipayRootCert.crt";
 
-    public static String FORMAT = "json";
-
-    // ↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
     /**
      * 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
-     * @param sWord 要写入日志里的文本内容
      */
     public static void logResult(String sWord) {
         FileWriter writer = null;
         try {
-            writer = new FileWriter(LOG_PATH + "alipay_log_" + System.currentTimeMillis()+".txt");
+            writer = new FileWriter(log_path + "alipay_log_" + System.currentTimeMillis() + ".txt");
             writer.write(sWord);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,5 +59,4 @@ public class AlipayConfig {
             }
         }
     }
-
 }
