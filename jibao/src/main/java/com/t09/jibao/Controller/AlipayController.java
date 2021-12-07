@@ -76,7 +76,7 @@ public class AlipayController {
         model.setRemark("支付测试");
 
         if (alipayService.transfer(model)) {
-            System.out.println("支付成功outBizNo为+" + outBizNo + "转账给" + payeeAccount + ",共" + transAmount + "元。");
+            System.out.println("支付成功，JiBao转账给" + payeeAccount + ",共" + transAmount + "元。");
             return true;
         } else {
             System.out.println("支付失败");
@@ -86,9 +86,9 @@ public class AlipayController {
 
     /*** 网站支付*/
     @RequestMapping(value = "/goAlipay", produces = "text/html; charset=UTF-8")
-    public String goAlipay(@RequestParam(value = "outBizNo") String outBizNo,
-                           @RequestParam(value = "subject") String subject,
-                           @RequestParam(value = "amount") String amount)
+    public String goAlipay(@RequestParam(value = "outBizNo", defaultValue = "2", required = false) String outBizNo,
+                           @RequestParam(value = "subject", defaultValue = "1", required = false) String subject,
+                           @RequestParam(value = "amount", defaultValue = "0.1", required = false) String amount)
             throws IOException, AlipayApiException {
 
         AlipayTradePagePayModel model = new AlipayTradePagePayModel();
