@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
         user.setName(name);
         user.setPassword(password);
         user.setBalance(0);
-        user.setAvatar_path("null");
-        user.setCreate_time(new Date());
+        user.setAvatarPath("null");
+        user.setCreateTime(new Date());
         user = userDAO.save(user);
         return user;
     }
@@ -66,15 +66,15 @@ public class UserServiceImpl implements UserService {
         if(!user_avatar_file.exists())
             Files.copy(common_avatar_file.toPath(), user_avatar_file.toPath());
         System.out.println(user_avatar_file.getCanonicalPath());
-        user.setAvatar_path(avatar_path.substring(25));
-        user.set_active(true);
+        user.setAvatarPath(avatar_path.substring(25));
+        user.setActive(true);
         return save(user);
     }
 
     @Override
     public User updateAvatar(Long uid) throws FileNotFoundException {
         User user = findById(uid);
-        File file = new File(user.getAvatar_path());
+        File file = new File(user.getAvatarPath());
         InputStream inputStream = new FileInputStream(file);
 
         return save(user);
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getAvatarPath(Long uid){
         User user = findById(uid);
-        return user.getAvatar_path();
+        return user.getAvatarPath();
     }
 
 }

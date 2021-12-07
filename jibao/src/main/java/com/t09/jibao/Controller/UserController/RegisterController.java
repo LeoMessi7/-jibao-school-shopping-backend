@@ -61,7 +61,7 @@ public class RegisterController {
         // find by email
         User user = userService.findByEmail(email);
         // haven't been registered or active
-        if(user == null || !user.is_active()) {
+        if(user == null || !user.isActive()) {
             response.put("code", 0);
             Long image_id = (long) request.getSession().getAttribute("image_id");
             Captcha captcha = captchaService.findById(image_id);
@@ -70,7 +70,6 @@ public class RegisterController {
                 User new_user = userService.create(email, name, password);
                 captchaService.createEmailCaptcha(new_user, captcha, Utils.generateEmailCaptcha());
                 response.put("uid", new_user.getId());
-                System.out.println(mailService);
                 mailService.sendCaptchaMail( "zengle", user.getEmail(), "hello", captcha.getEmail_captcha());
             }
             else {

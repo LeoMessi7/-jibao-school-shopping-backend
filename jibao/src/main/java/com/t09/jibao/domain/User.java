@@ -26,17 +26,17 @@ public class User {
     private String password;
 
     @CreatedDate
-    @Column(name = "create_time")
-    private Date create_time;
+    @Column(name = "createTime")
+    private Date createTime;
 
-    @Column(name = "avatar_path", length = 60)
-    private String avatar_path;
+    @Column(name = "avatarPath", length = 60)
+    private String avatarPath;
 
     @Column(name = "balance")
     private int balance;
 
     @Column(name = "active")
-    private boolean is_active = false;
+    private boolean active = false;
 
 }
 

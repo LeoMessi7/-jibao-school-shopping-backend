@@ -14,14 +14,14 @@ import java.util.Date;
 @Embeddable
 public class ChatPK implements Serializable {
     @ManyToOne
-    @JoinColumn(name = "sender_id")
-    User buyer;
+    @JoinColumn(name = "senderId")
+    User sender;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_id")
+    @JoinColumn(name = "receiverId")
     User receiver;
 
     @CreatedDate
-    @Column(name = "comment_time")
-    private Date comment_time;
+    @Column(name = "chatTime")
+    private Date chatTime;
 }

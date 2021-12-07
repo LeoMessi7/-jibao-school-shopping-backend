@@ -15,13 +15,13 @@ class UserTest {
     @Test
     void testInsert() throws IOException {
         User user = new User();
-        user.setAvatar_path("123");
+        user.setAvatarPath("123");
         user.setEmail("123");
         user.setName("123");
         user.setPassword("123");
         user.setBalance(10);
         Date date = new Date();
-        user.setCreate_time(date);
+        user.setCreateTime(date);
         userService.save(user);
     }
 

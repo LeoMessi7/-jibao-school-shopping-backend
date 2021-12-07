@@ -22,9 +22,9 @@ class ChatTest {
         User user1 = userService.findById(1L);
         User user2 = userService.findById(2L);
         System.out.println(user2);
-        chatPK.setBuyer(user1);
+        chatPK.setSender(user1);
         chatPK.setReceiver(user2);
-        chatPK.setComment_time(new Date());
+        chatPK.setChatTime(new Date());
         chat.setPk(chatPK);
         chatService.save(chat);
     }

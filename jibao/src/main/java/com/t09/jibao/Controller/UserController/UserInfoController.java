@@ -19,14 +19,6 @@ public class UserInfoController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private CaptchaService captchaService;
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private MailService mailService;
 
 /*
     @PostMapping("/info/updateAvatar")
