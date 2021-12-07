@@ -70,6 +70,7 @@ public class RegisterController {
                 User new_user = userService.create(email, name, password);
                 captchaService.createEmailCaptcha(new_user, captcha, Utils.generateEmailCaptcha());
                 response.put("uid", new_user.getId());
+                System.out.println(mailService);
                 mailService.sendCaptchaMail( "zengle", user.getEmail(), "hello", captcha.getEmail_captcha());
             }
             else {
@@ -126,5 +127,6 @@ public class RegisterController {
         }
         return response.toJSONString();
     }
+
 
 }

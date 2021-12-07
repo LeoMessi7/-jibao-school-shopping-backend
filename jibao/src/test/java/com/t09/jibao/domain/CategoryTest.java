@@ -11,15 +11,7 @@ public class CategoryTest {
     private CategoryService categoryService;
     @Test
     void testInsert(){
-        Category category = new Category();
-        category.setCategory("book");
-        category.setSub_category("math");
-        category.setDescription("123");
-        category.setImage_path("123");
-        category.setTotal_sold(0);
-        category.setId(5L);
-        System.out.println(category);
-        categoryService.save(category);
+
     }
 
     @Test

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 
-@Entity(name = "Captcha")
+@Entity(name = "captcha")
 @Data
 public class Captcha {
 

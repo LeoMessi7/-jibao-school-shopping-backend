@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 
 @Entity(name = "category")
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"category", "subCategory"})})
 @Data
 public class Category {
 
@@ -19,17 +20,17 @@ public class Category {
     @Column(name = "category", length = 20)
     private String category;
 
-    @Column(name = "sub_category", length = 20)
-    private String sub_category;
+    @Column(name = "subCategory", length = 20)
+    private String subCategory;
 
-    @Column(name = "image_path", length = 40)
-    private String image_path;
+    @Column(name = "imagePath", length = 40)
+    private String imagePath;
 
     @Column(name = "description", length = 512)
     private String description;
 
-    @Column(name = "total_sold")
-    private int total_sold;
+    @Column(name = "totalSold")
+    private int totalSold;
 
 }
 
