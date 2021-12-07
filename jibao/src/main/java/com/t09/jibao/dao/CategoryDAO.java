@@ -4,6 +4,11 @@ import com.t09.jibao.domain.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CategoryDAO extends JpaRepository<Category, Long> {
+    List<Category> findAllByCategoryLike(String category);
+    List<Category> findAllBySubCategoryLike(String sub_category);
+    Category findFirstByCategoryAndSubCategory(String category, String sub_category);
 }

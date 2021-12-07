@@ -20,7 +20,7 @@ class GoodsTest {
         goods.setStatus(1);
         goods.setName("jjlk");
         goods.setDescription("hello");
-        goods.setImage_path("123");
+        goods.setImagePath("123");
         Category category = categoryService.findById(1L);
         goods.setCategory(category);
         goods.setPrice(12);

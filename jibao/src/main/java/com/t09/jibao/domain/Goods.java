@@ -19,8 +19,8 @@ public class Goods {
     @Column(name = "name", length = 20)
     private String name;
 
-    @Column(name = "image_path", length = 40)
-    private String image_path;
+    @Column(name = "imagePath", length = 40)
+    private String imagePath;
 
     @Column(name = "description", length = 512)
     private String description;
