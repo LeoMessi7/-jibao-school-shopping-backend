@@ -33,11 +33,11 @@ public class AlipayConfig {
     // 支付宝网关
     public static String log_path = "D:/alipay";
     //应用公钥证书路径
-    public static String appCertPath = "D:/JiBao-backend/jibao/src/main/resources/alipayCert/appCertPublicKey_2021000118660468.crt";
+    public static String appCertPath = "jibao/src/main/resources/alipayCert/appCertPublicKey_2021000118660468.crt";
     //支付宝公钥证书路径
-    public static String alipayCertPath = "D:/JiBao-backend/jibao/src/main/resources/alipayCert/alipayCertPublicKey_RSA2.crt";
+    public static String alipayCertPath = "jibao/src/main/resources/alipayCert/alipayCertPublicKey_RSA2.crt";
     //支付宝根证书路径
-    public static String alipayRootCertPath = "D:/JiBao-backend/jibao/src/main/resources/alipayCert/alipayRootCert.crt";
+    public static String alipayRootCertPath = "jibao/src/main/resources/alipayCert/alipayRootCert.crt";
 
     /**
      * 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
