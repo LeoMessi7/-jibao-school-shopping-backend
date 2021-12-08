@@ -4,7 +4,6 @@ spring:
     username: javaee
     password: 666666wW
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -28,6 +27,8 @@ spring:
       max-request-size:
         10MB
 
+server:
+  port: 8081
 
 expiredTime:
   300000
