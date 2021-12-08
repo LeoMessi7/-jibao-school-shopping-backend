@@ -24,6 +24,14 @@ public class LoginController {
     @Autowired
     private HttpServletRequest request;
 
+    /**
+     * check email and password when user login in
+     * @param params request params
+     *               contains:
+     *                  email: user email
+     *                  password: user password
+     * @return
+     */
     @PostMapping("/login/checkAccount")
     public String loginCheck(@RequestParam Map<String,String> params){
         String password = params.get("password");
@@ -31,9 +39,9 @@ public class LoginController {
         JSONObject response = new JSONObject();
         // find by email
         User user = userService.findByEmail(email);
-        // haven't been registered or active
+        // haven't been registered or activated
         if(user == null || !user.isActive()){
-            // user not exists
+            // user does not exist
             response.put("code", 1);
         }
         else{
@@ -41,10 +49,11 @@ public class LoginController {
             if(user.getPassword().equals(password)) {
                 response.put("code", 0);
                 response.put("avatar_url", user.getAvatarPath());
+                response.put("user_name", user.getName());
                 request.getSession().setAttribute("uid", user.getId());
             }
             else
-                response.put("code", 1);
+                response.put("code", 2);
         }
         return response.toJSONString();
     }
