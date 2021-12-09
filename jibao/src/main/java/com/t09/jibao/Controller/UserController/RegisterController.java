@@ -58,6 +58,7 @@ public class RegisterController {
      */
     @PostMapping("/register/checkAccount")
     public String registerCheck(@RequestParam Map<String,String> params){
+        System.out.println(request.getSession().getAttribute("image_id"));
         String name = params.get("name");
         String password = params.get("password");
         String email = params.get("email");
@@ -106,6 +107,9 @@ public class RegisterController {
         Captcha captcha = captchaService.createImageCaptcha(capText);
         // create captcha
         request.getSession().setAttribute("image_id", captcha.getId());
+
+        System.out.println(request.getSession().getAttribute("image_id"));
+
         response.setHeader("Cache-Control", "no-store");
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
