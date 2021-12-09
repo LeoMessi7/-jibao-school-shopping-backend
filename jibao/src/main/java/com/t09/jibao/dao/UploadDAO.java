@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface UploadDAO extends JpaRepository<Upload, Long>  {
-    List<Upload> findUploadByGoods(Goods goods);
+
+    Upload findFirstByGoods(Goods goods);
 }

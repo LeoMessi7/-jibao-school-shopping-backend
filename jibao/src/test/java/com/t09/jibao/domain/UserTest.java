@@ -37,12 +37,6 @@ class UserTest {
         String email = "1391909128@qq.com";
         User user = userService.findByEmail(email);
         System.out.println(user.getBalance());
-        System.in.read();
-    }
-
-    @Test
-    void testActivate() throws IOException {
-        userService.activate(38L);
     }
 
 }

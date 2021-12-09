@@ -1,7 +1,6 @@
 package com.t09.jibao.Controller.UserController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alipay.api.internal.util.file.FileUtils;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.t09.jibao.Controller.Utils;
 import com.t09.jibao.domain.Captcha;
@@ -11,9 +10,6 @@ import com.t09.jibao.service.MailService;
 import com.t09.jibao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +26,6 @@ import java.util.Map;
 
 @RestController
 public class RegisterController {
-
 
     @Value("${expiredTime}")
     private int expiredTime;
@@ -51,6 +46,16 @@ public class RegisterController {
     private MailService mailService;
 
 
+    /**
+     * cheek input when registering
+     * @param params request params
+     *               contains:
+     *                  name: user name
+     *                  password: user password
+     *                  email: user email
+     *                  captcha_input: image captcha
+     * @return response
+     */
     @PostMapping("/register/checkAccount")
     public String registerCheck(@RequestParam Map<String,String> params){
         String name = params.get("name");
@@ -60,12 +65,13 @@ public class RegisterController {
         JSONObject response = new JSONObject();
         // find by email
         User user = userService.findByEmail(email);
-        // haven't been registered or active
+        // hasn't been registered or active
         if(user == null || !user.isActive()) {
             response.put("code", 0);
             Long image_id = (long) request.getSession().getAttribute("image_id");
             Captcha captcha = captchaService.findById(image_id);
             Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
+            // captcha input should be correct and before ddl
             if(captcha.getImage_captcha().equals(captcha_input) && captcha.getCreate_time().before(time_limit)) {
                 User new_user = userService.create(email, name, password);
                 captchaService.createEmailCaptcha(new_user, captcha, Utils.generateEmailCaptcha());
@@ -83,6 +89,10 @@ public class RegisterController {
     }
 
 
+    /**
+     * get image captcha
+     * @param response image
+     */
     @GetMapping("/register/getImageCaptcha")
     public void getImageCaptcha(HttpServletResponse response) throws IOException {
         // create captcha test
@@ -104,28 +114,20 @@ public class RegisterController {
     }
 
 
+    /**
+     * check email captcha
+     * @param params request params
+     *               contains:
+     *                  email: user email
+     *                  captcha_input: captcha input
+     * @return error code
+     */
     @PostMapping("/register/checkEmailCaptcha")
     public String checkEmailCaptcha(@RequestParam Map<String,String> params) throws IOException {
-        String uid_str = params.get("uid");
+        String email = params.get("email");
         String captcha_input = params.get("captcha_input");
         JSONObject response = new JSONObject();
-        Long uid = (long) Integer.parseInt(uid_str);
-        // find by email
-        Captcha captcha = captchaService.findByUid(uid);
-        Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
-        if(captcha.getCreate_time().after(time_limit)){
-            response.put("code", 1);
-        }
-        else if(captcha.getEmail_captcha().equals(captcha_input)){
-            response.put("code", 0);
-            userService.activate(uid);
-            response.put("uid", uid);
-        }
-        else{
-            response.put("code", 2);
-        }
+        response.put("code", userService.activate(email, captcha_input));
         return response.toJSONString();
     }
-
-
 }

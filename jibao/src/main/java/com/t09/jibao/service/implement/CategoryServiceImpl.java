@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category create(String category, String sub_category, String description){
+    public Category add(String category, String sub_category, String description){
         Category cate = new Category();
         cate.setCategory(category);
         cate.setSubCategory(sub_category);
@@ -49,7 +49,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findByCategoryAndSubCategory(String category, String sub_category){
-        Category cate = categoryDAO.findFirstByCategoryAndSubCategory(category, sub_category);
-        return cate;
+        return categoryDAO.findFirstByCategoryAndSubCategory(category, sub_category);
     }
 }

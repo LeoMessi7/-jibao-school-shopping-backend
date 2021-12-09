@@ -27,14 +27,12 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public Upload findById(Long id){
-        Upload upload = uploadDAO.findById(id).get();
-        return upload;
+        return uploadDAO.findById(id).get();
     }
 
     @Override
     public Upload findByGid(Long gid){
         Goods goods = goodsDAO.findById(gid).get();
-        Upload upload = uploadDAO.findUploadByGoods(goods).get(0);
-        return upload;
+        return uploadDAO.findFirstByGoods(goods);
     }
 }

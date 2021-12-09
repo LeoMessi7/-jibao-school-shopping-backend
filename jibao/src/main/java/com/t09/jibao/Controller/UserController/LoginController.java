@@ -30,7 +30,8 @@ public class LoginController {
      *               contains:
      *                  email: user email
      *                  password: user password
-     * @return
+     * @return response
+     *
      */
     @PostMapping("/login/checkAccount")
     public String loginCheck(@RequestParam Map<String,String> params){
@@ -39,7 +40,7 @@ public class LoginController {
         JSONObject response = new JSONObject();
         // find by email
         User user = userService.findByEmail(email);
-        // haven't been registered or activated
+        // hasn't been registered or activated
         if(user == null || !user.isActive()){
             // user does not exist
             response.put("code", 1);

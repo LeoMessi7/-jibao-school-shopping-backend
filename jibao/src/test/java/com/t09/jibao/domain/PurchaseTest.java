@@ -29,9 +29,6 @@ class PurchaseTest {
         purchaseService.save(purchase);
     }
 
-    @Test
-    void testQuery() {
-        System.out.println(purchaseService.findByUid(1L).get(0).getPurchase_time());
-    }
+
 
 }
