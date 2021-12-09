@@ -36,7 +36,6 @@ public class CaptchaController {
      */
     @GetMapping("/getImageCaptcha")
     public void getImageCaptcha(HttpServletResponse response) throws IOException {
-        System.out.println(request.getSession().getAttribute("image_id"));
         // create captcha test
         String capText = defaultKaptcha.createText();
         if(request.getSession().getAttribute("image_id") != null) {
@@ -48,7 +47,6 @@ public class CaptchaController {
         Captcha captcha = captchaService.createImageCaptcha(capText);
         // create captcha
         request.getSession().setAttribute("image_id", captcha.getId());
-        System.out.println(request.getSession().getAttribute("image_id"));
         response.setHeader("Cache-Control", "no-store");
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);

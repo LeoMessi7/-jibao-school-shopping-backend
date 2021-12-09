@@ -44,7 +44,8 @@ public class LoginController {
     public String loginCheck(@RequestParam Map<String,String> params){
         String password = params.get("password");
         String email = params.get("email");
-        String code = params.get("code");
+        String captcha_code = params.get("captcha_code");
+        System.out.println(captcha_code);
         JSONObject response = new JSONObject();
         // find by email
         User user = userService.findByEmail(email);
@@ -57,11 +58,13 @@ public class LoginController {
             // email matches password
             if(user.getPassword().equals(password)) {
                 Long image_id = (long) request.getSession().getAttribute("image_id");
-                System.out.println(image_id);
                 Captcha captcha = captchaService.findById(image_id);
+                System.out.println(captcha);
+                System.out.println(captcha_code);
                 Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
                 // captcha input should be correct and before ddl
-                if(captcha.getImage_captcha().equals(code) && captcha.getCreate_time().before(time_limit)) {
+                if(captcha.getImage_captcha().equals(captcha_code) && captcha.getCreate_time().before(time_limit)) {
+                    System.out.println(123);
                     response.put("code", 0);
                     response.put("avatar_url", user.getAvatarPath());
                     response.put("user_name", user.getName());
