@@ -2,7 +2,8 @@ package com.t09.jibao.utils;
 
 /**
  * @author Yuanhao Pei
- * @date 2021-12-5
+ * @descibe 支付宝支付
+ * @date 2021/12/7
  */
 
 import com.alipay.api.AlipayApiException;
@@ -12,7 +13,6 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.t09.jibao.config.AlipayConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -20,11 +20,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * @author Yuanhao Pei
- * @descibe 支付宝支付
- * @date 2021/19:38
- */
 @Slf4j
 public class AlipayUtil {
 

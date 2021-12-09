@@ -2,11 +2,9 @@ package com.t09.jibao.config;
 
 /**
  * @author Yuanhao Pei
- * @date 2021-12-5
+ * @date 2021/12/7
  */
 
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.FileWriter;

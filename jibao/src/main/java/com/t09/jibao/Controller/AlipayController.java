@@ -2,38 +2,26 @@ package com.t09.jibao.Controller;
 
 /**
  * @author Yuanhao Pei
- * @date 2021-12-5
+ * @descibe 支付宝支付
+ * @date 2021/12/7
  */
 
 import com.alipay.api.AlipayApiException;
-import com.alipay.api.AlipayClient;
 import com.alipay.api.domain.AlipayFundTransToaccountTransferModel;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
-import com.alipay.api.request.*;
-import com.alipay.api.response.*;
-import com.t09.jibao.config.AlipayConfig;
 import com.t09.jibao.service.AlipayService;
 import com.t09.jibao.utils.AlipayUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Map;
 
-/**
- * @author Yuanhao Pei
- * @descibe 支付宝支付
- * @date 2021/19:38
- */
 @Slf4j
 @RestController
 public class AlipayController {

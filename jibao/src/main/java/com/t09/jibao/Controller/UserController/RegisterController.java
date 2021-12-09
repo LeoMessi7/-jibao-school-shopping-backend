@@ -108,8 +108,6 @@ public class RegisterController {
         // create captcha
         request.getSession().setAttribute("image_id", captcha.getId());
 
-        System.out.println(request.getSession().getAttribute("image_id"));
-
         response.setHeader("Cache-Control", "no-store");
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
