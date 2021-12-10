@@ -2,11 +2,10 @@ package com.t09.jibao.Controller.GoodsController;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.t09.jibao.domain.Category;
-import com.t09.jibao.domain.Goods;
-import com.t09.jibao.domain.Upload;
+import com.t09.jibao.domain.*;
 import com.t09.jibao.service.*;
 import com.t09.jibao.utils.GoodsUtil;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,10 +75,13 @@ public class GoodsInfoController {
         String key_word = params.get("key_word");
         JSONObject response = new JSONObject();
         List<Goods> goodsList = goodsService.search(key_word);
+        Pair<List<User>, List<List<Comment>>> sellerList = uploadService.findSellersInfoListByGoodsList(goodsList);
         // information
         response.put("goodsInfoList", GoodsUtil.fillGoods(goodsList));
+        response.put("sellersInfoList", GoodsUtil.fillSeller(sellerList));
         // the length of the list
         response.put("length", goodsList.size());
+
         return response.toJSONString();
     }
 
@@ -126,7 +128,9 @@ public class GoodsInfoController {
         Long uid = (long) request.getSession().getAttribute("uid");
         List<Goods> purchaseList = purchaseService.findGoodsByUid(uid);
         // information
-        response.put("purchaseList", GoodsUtil.fillGoods(purchaseList));
+        Pair<List<User>, List<List<Comment>>> sellerList = uploadService.findSellersInfoListByGoodsList(purchaseList);
+        response.put("goodsInfoList", GoodsUtil.fillGoods(purchaseList));
+        response.put("sellersInfoList", GoodsUtil.fillSeller(sellerList));
         response.put("length", purchaseList.size());
         response.put("code", 0);
         return response.toJSONString();

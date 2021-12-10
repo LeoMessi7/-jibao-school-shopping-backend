@@ -11,4 +11,5 @@ import java.util.List;
 public interface UploadDAO extends JpaRepository<Upload, Long>  {
 
     Upload findFirstByGoods(Goods goods);
+
 }

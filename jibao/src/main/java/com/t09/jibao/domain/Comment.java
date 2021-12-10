@@ -24,7 +24,7 @@ public class Comment implements Serializable {
     private String content;
 
     @Column(name = "mark")
-    private int mark;
+    private double mark;
 
 }
 
