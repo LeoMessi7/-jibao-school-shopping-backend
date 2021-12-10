@@ -10,5 +10,4 @@ import java.util.List;
 @Repository
 public interface CaptchaDAO extends JpaRepository<Captcha, Long> {
     List<Captcha> findCaptchaByUser(User user);
-
 }

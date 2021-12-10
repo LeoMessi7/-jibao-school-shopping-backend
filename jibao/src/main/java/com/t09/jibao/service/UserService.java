@@ -23,7 +23,7 @@ public interface UserService {
     int activate(String email, String captcha_input) throws IOException;
 
     // update avatar
-    int updateAvatar(Long uid, MultipartFile avatar) throws IOException;
+    String updateAvatar(Long uid, MultipartFile avatar) throws IOException;
 
     // get avatar url
     String getAvatarPath(Long uid);

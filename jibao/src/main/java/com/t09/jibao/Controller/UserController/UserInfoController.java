@@ -65,7 +65,13 @@ public class UserInfoController {
     public String updateAvatar(@RequestParam(value = "avatar") MultipartFile avatar) throws IOException {
         Long uid = (long) request.getSession().getAttribute("uid");
         JSONObject response = new JSONObject();
-        response.put("code", userService.updateAvatar(uid, avatar));
+        String url = userService.updateAvatar(uid, avatar);
+        if(url.equals(""))
+            response.put("code", 1);
+        else{
+            response.put("code", 0);
+            response.put("avatar_url", url);
+        }
         return response.toJSONString();
     }
 

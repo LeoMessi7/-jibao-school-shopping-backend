@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * allow: visit goods image
  * not allow: visit others avatar
  */
-@WebFilter(urlPatterns = {"/user/info/*", "/goods/*"}, filterName = "loginFilter")
+@WebFilter(urlPatterns = {"/user/info/*", "/goods/*", "/feedback"}, filterName = "loginFilter")
 public class LoginFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

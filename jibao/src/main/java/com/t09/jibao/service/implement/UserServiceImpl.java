@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateAvatar(Long uid, MultipartFile avatar) throws IOException {
+    public String updateAvatar(Long uid, MultipartFile avatar) throws IOException {
         User user = findById(uid);
         String image_name = avatar.getOriginalFilename();
         // ignore this warning
@@ -137,9 +137,10 @@ public class UserServiceImpl implements UserService {
             avatar_image_file = new File(avatar_image_file.getAbsolutePath());
             avatar.transferTo(avatar_image_file);
             user.setAvatarPath(avatar_path.substring(25));
-            return 0;
+            save(user);
+            return user.getAvatarPath();
         } else {
-            return 1;
+            return "";
         }
     }
 
