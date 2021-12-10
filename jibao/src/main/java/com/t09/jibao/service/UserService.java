@@ -1,6 +1,8 @@
 package com.t09.jibao.service;
 
 import com.t09.jibao.domain.User;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -21,7 +23,7 @@ public interface UserService {
     int activate(String email, String captcha_input) throws IOException;
 
     // update avatar
-    User updateAvatar(Long uid) throws FileNotFoundException;
+    int updateAvatar(Long uid, MultipartFile avatar) throws IOException;
 
     // get avatar url
     String getAvatarPath(Long uid);

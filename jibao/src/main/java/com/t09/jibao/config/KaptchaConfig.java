@@ -24,7 +24,7 @@ public class KaptchaConfig {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "0,0,0");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "32");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYAZ");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "0");
         // properties.setProperty(Constants.KAPTCHA_NOISE_IMPL, "com.google.code.kaptcha.impl.NoNoise");
         Config config = new Config(properties);
         defaultKaptcha.setConfig(config);

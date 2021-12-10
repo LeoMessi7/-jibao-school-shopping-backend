@@ -70,7 +70,7 @@ public class GoodsInfoController {
      *                  key_word: the key word user searched
      * @return the information of goods
      */
-    @PostMapping("goods/search")
+    @PostMapping("search")
     public String search(@RequestParam Map<String,String> params){
         // key word
         String key_word = params.get("key_word");
@@ -120,20 +120,15 @@ public class GoodsInfoController {
      * @return response purchase list
      */
     @PostMapping("goods/getPurchase")
-    public String getPurchase(){
+    public String getPurchase() {
         JSONObject response = new JSONObject();
-        Object uid_object = request.getSession().getAttribute("uid");
-        // user hasn't logged in
-        if(uid_object == null)
-            response.put("code", 1);
-        else {
-            Long uid = (long) request.getSession().getAttribute("uid");
-            List<Goods> purchaseList = purchaseService.findGoodsByUid(uid);
-            // information
-            response.put("purchaseList", GoodsUtil.fillGoods(purchaseList));
-            response.put("length", purchaseList.size());
-            response.put("code", 0);
-        }
+
+        Long uid = (long) request.getSession().getAttribute("uid");
+        List<Goods> purchaseList = purchaseService.findGoodsByUid(uid);
+        // information
+        response.put("purchaseList", GoodsUtil.fillGoods(purchaseList));
+        response.put("length", purchaseList.size());
+        response.put("code", 0);
         return response.toJSONString();
     }
 
@@ -148,25 +143,19 @@ public class GoodsInfoController {
     public String withdraw(@RequestParam Map<String,String> params) {
         JSONObject response = new JSONObject();
         Object uid_object = request.getSession().getAttribute("uid");
-        // user hasn't logged in
-        if(uid_object == null)
+        Long gid = (long) Integer.parseInt(params.get("gid"));
+        Long uid = (long) uid_object;
+        Upload upload = uploadService.findByGid(gid);
+        // upload is null:  the goods hasn't been uploaded
+        // not equal: something wrong
+        if (upload == null || !uid.equals(upload.getId()))
             response.put("code", 1);
         else {
-            Long gid = (long) Integer.parseInt(params.get("gid"));
-            Long uid = (long) uid_object;
-            Upload upload = uploadService.findByGid(gid);
-            // upload is null:  the goods hasn't been uploaded
-            // not equal: something wrong
-            if (upload == null || !uid.equals(upload.getId()))
-                response.put("code", 2);
-            else {
-                int code = withdrawService.withdrawGoods(uid, gid);
-                response.put("code", code);
-            }
+            int code = withdrawService.withdrawGoods(uid, gid);
+            response.put("code", code);
         }
         return response.toJSONString();
     }
-
 
 
 

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name = "user")
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 @Data
 public class User {
 

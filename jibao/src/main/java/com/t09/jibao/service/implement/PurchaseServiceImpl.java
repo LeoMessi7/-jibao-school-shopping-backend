@@ -27,16 +27,31 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private GoodsDAO goodsDAO;
 
+    /**
+     * save
+     * @param purchase purchase object
+     * @return purchase object
+     */
     @Override
     public Purchase save(Purchase purchase) {
         return purchaseDAO.save(purchase);
     }
 
+    /**
+     * find purchase object by id
+     * @param id purchase id
+     * @return purchase object
+     */
     @Override
     public Purchase findById(Long id){
         return null;
     }
 
+    /**
+     * find goods from purchase table by uid
+     * @param uid user id
+     * @return goods list
+     */
     @Override
     public List<Goods> findGoodsByUid(Long uid){
         User user = userDAO.findById(uid).get();
@@ -46,11 +61,16 @@ public class PurchaseServiceImpl implements PurchaseService {
             Goods goods = goodsDAO.findById(purchase.getId()).get();
             goodsList.add(goods);
         }
-        return  goodsList;
+        return goodsList;
     }
 
 
-    // buy goods
+    /**
+     * buy goods
+     * @param uid user id
+     * @param gid goods id
+     * @return error code
+     */
     @Override
     public int purchase(Long uid, Long gid){
         User user = userDAO.findById(uid).get();

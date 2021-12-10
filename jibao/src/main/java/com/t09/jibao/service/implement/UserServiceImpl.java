@@ -3,11 +3,14 @@ package com.t09.jibao.service.implement;
 import com.t09.jibao.dao.CaptchaDAO;
 import com.t09.jibao.dao.UserDAO;
 import com.t09.jibao.domain.Captcha;
+import com.t09.jibao.domain.Category;
+import com.t09.jibao.domain.Goods;
 import com.t09.jibao.domain.User;
 import com.t09.jibao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -118,11 +121,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateAvatar(Long uid) throws FileNotFoundException {
+    public int updateAvatar(Long uid, MultipartFile avatar) throws IOException {
         User user = findById(uid);
-        File file = new File(user.getAvatarPath());
-        InputStream inputStream = new FileInputStream(file);
-        return save(user);
+        String image_name = avatar.getOriginalFilename();
+        // ignore this warning
+        // because the image must exist
+        int split_index = image_name.lastIndexOf(".");
+        String suffix = image_name.substring(split_index + 1);
+        String avatar_path = String.format(avatar_path_template + "/avatar.png", uid);
+        if ("jpg".equals(suffix) || "jpeg".equals(suffix) || "png".equals(suffix)) {
+            avatar_path = avatar_path.substring(0, avatar_path.lastIndexOf(".")) + "." + suffix;
+            File avatar_image_file = new File(avatar_path);
+            avatar_image_file = new File(avatar_image_file.getAbsolutePath());
+            avatar.transferTo(avatar_image_file);
+            user.setAvatarPath(avatar_path.substring(25));
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     @Override
