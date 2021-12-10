@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -35,6 +35,7 @@ public class UserInfoController {
     @PostMapping("user/info/getAvatar")
     public String getAvatar(@RequestParam Map<String,String> params){
         Long uid = (long) request.getSession().getAttribute("uid");
+        request.getSession();
         JSONObject response = new JSONObject();
         String avatar_path = userService.getAvatarPath(uid);
         System.out.println(avatar_path);
@@ -43,7 +44,13 @@ public class UserInfoController {
     }
 
 
-
+    /**
+     * buy goods
+     * @param params request params
+     *               contains:
+     *                  gid: goods id
+     * @return response
+     */
     @PostMapping("user/info/purchase")
     public String purchase(@RequestParam Map<String,String> params){
         Long uid = (long) request.getSession().getAttribute("uid");
@@ -54,5 +61,17 @@ public class UserInfoController {
         return response.toJSONString();
     }
 
+    /**
+     * update user avatar
+     * @param avatar image
+     * @return response
+     */
+    @PostMapping("user/info/updateAvatar")
+    public String updateAvatar(@RequestParam(value = "avatar") MultipartFile avatar) throws IOException {
+        Long uid = (long) request.getSession().getAttribute("uid");
+        JSONObject response = new JSONObject();
+        response.put("code", userService.updateAvatar(uid, avatar));
+        return response.toJSONString();
+    }
 
 }
