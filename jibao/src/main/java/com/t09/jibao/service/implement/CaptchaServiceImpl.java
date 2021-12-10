@@ -44,7 +44,8 @@ public class CaptchaServiceImpl implements CaptchaService {
         return save(captcha);
     }
 
-    public Captcha createEmailCaptcha(User user, Captcha captcha, String email_captcha){
+    public Captcha createEmailCaptcha(User user, String email_captcha){
+        Captcha captcha = new Captcha();
         captcha.setUser(user);
         captcha.setEmail_captcha(email_captcha);
         captcha.setCreate_time(new Date());

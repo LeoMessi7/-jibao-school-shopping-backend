@@ -53,4 +53,6 @@ public class CaptchaController {
         response.setContentType("image/jpeg");
         ImageIO.write(image, "jpg", response.getOutputStream());
     }
+
+
 }

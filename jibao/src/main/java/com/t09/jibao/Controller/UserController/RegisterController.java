@@ -19,7 +19,6 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
@@ -53,66 +52,28 @@ public class RegisterController {
      *                  name: user name
      *                  password: user password
      *                  email: user email
-     *                  captcha_input: image captcha
      * @return response
      */
     @PostMapping("/register/checkAccount")
     public String registerCheck(@RequestParam Map<String,String> params){
-        System.out.println(request.getSession().getAttribute("image_id"));
         String name = params.get("name");
         String password = params.get("password");
         String email = params.get("email");
-        String captcha_input = params.get("captcha_input");
         JSONObject response = new JSONObject();
         // find by email
         User user = userService.findByEmail(email);
         // hasn't been registered or active
         if(user == null || !user.isActive()) {
             response.put("code", 0);
-            Long image_id = (long) request.getSession().getAttribute("image_id");
-            Captcha captcha = captchaService.findById(image_id);
-            Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
-            // captcha input should be correct and before ddl
-            if(captcha.getImage_captcha().equals(captcha_input) && captcha.getCreate_time().before(time_limit)) {
-                User new_user = userService.create(email, name, password);
-                captchaService.createEmailCaptcha(new_user, captcha, Utils.generateEmailCaptcha());
-                response.put("uid", new_user.getId());
-                mailService.sendCaptchaMail( "zengle", new_user.getEmail(), "hello", captcha.getEmail_captcha());
-            }
-            else {
-                response.put("code", 1);
-            }
+            User new_user = userService.create(email, name, password);
+            Captcha captcha = captchaService.createEmailCaptcha(new_user, Utils.generateEmailCaptcha());
+            response.put("uid", new_user.getId());
+            mailService.sendCaptchaMail( "zengle", new_user.getEmail(), "hello", captcha.getEmail_captcha());
         }
         else {
-            response.put("code", 2);
+            response.put("code", 1);
         }
         return response.toJSONString();
-    }
-
-
-    /**
-     * get image captcha
-     * @param response image
-     */
-    @GetMapping("/register/getImageCaptcha")
-    public void getImageCaptcha(HttpServletResponse response) throws IOException {
-        // create captcha test
-        String capText = defaultKaptcha.createText();
-        if(request.getSession().getAttribute("image_id") != null) {
-            Long image_id = (long) request.getSession().getAttribute("image_id");
-            captchaService.deleteCaptcha(image_id);
-        }
-        // create captcha image
-        BufferedImage image = defaultKaptcha.createImage(capText);
-        Captcha captcha = captchaService.createImageCaptcha(capText);
-        // create captcha
-        request.getSession().setAttribute("image_id", captcha.getId());
-
-        response.setHeader("Cache-Control", "no-store");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
-        response.setContentType("image/jpeg");
-        ImageIO.write(image, "jpg", response.getOutputStream());
     }
 
 

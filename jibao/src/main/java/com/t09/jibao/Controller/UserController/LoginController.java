@@ -58,13 +58,11 @@ public class LoginController {
             // email matches password
             if(user.getPassword().equals(password)) {
                 Long image_id = (long) request.getSession().getAttribute("image_id");
+                System.out.println(request.getRequestURL());
                 Captcha captcha = captchaService.findById(image_id);
-                System.out.println(captcha);
-                System.out.println(captcha_code);
                 Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
                 // captcha input should be correct and before ddl
                 if(captcha.getImage_captcha().equals(captcha_code) && captcha.getCreate_time().before(time_limit)) {
-                    System.out.println(123);
                     response.put("code", 0);
                     response.put("avatar_url", user.getAvatarPath());
                     response.put("user_name", user.getName());
