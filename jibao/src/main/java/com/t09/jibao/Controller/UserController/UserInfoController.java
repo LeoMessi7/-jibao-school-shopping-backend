@@ -3,10 +3,6 @@ package com.t09.jibao.Controller.UserController;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.t09.jibao.domain.Goods;
-import com.t09.jibao.domain.Purchase;
-import com.t09.jibao.service.CaptchaService;
-import com.t09.jibao.service.MailService;
 import com.t09.jibao.service.PurchaseService;
 import com.t09.jibao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +26,6 @@ public class UserInfoController {
 
     @Autowired
     private HttpServletRequest request;
-
 
     @PostMapping("user/info/getAvatar")
     public String getAvatar(@RequestParam Map<String,String> params){
