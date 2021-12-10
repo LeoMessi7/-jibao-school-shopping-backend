@@ -91,7 +91,8 @@ public class UserServiceImpl implements UserService {
         User user = findByEmail(email);
         if(user == null)
             return 1;
-        Captcha captcha = captchaDAO.findFirstByUser(user);
+        List<Captcha> captchaList = captchaDAO.findCaptchaByUser(user);
+        Captcha captcha = captchaList.get(captchaList.size() - 1);
         Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
         // out of time
         if(captcha.getCreate_time().after(time_limit))
