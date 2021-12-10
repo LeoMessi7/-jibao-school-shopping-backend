@@ -96,6 +96,7 @@ public class UserServiceImpl implements UserService {
         // out of time
         if(captcha.getCreate_time().after(time_limit))
             return 2;
+        System.out.println(captcha.getEmail_captcha());
         // not equal
         if(!captcha.getEmail_captcha().equals(captcha_input))
             return 3;
