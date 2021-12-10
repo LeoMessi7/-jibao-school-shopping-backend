@@ -1,8 +1,8 @@
 package com.t09.jibao.Controller;
 
-/**
- * @author Yuanhao Pei
- * @date 2021/12/7
+/*
+ * @Author Yuanhao Pei
+ * @Date 2021/12/7
  */
 
 import com.t09.jibao.domain.Captcha;

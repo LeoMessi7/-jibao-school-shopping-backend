@@ -1,9 +1,9 @@
 package com.t09.jibao.utils;
 
-/**
- * @author Yuanhao Pei
- * @descibe 支付宝支付
- * @date 2021/12/7
+/*
+ * @Author Yuanhao Pei
+ * @Description Alipay tools
+ * @Date 2021/12/7
  */
 
 import com.alipay.api.AlipayApiException;

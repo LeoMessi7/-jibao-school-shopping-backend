@@ -1,7 +1,8 @@
 package com.t09.jibao.service.implement;
 
-/**
- * @author Yuanhao Pei
+/*
+ * @Author Yuanhao Pei
+ * @Description Alipay service
  * @date 2021/12/7
  */
 
