@@ -27,17 +27,6 @@ public class UserInfoController {
     @Autowired
     private HttpServletRequest request;
 
-    @PostMapping("user/info/getAvatar")
-    public String getAvatar(@RequestParam Map<String,String> params){
-        Long uid = (long) request.getSession().getAttribute("uid");
-        request.getSession();
-        JSONObject response = new JSONObject();
-        String avatar_path = userService.getAvatarPath(uid);
-        System.out.println(avatar_path);
-        response.put("avatar_url", avatar_path);
-        return response.toJSONString();
-    }
-
 
     /**
      * buy goods
@@ -46,7 +35,7 @@ public class UserInfoController {
      *                  gid: goods id
      * @return response
      */
-    @PostMapping("user/info/purchase")
+    @PostMapping("/user/info/purchase")
     public String purchase(@RequestParam Map<String,String> params){
         Long uid = (long) request.getSession().getAttribute("uid");
         Long gid = (long) Integer.parseInt(params.get("gid"));
@@ -61,7 +50,7 @@ public class UserInfoController {
      * @param avatar image
      * @return response
      */
-    @PostMapping("user/info/updateAvatar")
+    @PostMapping("/user/info/updateAvatar")
     public String updateAvatar(@RequestParam(value = "avatar") MultipartFile avatar) throws IOException {
         Long uid = (long) request.getSession().getAttribute("uid");
         JSONObject response = new JSONObject();
