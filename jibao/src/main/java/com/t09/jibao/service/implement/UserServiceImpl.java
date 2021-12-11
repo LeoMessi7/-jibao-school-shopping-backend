@@ -145,9 +145,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getAvatarPath(Long uid){
+    public int changePassword(Long uid, String password){
         User user = findById(uid);
-        return user.getAvatarPath();
+        user.setPassword(password);
+        user = userDAO.save(user);
+        return 0;
     }
-
 }

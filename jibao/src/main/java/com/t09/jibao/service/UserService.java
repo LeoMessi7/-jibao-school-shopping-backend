@@ -25,6 +25,6 @@ public interface UserService {
     // update avatar
     String updateAvatar(Long uid, MultipartFile avatar) throws IOException;
 
-    // get avatar url
-    String getAvatarPath(Long uid);
+    // change password
+    int changePassword(Long uid, String password);
 }

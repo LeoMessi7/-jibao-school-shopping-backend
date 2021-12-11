@@ -64,4 +64,19 @@ public class UserInfoController {
         return response.toJSONString();
     }
 
+    /**
+     * change password
+     * @param params request params
+     *               contains:
+     *                  password: password
+     * @return response
+     */
+    @PostMapping("/user/info/changePassword")
+    public String changePassword(@RequestParam Map<String, String> params){
+        Long uid = (long) request.getSession().getAttribute("uid");
+        String password = params.get("password");
+        JSONObject response = new JSONObject();
+        response.put("code", userService.changePassword(uid, password));
+        return response.toJSONString();
+    }
 }
