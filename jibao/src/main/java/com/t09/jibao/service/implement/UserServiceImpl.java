@@ -155,7 +155,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public double getMark(Long uid){
         List<Comment> userCommentList = commentService.findBySid(uid);
-        double totalMark = userCommentList.stream().mapToDouble(Comment::getMark).sum();
-        return totalMark / userCommentList.size();
+        if (!userCommentList.isEmpty()){
+            double totalMark = userCommentList.stream().mapToDouble(Comment::getMark).sum();
+            return totalMark / userCommentList.size();
+        }else {
+            return 5;
+        }
     }
 }
