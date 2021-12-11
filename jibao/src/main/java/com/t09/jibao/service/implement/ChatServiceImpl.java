@@ -46,6 +46,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<ChatUser> findByBoth(Long uid, String seller_name) {
         User seller = userDAO.findFirstByName(seller_name);
+        System.out.println(seller_name);
         List<ChatUser> chatList1 = chatDAO.findAllByBoth(uid, seller.getId());
         List<ChatUser> chatList2 = chatDAO.findAllByBoth(seller.getId(), uid);
         chatList1.addAll(chatList2);

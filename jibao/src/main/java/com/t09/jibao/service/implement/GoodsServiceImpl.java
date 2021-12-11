@@ -1,8 +1,11 @@
 package com.t09.jibao.service.implement;
 
 import com.t09.jibao.dao.GoodsDAO;
+import com.t09.jibao.dao.UploadDAO;
+import com.t09.jibao.dao.UserDAO;
 import com.t09.jibao.domain.Category;
 import com.t09.jibao.domain.Goods;
+import com.t09.jibao.domain.Upload;
 import com.t09.jibao.domain.User;
 import com.t09.jibao.service.CategoryService;
 import com.t09.jibao.service.GoodsService;
@@ -14,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,6 +29,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private GoodsDAO goodsDAO;
+
+    @Autowired
+    private UserDAO userDAO;
+
+    @Autowired
+    private UploadDAO uploadDAO;
 
     @Autowired
     private CategoryService categoryService;
@@ -55,7 +65,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     @Override
-    public Goods add(String sub_category, String name,
+    public Goods add(Long uid, String sub_category, String name,
                      int price, String description, MultipartFile image) throws IOException {
         Goods goods = new Goods();
         Category cate = categoryService.findBySubCategory(sub_category);
@@ -92,7 +102,13 @@ public class GoodsServiceImpl implements GoodsService {
             }
         }
         goods.setImagePath(goods_path.substring(25));
-        save(goods);
+        goods = save(goods);
+        Upload upload = new Upload();
+        upload.setGoods(goods);
+        upload.setUpload_time(new Date());
+        User user = userDAO.findById(uid).get();
+        upload.setUser(user);
+        uploadDAO.save(upload);
         return goods;
     }
 }

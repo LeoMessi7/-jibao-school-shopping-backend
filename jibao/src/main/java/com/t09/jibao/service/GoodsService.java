@@ -14,7 +14,7 @@ public interface GoodsService {
 
     List<Goods> search(String content);
 
-    Goods add(String sub_category, String name,
+    Goods add(Long uid, String sub_category, String name,
               int price, String description, MultipartFile image) throws IOException;
 
 }

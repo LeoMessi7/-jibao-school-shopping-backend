@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.t09.jibao.Vo.ChatUser;
 import com.t09.jibao.domain.Chat;
 import com.t09.jibao.service.ChatService;
+import com.t09.jibao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -27,6 +29,9 @@ public class ChatController {
 
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private UserService userService;
 
     // online number
     public static volatile AtomicInteger onlineNumber = new AtomicInteger(0);
@@ -56,13 +61,21 @@ public class ChatController {
 
     @PostMapping("/get/chat")
     public String comment(@RequestParam Map<String,String> params){
-        Long uid = 1L;//(long) request.getSession().getAttribute("uid");
+        Long uid = (long) request.getSession().getAttribute("uid");
         String seller_name = params.get("seller_name");
         List<ChatUser> chatUserList = chatService.findByBoth(uid, seller_name);
         JSONObject response = new JSONObject();
+        List<Map<String, String>> chatUserInfoList = new ArrayList<>();
         for(ChatUser chatUser: chatUserList){
-
+            Map<String, String> chatUserInfo = new HashMap<>();
+            chatUserInfo.put("from_username", chatUser.getSender_name());
+            chatUserInfo.put("to_username", chatUser.getReceiver_name());
+            chatUserInfo.put("content", chatUser.getContent());
+            chatUserInfo.put("date", chatUser.getChatTime().toString());
+            chatUserInfoList.add(chatUserInfo);
         }
+        response.put("chat", chatUserInfoList);
+        response.put("length", chatUserInfoList.size());
         return response.toJSONString();
     }
 
@@ -111,13 +124,16 @@ public class ChatController {
     public void onMessage(String message, Session session) {
         try {
             JSONObject jsonObject = JSON.parseObject(message);
+            System.out.println(jsonObject);
             String content = jsonObject.getString("content");
             String from_username = jsonObject.getString("from_username");
             String to_username = jsonObject.getString("to_username");
+            String avatar_url = jsonObject.getString("avatar_url");
             System.out.println(from_username + "===>" + to_username + ":" + content);
             Map<String, Object> map1 = new HashMap<>();
             map1.put("content", content);
             map1.put("from_username", from_username);
+            map1.put("avatar_url", avatar_url);
             if (clients.get(to_username) != null) {
                 map1.put("to_username", to_username);
                 sendMessageTo(JSON.toJSONString(map1), to_username);
@@ -127,6 +143,14 @@ public class ChatController {
         } catch (Exception e) {
             System.out.println("发生了错误了");
         }
+    }
+
+    @PostMapping("/add/chat")
+    public void saveChat(@RequestParam Map<String,String> params){
+        String from_username = params.get("from_username");
+        String to_username = params.get("to_username");
+        String content = params.get("content");
+        chatService.add(from_username, to_username, content);
     }
 
     public void sendMessageTo(String message, String to_username) throws IOException {

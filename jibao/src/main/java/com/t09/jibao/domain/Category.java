@@ -23,9 +23,6 @@ public class Category {
     @Column(name = "subCategory", length = 20)
     private String subCategory;
 
-    @Column(name = "imagePath", length = 40)
-    private String imagePath;
-
     @Column(name = "description", length = 512)
     private String description;
 

@@ -152,6 +152,20 @@ public class UserServiceImpl implements UserService {
         return 0;
     }
 
+    /**
+     * get avatar path by name
+     * @param name
+     * @return
+     */
+    @Override
+    public String getAvatarPathByName(String name) {
+        System.out.println(name);
+        User user = userDAO.findFirstByName(name);
+        System.out.println(666);
+        System.out.println(user);
+        return user.getAvatarPath();
+    }
+
     @Override
     public double getMark(Long uid){
         List<Comment> userCommentList = commentService.findBySid(uid);

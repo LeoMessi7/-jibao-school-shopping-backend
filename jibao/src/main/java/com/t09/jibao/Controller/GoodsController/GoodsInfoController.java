@@ -101,12 +101,13 @@ public class GoodsInfoController {
     @PostMapping("/goods/upload")
     public String upload(@RequestParam Map<String,String> params,
                          @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
+        Long uid = (long) request.getSession().getAttribute("uid");
         String description = params.get("description");
         String name = params.get("name");
         String sub_category = params.get("sub_category");
         String price_str = params.get("price");
         int price = Integer.parseInt(price_str);
-        Goods goods = goodsService.add(sub_category,name, price, description, image);
+        Goods goods = goodsService.add(uid, sub_category,name, price, description, image);
         JSONObject response = new JSONObject();
         if(goods == null)
             response.put("code", 1);
