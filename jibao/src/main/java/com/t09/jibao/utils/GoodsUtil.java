@@ -70,8 +70,8 @@ public class GoodsUtil {
             sellerInfo.put("comments_total", Integer.toString(comment.size()));
             sellerInfo.put("comments", comment.stream().map(Comment::getContent).collect(Collectors.toList()).toString());
             double mark = 0;
-            for(int j =0 ;j<comment.size();j++){
-                mark += comment.get(j).getMark();
+            for (Comment value : comment) {
+                mark += value.getMark();
             }
             if(mark == 0)
                 mark = 5;

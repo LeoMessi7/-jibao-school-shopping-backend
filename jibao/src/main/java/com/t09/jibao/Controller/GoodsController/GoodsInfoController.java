@@ -162,5 +162,21 @@ public class GoodsInfoController {
     }
 
 
+    /**
+     * get goods uploaded by user
+     * @return response
+     */
+    @PostMapping("goods/getUpload")
+    public String getUpload() {
+        JSONObject response = new JSONObject();
+        Object uid_object = request.getSession().getAttribute("uid");
+        Long uid = (long) uid_object;
+        List<Goods> goodsList = uploadService.findUploadGoods(uid);
+        response.put("goodsInfoList", GoodsUtil.fillGoods(goodsList));
+        response.put("length", goodsList.size());
+        return response.toJSONString();
+    }
+
+
 
 }
