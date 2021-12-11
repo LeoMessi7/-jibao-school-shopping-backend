@@ -47,7 +47,7 @@ public class GoodsInfoController {
      *                      description: the description of goods
      * @return response
      */
-    @PostMapping("goods/info/addCategory")
+    @PostMapping("/goods/info/addCategory")
     public String addCategory(@RequestParam Map<String,String> params){
         String category = params.get("category");
         String sub_category = params.get("sub_category");
@@ -70,7 +70,7 @@ public class GoodsInfoController {
      *                  key_word: the key word user searched
      * @return the information of goods
      */
-    @PostMapping("search")
+    @PostMapping("/search")
     public String search(@RequestParam Map<String,String> params){
         // key word
         String key_word = params.get("key_word");
@@ -98,7 +98,7 @@ public class GoodsInfoController {
      * @param image item picture
      * @return response
      */
-    @PostMapping("goods/upload")
+    @PostMapping("/goods/upload")
     public String upload(@RequestParam Map<String,String> params,
                          @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
         String description = params.get("description");
@@ -121,7 +121,7 @@ public class GoodsInfoController {
      * note that user should be logged in
      * @return response purchase list
      */
-    @PostMapping("goods/getPurchase")
+    @PostMapping("/goods/getPurchase")
     public String getPurchase() {
         JSONObject response = new JSONObject();
 
@@ -143,7 +143,7 @@ public class GoodsInfoController {
      *                  gid: the id of goods
      * @return response
      */
-    @PostMapping("goods/withdraw")
+    @PostMapping("/goods/withdraw")
     public String withdraw(@RequestParam Map<String,String> params) {
         JSONObject response = new JSONObject();
         Object uid_object = request.getSession().getAttribute("uid");
@@ -166,7 +166,7 @@ public class GoodsInfoController {
      * get goods uploaded by user
      * @return response
      */
-    @PostMapping("goods/getUpload")
+    @PostMapping("/goods/getUpload")
     public String getUpload() {
         JSONObject response = new JSONObject();
         Object uid_object = request.getSession().getAttribute("uid");
