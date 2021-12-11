@@ -15,7 +15,7 @@ public interface CategoryService {
 
     List<Category> search(String content);
 
-    Category findByCategoryAndSubCategory(String category, String sub_category);
+    Category findBySubCategory(String sub_category);
 
     Map<String, List<String>> findAll();
 

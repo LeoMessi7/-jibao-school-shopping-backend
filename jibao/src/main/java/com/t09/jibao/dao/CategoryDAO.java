@@ -10,6 +10,6 @@ import java.util.List;
 public interface CategoryDAO extends JpaRepository<Category, Long> {
     List<Category> findAllByCategoryLike(String category);
     List<Category> findAllBySubCategoryLike(String sub_category);
-    Category findFirstByCategoryAndSubCategory(String category, String sub_category);
+    Category findFirstBySubCategory(String sub_category);
     List<Category> findAll();
 }

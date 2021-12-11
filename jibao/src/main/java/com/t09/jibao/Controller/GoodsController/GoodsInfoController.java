@@ -103,11 +103,10 @@ public class GoodsInfoController {
                          @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
         String description = params.get("description");
         String name = params.get("name");
-        String category = params.get("category");
         String sub_category = params.get("sub_category");
         String price_str = params.get("price");
         int price = Integer.parseInt(price_str);
-        Goods goods = goodsService.add(category, sub_category,name, price, description, image);
+        Goods goods = goodsService.add(sub_category,name, price, description, image);
         JSONObject response = new JSONObject();
         if(goods == null)
             response.put("code", 1);

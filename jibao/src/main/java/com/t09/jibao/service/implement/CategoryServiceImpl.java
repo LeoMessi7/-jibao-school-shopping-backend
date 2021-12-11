@@ -50,8 +50,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public Category findByCategoryAndSubCategory(String category, String sub_category){
-        return categoryDAO.findFirstByCategoryAndSubCategory(category, sub_category);
+    public Category findBySubCategory(String sub_category){
+        return categoryDAO.findFirstBySubCategory(sub_category);
     }
 
     @Override

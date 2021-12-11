@@ -55,10 +55,10 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     @Override
-    public Goods add(String category, String sub_category, String name,
+    public Goods add(String sub_category, String name,
                      int price, String description, MultipartFile image) throws IOException {
         Goods goods = new Goods();
-        Category cate = categoryService.findByCategoryAndSubCategory(category, sub_category);
+        Category cate = categoryService.findBySubCategory(sub_category);
         goods.setCategory(cate);
         goods.setDescription(description);
         goods.setPrice(price);
