@@ -1,5 +1,6 @@
 package com.t09.jibao.service.implement;
 
+import com.t09.jibao.Vo.ChatUser;
 import com.t09.jibao.dao.ChatDAO;
 import com.t09.jibao.dao.UserDAO;
 import com.t09.jibao.domain.Chat;
@@ -10,7 +11,10 @@ import com.t09.jibao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -38,4 +42,18 @@ public class ChatServiceImpl implements ChatService {
         chat.setContent(content);
         return save(chat);
     }
+
+    @Override
+    public List<ChatUser> findByBoth(Long uid, String seller_name) {
+        User seller = userDAO.findFirstByName(seller_name);
+        List<ChatUser> chatList1 = chatDAO.findAllByBoth(uid, seller.getId());
+        List<ChatUser> chatList2 = chatDAO.findAllByBoth(seller.getId(), uid);
+        chatList1.addAll(chatList2);
+        Collections.sort(chatList1);
+        for(ChatUser chatUser: chatList1){
+            System.out.println(chatUser);
+        }
+        return chatList1;
+    }
+
 }

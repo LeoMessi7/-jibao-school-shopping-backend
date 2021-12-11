@@ -18,5 +18,6 @@ public class Chat implements Serializable {
     @Column(name = "content", length = 512)
     private String content;
 
+
 }
 

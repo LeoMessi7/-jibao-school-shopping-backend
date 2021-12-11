@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -50,5 +52,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findByCategoryAndSubCategory(String category, String sub_category){
         return categoryDAO.findFirstByCategoryAndSubCategory(category, sub_category);
+    }
+
+    @Override
+    public Map<String, List<String>> findAll() {
+        List<Category> categoryList = categoryDAO.findAll();
+        Map<String, List<String>> categories = categoryList.stream().collect(Collectors.groupingBy(Category::getCategory, Collectors.mapping(Category::getSubCategory, Collectors.toList())));
+        return categories;
     }
 }

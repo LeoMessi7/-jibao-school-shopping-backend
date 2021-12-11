@@ -3,6 +3,7 @@ package com.t09.jibao.service;
 
 import com.t09.jibao.domain.Category;
 import java.util.List;
+import java.util.Map;
 
 public interface CategoryService {
 
@@ -15,5 +16,7 @@ public interface CategoryService {
     List<Category> search(String content);
 
     Category findByCategoryAndSubCategory(String category, String sub_category);
+
+    Map<String, List<String>> findAll();
 
 }

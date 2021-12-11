@@ -4,6 +4,7 @@ package com.t09.jibao.Controller.GoodsController;
 import com.alibaba.fastjson.JSONObject;
 import com.t09.jibao.domain.*;
 import com.t09.jibao.service.*;
+import com.t09.jibao.utils.CategoryUtil;
 import com.t09.jibao.utils.GoodsUtil;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -174,6 +175,19 @@ public class GoodsInfoController {
         List<Goods> goodsList = uploadService.findUploadGoods(uid);
         response.put("goodsInfoList", GoodsUtil.fillGoods(goodsList));
         response.put("length", goodsList.size());
+        return response.toJSONString();
+    }
+
+
+    /**
+     * get category group by category
+     * @return response
+     */
+    @PostMapping("/getCategory")
+    public String getCategory() {
+        Map<String, List<String>> categories = categoryService.findAll();
+        JSONObject response = new JSONObject();
+        response.put("category", CategoryUtil.fillCategory(categories));
         return response.toJSONString();
     }
 
