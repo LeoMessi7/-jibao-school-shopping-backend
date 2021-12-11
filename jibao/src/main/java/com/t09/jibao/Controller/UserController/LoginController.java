@@ -65,6 +65,7 @@ public class LoginController {
                     response.put("code", 0);
                     response.put("avatar_url", user.getAvatarPath());
                     response.put("user_name", user.getName());
+                    response.put("mark", userService.getMark(user.getId()));
                     request.getSession().setAttribute("uid", user.getId());
                 }else
                     response.put("code", 3);

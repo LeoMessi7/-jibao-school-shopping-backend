@@ -2,10 +2,7 @@ package com.t09.jibao.service.implement;
 
 import com.t09.jibao.dao.CaptchaDAO;
 import com.t09.jibao.dao.UserDAO;
-import com.t09.jibao.domain.Captcha;
-import com.t09.jibao.domain.Category;
-import com.t09.jibao.domain.Goods;
-import com.t09.jibao.domain.User;
+import com.t09.jibao.domain.*;
 import com.t09.jibao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CaptchaDAO captchaDAO;
+
+    @Autowired
+    private CommentServiceImpl commentService;
 
     @Value("${expiredTime}")
     private int expiredTime;
@@ -148,7 +148,18 @@ public class UserServiceImpl implements UserService {
     public int changePassword(Long uid, String password){
         User user = findById(uid);
         user.setPassword(password);
-        user = userDAO.save(user);
+        userDAO.save(user);
         return 0;
+    }
+
+    @Override
+    public double getMark(Long uid){
+        List<Comment> userCommentList = commentService.findBySid(uid);
+        if (!userCommentList.isEmpty()){
+            double totalMark = userCommentList.stream().mapToDouble(Comment::getMark).sum();
+            return totalMark / userCommentList.size();
+        }else {
+            return 5;
+        }
     }
 }

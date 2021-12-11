@@ -27,4 +27,7 @@ public interface UserService {
 
     // change password
     int changePassword(Long uid, String password);
+
+    // get mark
+    double getMark(Long uid);
 }
