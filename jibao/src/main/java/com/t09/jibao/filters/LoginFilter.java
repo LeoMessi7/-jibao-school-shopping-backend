@@ -23,10 +23,15 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession(false);
+        System.out.println("filter:" + request.getRequestURL().toString());
+        System.out.println(session);
         if(session != null) {
             Object uid_object = session.getAttribute("uid");
-            if (uid_object != null)
+            System.out.println(uid_object);
+            if (uid_object != null) {
+                System.out.println("pass");
                 filterChain.doFilter(servletRequest, servletResponse);
+            }
             else
                 servletResponse.getWriter().write("no login!!!");
         }

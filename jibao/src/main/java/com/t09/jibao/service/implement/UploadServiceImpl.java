@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UploadServiceImpl implements UploadService {
@@ -27,6 +28,9 @@ public class UploadServiceImpl implements UploadService {
     private GoodsDAO goodsDAO;
     @Autowired
     private CommentDAO commentDAO;
+
+    @Autowired
+    private UserDAO userDAO;
 
     @Override
     public Upload save(Upload upload) {
@@ -54,5 +58,12 @@ public class UploadServiceImpl implements UploadService {
             comments.add(commentDAO.findCommentBySid(seller.getId()));
         }
         return new Pair<>(sellers, comments);
+    }
+
+    @Override
+    public List<Goods> findUploadGoods(Long uid) {
+        User user = userDAO.findById(uid).get();
+        List<Upload> uploads = uploadDAO.findAllByUser(user);
+        return uploads.stream().map(Upload::getGoods).filter(goods -> goods.getStatus() < 2).collect(Collectors.toList());
     }
 }

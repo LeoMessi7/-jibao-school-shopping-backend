@@ -9,4 +9,6 @@ import java.util.List;
 public interface CommentService {
     Comment save(Comment comment);
     List<Comment> findBySid(Long sid);
+    int add(Long uid, String seller_name, String comment, double mark);
+    int check(Long uid, String seller_name);
 }

@@ -51,7 +51,7 @@ public class UserInfoController {
      * @return response
      */
     @PostMapping("/user/info/updateAvatar")
-    public String updateAvatar(@RequestParam(value = "avatar") MultipartFile avatar) throws IOException {
+    public String updateAvatar(@RequestParam(value = "avatar") MultipartFile avatar) throws IOException{
         Long uid = (long) request.getSession().getAttribute("uid");
         JSONObject response = new JSONObject();
         String url = userService.updateAvatar(uid, avatar);
