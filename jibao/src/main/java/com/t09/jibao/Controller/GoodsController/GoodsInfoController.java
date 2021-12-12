@@ -2,7 +2,9 @@ package com.t09.jibao.Controller.GoodsController;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.t09.jibao.Controller.Utils;
 import com.t09.jibao.Vo.GoodsVo;
+import com.t09.jibao.Vo.SelectionVo;
 import com.t09.jibao.dao.UploadDAO;
 import com.t09.jibao.domain.*;
 import com.t09.jibao.service.*;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -135,7 +138,7 @@ public class GoodsInfoController {
         Long uid = (long) request.getSession().getAttribute("uid");
         List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
         // information
-        response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(purchaseList));
+        response.put("goodsInfoList", GoodsUtil.fillGoodsAndUser(purchaseList));
         response.put("length", purchaseList.size());
         return response.toJSONString();
     }
@@ -176,7 +179,7 @@ public class GoodsInfoController {
         Object uid_object = request.getSession().getAttribute("uid");
         Long uid = (long) uid_object;
         List<GoodsVo> goodsVoList = uploadService.findGoodsVoInfoByUid(uid);
-        response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(goodsVoList));
+        response.put("goodsInfoList", GoodsUtil.fillGoodsAndUser(goodsVoList));
         response.put("length", goodsVoList.size());
         return response.toJSONString();
     }
@@ -215,12 +218,14 @@ public class GoodsInfoController {
      * get category group by category
      * @return response
      */
-    @PostMapping("/goods/getSelection")
+    @PostMapping("/getSelection")
     public String getSelection(@RequestParam Map<String,String> params) {
         Object uid_object = request.getSession().getAttribute("uid");
-        Long gid = (long) Integer.parseInt(params.get("gid"));
-        Long uid = (long) uid_object;
+        Long uid = 1L;//(long) uid_object;
         JSONObject response = new JSONObject();
+        List<SelectionVo> selectionVoList = selectionService.findByUid(uid);
+        response.put("selection", GoodsUtil.fillSelection(selectionVoList));
+        response.put("length", selectionVoList.size());
         return response.toJSONString();
     }
 
@@ -239,6 +244,22 @@ public class GoodsInfoController {
         String image_url = goodsService.update(uid, gid, sub_category, name, price, description, image);
         JSONObject response = new JSONObject();
         response.put("image_url", image_url);
+        return response.toJSONString();
+    }
+
+
+    @PostMapping("/goods/buyall")
+    public String goodsBuyAll(@RequestParam(value = "total") String total_str,
+                              @RequestParam(value = "gid_list") List<String> gid_list_str) {
+        Long uid = (long) request.getSession().getAttribute("uid");
+        int total = Integer.parseInt(total_str);
+        List<Long> gid_list = new ArrayList<>();
+        for(String gid_str: gid_list_str){
+            gid_list.add((long) Integer.parseInt(gid_str));
+        }
+
+        JSONObject response = new JSONObject();
+        response.put("code", purchaseService.purchaseAll(uid, total, gid_list));
         return response.toJSONString();
     }
 

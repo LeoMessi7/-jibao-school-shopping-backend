@@ -1,6 +1,7 @@
 package com.t09.jibao.utils;
 
 import com.t09.jibao.Vo.GoodsVo;
+import com.t09.jibao.Vo.SelectionVo;
 import com.t09.jibao.domain.Comment;
 import com.t09.jibao.domain.Goods;
 import com.t09.jibao.domain.User;
@@ -90,7 +91,7 @@ public class GoodsUtil {
      * @param goodsVoList goods list
      * @return map
      */
-    public static List<Map<String, String>> fillGoodsAndBuyer(List<GoodsVo> goodsVoList){
+    public static List<Map<String, String>> fillGoodsAndUser(List<GoodsVo> goodsVoList){
         List<Map<String, String>> goodsVoInfoList = new ArrayList<>();
         // traverse
         for(GoodsVo goodsVo: goodsVoList){
@@ -115,10 +116,46 @@ public class GoodsUtil {
             if(goods_status.equals("已售出")){
                 goodsVoInfo.put("date", goodsVo.getPurchase().getPurchase_time().toString());
                 goodsVoInfo.put("user_name", goodsVo.getUser().getName());
+                goodsVoInfo.put("avatar_url", goodsVo.getUser().getAvatarPath());
             }
+            System.out.println(goodsVoInfo);
             goodsVoInfoList.add(goodsVoInfo);
         }
         return goodsVoInfoList;
+    }
+
+
+    /**
+     * fill selection information into json
+     * @param selectionVoList selection list
+     * @return map
+     */
+    public static List<Map<String, String>> fillSelection(List<SelectionVo> selectionVoList){
+        List<Map<String, String>> selectionInfoList = new ArrayList<>();
+        // traverse
+        for(SelectionVo selectionVo: selectionVoList){
+            Map<String, String> selectionInfo = new HashMap<>();
+            selectionInfo.put("goods_id", selectionVo.getGoods().getId().toString());
+            selectionInfo.put("description", selectionVo.getGoods().getDescription());
+            selectionInfo.put("category_id", selectionVo.getGoods().getCategory().getId().toString());
+            selectionInfo.put("category", selectionVo.getGoods().getCategory().getCategory());
+            selectionInfo.put("sub_category", selectionVo.getGoods().getCategory().getSubCategory());
+            selectionInfo.put("goods_name", selectionVo.getGoods().getName());
+            selectionInfo.put("goods_url", selectionVo.getGoods().getImagePath());
+            selectionInfo.put("price", Integer.toString(selectionVo.getGoods().getPrice()));
+            selectionInfo.put("select_time", selectionVo.getSelection().getSelect_time().toString());
+            // the status of goods
+            String goods_status;
+            if(selectionVo.getGoods().getStatus() == 0)
+                goods_status = "售卖中";
+            else if(selectionVo.getGoods().getStatus() == 1)
+                goods_status = "已售出";
+            else
+                goods_status = "已下架";
+            selectionInfo.put("status", goods_status);
+            selectionInfoList.add(selectionInfo);
+        }
+        return selectionInfoList;
     }
 
 

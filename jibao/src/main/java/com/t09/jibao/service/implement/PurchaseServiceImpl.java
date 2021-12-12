@@ -105,4 +105,22 @@ public class PurchaseServiceImpl implements PurchaseService {
         save(purchase);
         return 0;
     }
+
+    @Override
+    public int purchaseAll(Long uid, int total, List<Long> gid_list) {
+        User user = userDAO.findById(uid).get();
+        if(user.getBalance() < total)
+            return 1;
+        List<Goods> goodsList = goodsDAO.findAllByIdIn(gid_list);
+        for(Goods goods: goodsList){
+            if(goods.getStatus() != 0)
+                return 2;
+        }
+        for(Goods goods: goodsList){
+            goods.setStatus(1);
+            goodsDAO.save(goods);
+        }
+        user.setBalance(user.getBalance() - total);
+        return 0;
+    }
 }

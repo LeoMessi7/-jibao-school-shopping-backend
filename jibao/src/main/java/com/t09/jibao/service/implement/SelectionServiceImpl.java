@@ -1,5 +1,6 @@
 package com.t09.jibao.service.implement;
 
+import com.t09.jibao.Vo.SelectionVo;
 import com.t09.jibao.dao.GoodsDAO;
 import com.t09.jibao.dao.SelectionDAO;
 import com.t09.jibao.dao.UserDAO;
@@ -37,7 +38,7 @@ public class SelectionServiceImpl implements SelectionService {
     }
 
     @Override
-    public List<Selection> findByUid(Long uid){
+    public List<SelectionVo> findByUid(Long uid){
         return selectionDAO.findSelectionByUid(uid);
     }
 
