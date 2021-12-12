@@ -3,13 +3,9 @@ package com.t09.jibao.utils;
 import com.t09.jibao.Vo.GoodsVo;
 import com.t09.jibao.domain.Comment;
 import com.t09.jibao.domain.Goods;
-import com.t09.jibao.domain.Upload;
 import com.t09.jibao.domain.User;
-import com.t09.jibao.service.UploadService;
 import javafx.util.Pair;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

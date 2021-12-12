@@ -153,7 +153,7 @@ public class GoodsInfoController {
         Upload upload = uploadService.findByGid(gid);
         // upload is null:  the goods hasn't been uploaded
         // not equal: something wrong
-        if (upload == null || !uid.equals(upload.getId()))
+        if (upload == null || !uid.equals(upload.getUser().getId()))
             response.put("code", 1);
         else {
             int code = withdrawService.withdrawGoods(uid, gid);
