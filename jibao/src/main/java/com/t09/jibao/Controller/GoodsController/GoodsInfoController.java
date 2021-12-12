@@ -109,30 +109,12 @@ public class GoodsInfoController {
         String sub_category = params.get("sub_category");
         String price_str = params.get("price");
         int price = Integer.parseInt(price_str);
-        Goods goods = goodsService.add(uid, sub_category,name, price, description, image);
+        Goods goods = goodsService.add(uid, sub_category, name, price, description, image);
         JSONObject response = new JSONObject();
         if(goods == null)
             response.put("code", 1);
         else
             response.put("code", 0);
-        return response.toJSONString();
-    }
-
-
-    /**
-     * get goods that user had bought
-     * note that user should be logged in
-     * @return response purchase list
-     */
-    @PostMapping("/getPurchase")
-    public String getPurchase2() {
-        JSONObject response = new JSONObject();
-
-        Long uid = (long) request.getSession().getAttribute("uid");
-        List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
-        for(GoodsVo goodsVo: purchaseList){
-            System.out.println(goodsVo);
-        }
         return response.toJSONString();
     }
 
@@ -189,7 +171,7 @@ public class GoodsInfoController {
     public String getUpload() {
         JSONObject response = new JSONObject();
         Object uid_object = request.getSession().getAttribute("uid");
-        Long uid = 1L;//(long) uid_object;
+        Long uid = (long) uid_object;
         List<GoodsVo> goodsVoList = uploadService.findGoodsVoInfoByUid(uid);
         response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(goodsVoList));
         response.put("length", goodsVoList.size());
@@ -208,6 +190,35 @@ public class GoodsInfoController {
         response.put("category", CategoryUtil.fillCategory(categories));
         return response.toJSONString();
     }
+
+
+    /**
+     * add goods to shopping cart
+     * @return response
+     */
+    @PostMapping("/goods/select")
+    public String selectGoods() {
+        Map<String, List<String>> categories = categoryService.findAll();
+        JSONObject response = new JSONObject();
+        response.put("category", CategoryUtil.fillCategory(categories));
+        return response.toJSONString();
+    }
+
+
+
+    /**
+     * get category group by category
+     * @return response
+     */
+    @PostMapping("/goods/getSelection")
+    public String getSelection(@RequestParam Map<String,String> params) {
+        Object uid_object = request.getSession().getAttribute("uid");
+        Long gid = (long) Integer.parseInt(params.get("gid"));
+        Long uid = (long) uid_object;
+        JSONObject response = new JSONObject();
+        return response.toJSONString();
+    }
+
 
 
 

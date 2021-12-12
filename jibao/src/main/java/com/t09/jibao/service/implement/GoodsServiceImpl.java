@@ -74,6 +74,7 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setPrice(price);
         goods.setStatus(0);
         goods.setImagePath("null");
+        goods.setName(name);
         goods = save(goods);
         String goods_dir_path = String.format(goods_path_template, goods.getId());
         File file = new File(goods_dir_path);
