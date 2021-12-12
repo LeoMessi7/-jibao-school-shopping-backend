@@ -21,4 +21,9 @@ public class AdministratorServiceImpl implements AdministratorService {
     public Administrator findById(Long id){
         return administratorDAO.findById(id).get();
     }
+
+    @Override
+    public Administrator findByEmail(String email){
+        return administratorDAO.findFirstByEmail(email);
+    }
 }

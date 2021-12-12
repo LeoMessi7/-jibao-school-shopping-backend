@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdministratorDAO extends JpaRepository<Administrator, Long> {
+    public Administrator findFirstByEmail(String email);
 }

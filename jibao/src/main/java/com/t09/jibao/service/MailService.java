@@ -8,13 +8,6 @@ public interface MailService {
 
     void sendCaptchaMail(String mailFromNick, String mailTo, String subject, String content);
 
-    void sendMailWithAttachments(String mailFrom, String mailFromNick, String mailTo, String cc, String subject, String content,
-                                 List<File> files);
-
-    void sendMailWithImage(String mailFrom, String mailFromNick, String mailTo, String cc, String subject, String content,
-                           String[] imagePaths, String[] imageId);
-
-    void sendHtmlMailThymeLeaf(String mailFrom, String mailFromNick, String mailTo, String cc, String subject, String content);
-
+    void sendFeedbackMail(String mailFromNick, String mailTo, String subject, String content);
 
 }

@@ -16,6 +16,9 @@ public interface UserService {
     // find user by email
     User findByEmail(String email);
 
+    // find user by email
+    User findByName(String name);
+
     // create a new user
     User create(String email, String name, String password);
 

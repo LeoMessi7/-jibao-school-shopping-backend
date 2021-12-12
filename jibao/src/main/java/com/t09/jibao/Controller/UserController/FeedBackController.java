@@ -25,6 +25,9 @@ public class FeedBackController {
     private CommentService commentService;
 
     @Autowired
+    private MailService mailService;
+
+    @Autowired
     private HttpServletRequest request;
 
 
@@ -44,6 +47,11 @@ public class FeedBackController {
         response.put("code", code);
         return response.toJSONString();
     }
+
+
+
+
+
 
     @PostMapping("/comment/check")
     public String commentCheck(@RequestParam Map<String,String> params){

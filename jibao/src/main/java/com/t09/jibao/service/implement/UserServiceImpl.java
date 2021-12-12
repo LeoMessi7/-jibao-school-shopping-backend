@@ -58,6 +58,11 @@ public class UserServiceImpl implements UserService {
         return userDAO.findFirstByEmail(email);
     }
 
+    @Override
+    public User findByName(String name) {
+        return userDAO.findFirstByName(name);
+    }
+
     /**
      * create a new user
      * @param email user email
@@ -176,4 +181,8 @@ public class UserServiceImpl implements UserService {
             return 5;
         }
     }
+
+
+
+
 }
