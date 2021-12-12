@@ -169,7 +169,7 @@ public class GoodsInfoController {
      * get goods uploaded by user
      * @return response
      */
-    @PostMapping("/getUpload")
+    @PostMapping("/goods/getUpload")
     public String getUpload() {
         JSONObject response = new JSONObject();
         Object uid_object = request.getSession().getAttribute("uid");
