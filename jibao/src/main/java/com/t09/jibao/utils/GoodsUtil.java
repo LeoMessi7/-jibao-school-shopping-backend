@@ -91,7 +91,7 @@ public class GoodsUtil {
      * @param goodsVoList goods list
      * @return map
      */
-    public static List<Map<String, String>> fillGoodsAndBuyer(List<GoodsVo> goodsVoList){
+    public static List<Map<String, String>> fillGoodsAndUser(List<GoodsVo> goodsVoList){
         List<Map<String, String>> goodsVoInfoList = new ArrayList<>();
         // traverse
         for(GoodsVo goodsVo: goodsVoList){
@@ -116,7 +116,9 @@ public class GoodsUtil {
             if(goods_status.equals("已售出")){
                 goodsVoInfo.put("date", goodsVo.getPurchase().getPurchase_time().toString());
                 goodsVoInfo.put("user_name", goodsVo.getUser().getName());
+                goodsVoInfo.put("avatar_url", goodsVo.getUser().getAvatarPath());
             }
+            System.out.println(goodsVoInfo);
             goodsVoInfoList.add(goodsVoInfo);
         }
         return goodsVoInfoList;

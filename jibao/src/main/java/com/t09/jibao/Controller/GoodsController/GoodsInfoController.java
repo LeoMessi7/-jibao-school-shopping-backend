@@ -138,7 +138,7 @@ public class GoodsInfoController {
         Long uid = (long) request.getSession().getAttribute("uid");
         List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
         // information
-        response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(purchaseList));
+        response.put("goodsInfoList", GoodsUtil.fillGoodsAndUser(purchaseList));
         response.put("length", purchaseList.size());
         return response.toJSONString();
     }
@@ -179,7 +179,7 @@ public class GoodsInfoController {
         Object uid_object = request.getSession().getAttribute("uid");
         Long uid = (long) uid_object;
         List<GoodsVo> goodsVoList = uploadService.findGoodsVoInfoByUid(uid);
-        response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(goodsVoList));
+        response.put("goodsInfoList", GoodsUtil.fillGoodsAndUser(goodsVoList));
         response.put("length", goodsVoList.size());
         return response.toJSONString();
     }
