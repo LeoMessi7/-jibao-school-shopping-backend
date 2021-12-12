@@ -29,7 +29,7 @@ public class GoodsUtil {
             goodsInfo.put("category_id", goods.getCategory().getId().toString());
             goodsInfo.put("category", goods.getCategory().getCategory());
             goodsInfo.put("sub_category", goods.getCategory().getSubCategory());
-            goodsInfo.put("name", goods.getName());
+            goodsInfo.put("goods_name", goods.getName());
             goodsInfo.put("goods_url", goods.getImagePath());
             goodsInfo.put("price", Integer.toString(goods.getPrice()));
             // Upload upload = uploadService
@@ -160,3 +160,6 @@ public class GoodsUtil {
 
 
 }
+
+
+

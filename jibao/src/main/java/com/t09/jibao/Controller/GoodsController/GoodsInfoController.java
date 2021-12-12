@@ -2,15 +2,12 @@ package com.t09.jibao.Controller.GoodsController;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.t09.jibao.Controller.Utils;
 import com.t09.jibao.Vo.GoodsVo;
 import com.t09.jibao.Vo.SelectionVo;
-import com.t09.jibao.dao.UploadDAO;
 import com.t09.jibao.domain.*;
 import com.t09.jibao.service.*;
 import com.t09.jibao.utils.CategoryUtil;
 import com.t09.jibao.utils.GoodsUtil;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class GoodsInfoController {
@@ -84,13 +79,31 @@ public class GoodsInfoController {
         String key_word = params.get("key_word");
         JSONObject response = new JSONObject();
         List<Goods> goodsList = goodsService.search(key_word);
-        Pair<List<User>, List<List<Comment>>> sellerList = uploadService.findSellersInfoListByGoodsList(goodsList);
+        // Pair<List<User>, List<List<Comment>>> sellerList = uploadService.findSellersInfoListByGoodsList(goodsList);
         // information
         response.put("goodsInfoList", GoodsUtil.fillGoods(goodsList));
-        response.put("sellersInfoList", GoodsUtil.fillSeller(sellerList));
+        // response.put("sellersInfoList", GoodsUtil.fillSeller(sellerList));
         // the length of the list
         response.put("length", goodsList.size());
+        return response.toJSONString();
+    }
 
+
+
+    @PostMapping("/randomSearch")
+    public String randomSearch(){
+        // key word
+        JSONObject response = new JSONObject();
+        List<Goods> goodsList = goodsService.search("");
+        Random random = new Random();
+        int length = goodsList.size();
+        Set<Goods> randomSet = new HashSet<>();
+        while (randomSet.size() < 9 && randomSet.size() != goodsList.size()) {
+            randomSet.add(goodsList.get(random.nextInt(goodsList.size())));
+        }
+        List<Goods> goodsRandomList = new ArrayList<>(randomSet);
+        response.put("goodsInfoList", GoodsUtil.fillGoods(goodsRandomList));
+        response.put("length", goodsList.size());
         return response.toJSONString();
     }
 
