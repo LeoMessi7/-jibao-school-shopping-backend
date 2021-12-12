@@ -197,10 +197,11 @@ public class GoodsInfoController {
      * @return response
      */
     @PostMapping("/goods/select")
-    public String selectGoods() {
-        Map<String, List<String>> categories = categoryService.findAll();
+    public String selectGoods(@RequestParam Map<String,String> params) {
         JSONObject response = new JSONObject();
-        response.put("category", CategoryUtil.fillCategory(categories));
+        Object uid_object = request.getSession().getAttribute("uid");
+        Long uid = (long) uid_object;
+        Long gid = (long) Integer.parseInt(params.get("gid"));
         return response.toJSONString();
     }
 
@@ -221,5 +222,20 @@ public class GoodsInfoController {
 
 
 
+    @PostMapping("/goods/update")
+    public String goodsUpdate(@RequestParam Map<String,String> params,
+                         @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
+        Long uid = (long) request.getSession().getAttribute("uid");
+        String description = params.get("description");
+        String name = params.get("name");
+        String sub_category = params.get("sub_category");
+        String price_str = params.get("price");
+        int price = Integer.parseInt(price_str);
+        Long gid = (long) Integer.parseInt(params.get("gid"));
+        String image_url = goodsService.update(uid, gid, sub_category, name, price, description, image);
+        JSONObject response = new JSONObject();
+        response.put("image_url", image_url);
+        return response.toJSONString();
+    }
 
 }

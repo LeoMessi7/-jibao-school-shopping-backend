@@ -17,4 +17,7 @@ public interface GoodsService {
     Goods add(Long uid, String sub_category, String name,
               int price, String description, MultipartFile image) throws IOException;
 
+    String update(Long uid, Long gid, String sub_category, String name,
+                 int price, String description, MultipartFile image) throws IOException;
+
 }

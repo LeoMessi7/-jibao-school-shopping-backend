@@ -112,4 +112,39 @@ public class GoodsServiceImpl implements GoodsService {
         uploadDAO.save(upload);
         return goods;
     }
+
+
+
+    @Override
+    public String update(Long uid, Long gid, String sub_category, String name,
+                     int price, String description, MultipartFile image) throws IOException {
+        Goods goods = goodsDAO.findById(gid).get();
+        Category cate = categoryService.findBySubCategory(sub_category);
+        goods.setCategory(cate);
+        goods.setDescription(description);
+        goods.setName(name);
+        goods.setPrice(price);
+        if(image == null) {
+            save(goods);
+            return goods.getImagePath();
+        }
+
+        String image_name = image.getOriginalFilename();
+        // ignore this warning
+        // because the image must exist
+        int split_index = image_name.lastIndexOf(".");
+        String suffix = image_name.substring(split_index + 1);
+        String goods_path = String.format(goods_path_template + "/goods.png", gid);
+        if ("jpg".equals(suffix) || "jpeg".equals(suffix) || "png".equals(suffix)) {
+            goods_path = goods_path.substring(0, goods_path.lastIndexOf(".")) + "." + suffix;
+            File goods_image_file = new File(goods_path);
+            goods_image_file = new File(goods_image_file.getAbsolutePath());
+            image.transferTo(goods_image_file);
+            goods.setImagePath(goods_path.substring(25));
+            save(goods);
+            return goods.getImagePath();
+        } else {
+            return "";
+        }
+    }
 }
