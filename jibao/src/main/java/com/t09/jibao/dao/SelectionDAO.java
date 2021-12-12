@@ -1,5 +1,6 @@
 package com.t09.jibao.dao;
 
+import com.t09.jibao.Vo.SelectionVo;
 import com.t09.jibao.domain.Selection;
 import com.t09.jibao.domain.SelectionPK;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,6 @@ import java.util.List;
 @Repository
 public interface SelectionDAO extends JpaRepository<Selection, SelectionPK> {
 
-    @Query(name = "findSelectionByUid", nativeQuery = true,
-            value = "select * from selection where uid=:uid")
-    List<Selection> findSelectionByUid(@Param("uid") Long uid);
+    @Query(value = "select new com.t09.jibao.Vo.SelectionVo(g, s) from selection s left join goods g on s.pk.goods.id = g.id where s.pk.user.id=:uid")
+    List<SelectionVo> findSelectionByUid(@Param("uid") Long uid);
 }

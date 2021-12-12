@@ -2,7 +2,9 @@ package com.t09.jibao.Controller.GoodsController;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.t09.jibao.Controller.Utils;
 import com.t09.jibao.Vo.GoodsVo;
+import com.t09.jibao.Vo.SelectionVo;
 import com.t09.jibao.dao.UploadDAO;
 import com.t09.jibao.domain.*;
 import com.t09.jibao.service.*;
@@ -36,6 +38,9 @@ public class GoodsInfoController {
 
     @Autowired
     private PurchaseService purchaseService;
+
+    @Autowired
+    private SelectionService selectionService;
 
     @Autowired
     private HttpServletRequest request;
@@ -125,11 +130,11 @@ public class GoodsInfoController {
      * note that user should be logged in
      * @return response purchase list
      */
-    @PostMapping("/goods/getPurchase")
+    @PostMapping("/getPurchase")
     public String getPurchase() {
         JSONObject response = new JSONObject();
 
-        Long uid = (long) request.getSession().getAttribute("uid");
+        Long uid = 1L;//(long) request.getSession().getAttribute("uid");
         List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
         // information
         response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(purchaseList));
@@ -202,6 +207,7 @@ public class GoodsInfoController {
         Object uid_object = request.getSession().getAttribute("uid");
         Long uid = (long) uid_object;
         Long gid = (long) Integer.parseInt(params.get("gid"));
+        response.put("code", selectionService.select(uid, gid));
         return response.toJSONString();
     }
 
@@ -211,12 +217,14 @@ public class GoodsInfoController {
      * get category group by category
      * @return response
      */
-    @PostMapping("/goods/getSelection")
+    @PostMapping("/getSelection")
     public String getSelection(@RequestParam Map<String,String> params) {
         Object uid_object = request.getSession().getAttribute("uid");
-        Long gid = (long) Integer.parseInt(params.get("gid"));
-        Long uid = (long) uid_object;
+        Long uid = 1L;//(long) uid_object;
         JSONObject response = new JSONObject();
+        List<SelectionVo> selectionVoList = selectionService.findByUid(uid);
+        response.put("selection", GoodsUtil.fillSelection(selectionVoList));
+        response.put("length", selectionVoList.size());
         return response.toJSONString();
     }
 

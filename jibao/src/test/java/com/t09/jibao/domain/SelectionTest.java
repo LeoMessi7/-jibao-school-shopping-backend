@@ -33,13 +33,6 @@ class SelectionTest {
         selectionService.save(selection);
     }
 
-    @Test
-    void testQuery() {
-        Long uid = 1L;
-        List<Selection> selections = selectionService.findByUid(uid);
-        System.out.println(selections.size());
-        System.out.println(selections.get(0).getSelect_time());
-        System.out.println(selections.get(1).getSelect_time());
-    }
+
 
 }
