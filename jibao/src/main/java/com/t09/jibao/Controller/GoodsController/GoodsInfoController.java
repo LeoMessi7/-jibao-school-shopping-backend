@@ -124,6 +124,25 @@ public class GoodsInfoController {
      * note that user should be logged in
      * @return response purchase list
      */
+    @PostMapping("/getPurchase")
+    public String getPurchase2() {
+        JSONObject response = new JSONObject();
+
+        Long uid = (long) request.getSession().getAttribute("uid");
+        List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
+        for(GoodsVo goodsVo: purchaseList){
+
+        }
+        return response.toJSONString();
+    }
+
+
+
+    /**
+     * get goods that user had bought
+     * note that user should be logged in
+     * @return response purchase list
+     */
     @PostMapping("/goods/getPurchase")
     public String getPurchase() {
         JSONObject response = new JSONObject();

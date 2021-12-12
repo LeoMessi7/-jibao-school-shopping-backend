@@ -14,6 +14,6 @@ import java.util.List;
 public interface PurchaseDAO extends JpaRepository<Purchase, Long> {
     List<Purchase> findPurchaseByUser(User user);
 
-    @Query(value = "select new com.t09.jibao.Vo.GoodsVo(g, p, u) from user u left join purchase p on u.id = p.user.id left join goods g on p.goods.id = g.id where u.id=:uid")
+    @Query(value = "select new com.t09.jibao.Vo.GoodsVo(g, p, seller) from user buyer left join purchase p on buyer.id = p.user.id left join goods g on p.goods.id = g.id left join upload u on u.goods.id = g.id left join user seller on seller.id = u.user.id where buyer.id=:uid")
     List<GoodsVo> findPurchaseAndGoodsByUid(Long uid);
 }
