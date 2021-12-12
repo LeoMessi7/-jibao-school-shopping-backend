@@ -1,5 +1,6 @@
 package com.t09.jibao.utils;
 
+import com.t09.jibao.Vo.GoodsVo;
 import com.t09.jibao.domain.Comment;
 import com.t09.jibao.domain.Goods;
 import com.t09.jibao.domain.Upload;
@@ -83,4 +84,45 @@ public class GoodsUtil {
         }
         return sellersInfoList;
     }
+
+
+
+
+    /**
+     * fill goods and buyer information into json
+     * @param goodsVoList goods list
+     * @return map
+     */
+    public static List<Map<String, String>> fillGoodsAndBuyer(List<GoodsVo> goodsVoList){
+        List<Map<String, String>> goodsVoInfoList = new ArrayList<>();
+        // traverse
+        for(GoodsVo goodsVo: goodsVoList){
+            Map<String, String> goodsVoInfo = new HashMap<>();
+            goodsVoInfo.put("goods_id", goodsVo.getGoods().getId().toString());
+            goodsVoInfo.put("description", goodsVo.getGoods().getDescription());
+            goodsVoInfo.put("category_id", goodsVo.getGoods().getCategory().getId().toString());
+            goodsVoInfo.put("category", goodsVo.getGoods().getCategory().getCategory());
+            goodsVoInfo.put("sub_category", goodsVo.getGoods().getCategory().getSubCategory());
+            goodsVoInfo.put("name", goodsVo.getGoods().getName());
+            goodsVoInfo.put("goods_url", goodsVo.getGoods().getImagePath());
+            goodsVoInfo.put("price", Integer.toString(goodsVo.getGoods().getPrice()));
+            // the status of goods
+            String goods_status;
+            if(goodsVo.getGoods().getStatus() == 0)
+                goods_status = "售卖中";
+            else if(goodsVo.getGoods().getStatus() == 1)
+                goods_status = "已售出";
+            else
+                goods_status = "已下架";
+            goodsVoInfo.put("status", goods_status);
+            if(goods_status.equals("已售出")){
+                goodsVoInfo.put("buy_date", goodsVo.getPurchase().getPurchase_time().toString());
+                goodsVoInfo.put("buyer_name", goodsVo.getBuyer().getName());
+            }
+            goodsVoInfoList.add(goodsVoInfo);
+        }
+        return goodsVoInfoList;
+    }
+
+
 }

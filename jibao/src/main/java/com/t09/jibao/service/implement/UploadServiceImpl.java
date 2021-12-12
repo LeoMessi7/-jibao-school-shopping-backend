@@ -1,5 +1,6 @@
 package com.t09.jibao.service.implement;
 
+import com.t09.jibao.Vo.GoodsVo;
 import com.t09.jibao.dao.CommentDAO;
 import com.t09.jibao.dao.GoodsDAO;
 import com.t09.jibao.dao.UploadDAO;
@@ -66,4 +67,10 @@ public class UploadServiceImpl implements UploadService {
         List<Upload> uploads = uploadDAO.findAllByUser(user);
         return uploads.stream().map(Upload::getGoods).filter(goods -> goods.getStatus() < 2).collect(Collectors.toList());
     }
+
+    @Override
+    public List<GoodsVo> findGoodsVoInfoByUid(Long uid){
+        return uploadDAO.findAllGoodsVoByUid(uid);
+    }
+
 }

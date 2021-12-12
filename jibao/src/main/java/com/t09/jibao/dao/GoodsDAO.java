@@ -1,5 +1,6 @@
 package com.t09.jibao.dao;
 
+import com.t09.jibao.Vo.GoodsVo;
 import com.t09.jibao.domain.Category;
 import com.t09.jibao.domain.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,4 @@ import java.util.List;
 public interface GoodsDAO extends JpaRepository<Goods, Long> {
     List<Goods> findAllByCategoryInAndStatusEquals(List<Category> categories, int status);
     List<Goods> findAllByNameLikeAndStatusEquals(String content, int status);
-
 }

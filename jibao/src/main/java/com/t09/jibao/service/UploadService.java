@@ -1,4 +1,5 @@
 package com.t09.jibao.service;
+import com.t09.jibao.Vo.GoodsVo;
 import com.t09.jibao.domain.Comment;
 import com.t09.jibao.domain.Goods;
 import com.t09.jibao.domain.Upload;
@@ -17,4 +18,6 @@ public interface UploadService {
     Pair<List<User>, List<List<Comment>>> findSellersInfoListByGoodsList(List<Goods> goodsList);
 
     List<Goods> findUploadGoods(Long uid);
+
+    List<GoodsVo> findGoodsVoInfoByUid(Long uid);
 }

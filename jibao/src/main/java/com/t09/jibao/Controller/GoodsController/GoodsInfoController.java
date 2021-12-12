@@ -2,6 +2,8 @@ package com.t09.jibao.Controller.GoodsController;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.t09.jibao.Vo.GoodsVo;
+import com.t09.jibao.dao.UploadDAO;
 import com.t09.jibao.domain.*;
 import com.t09.jibao.service.*;
 import com.t09.jibao.utils.CategoryUtil;
@@ -167,14 +169,14 @@ public class GoodsInfoController {
      * get goods uploaded by user
      * @return response
      */
-    @PostMapping("/goods/getUpload")
+    @PostMapping("/getUpload")
     public String getUpload() {
         JSONObject response = new JSONObject();
         Object uid_object = request.getSession().getAttribute("uid");
-        Long uid = (long) uid_object;
-        List<Goods> goodsList = uploadService.findUploadGoods(uid);
-        response.put("goodsInfoList", GoodsUtil.fillGoods(goodsList));
-        response.put("length", goodsList.size());
+        Long uid = 1L;//(long) uid_object;
+        List<GoodsVo> goodsVoList = uploadService.findGoodsVoInfoByUid(uid);
+        response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(goodsVoList));
+        response.put("length", goodsVoList.size());
         return response.toJSONString();
     }
 
