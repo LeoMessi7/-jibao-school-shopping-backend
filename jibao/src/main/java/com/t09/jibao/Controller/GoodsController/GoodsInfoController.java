@@ -134,7 +134,7 @@ public class GoodsInfoController {
     public String getPurchase() {
         JSONObject response = new JSONObject();
 
-        Long uid = 1L;//(long) request.getSession().getAttribute("uid");
+        Long uid = (long) request.getSession().getAttribute("uid");
         List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
         // information
         response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(purchaseList));
