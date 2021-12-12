@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -243,6 +244,22 @@ public class GoodsInfoController {
         String image_url = goodsService.update(uid, gid, sub_category, name, price, description, image);
         JSONObject response = new JSONObject();
         response.put("image_url", image_url);
+        return response.toJSONString();
+    }
+
+
+    @PostMapping("/goods/buyall")
+    public String goodsBuyAll(@RequestParam(value = "total") String total_str,
+                              @RequestParam(value = "gid_list") List<String> gid_list_str) {
+        Long uid = (long) request.getSession().getAttribute("uid");
+        int total = Integer.parseInt(total_str);
+        List<Long> gid_list = new ArrayList<>();
+        for(String gid_str: gid_list_str){
+            gid_list.add((long) Integer.parseInt(gid_str));
+        }
+
+        JSONObject response = new JSONObject();
+        response.put("code", purchaseService.purchaseAll(uid, total, gid_list));
         return response.toJSONString();
     }
 

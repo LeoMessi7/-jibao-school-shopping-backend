@@ -22,4 +22,7 @@ public interface PurchaseService {
 
     // purchase goods
     int purchase(Long uid, Long gid);
+
+    // purchase all
+    int purchaseAll(Long uid, int total, List<Long> gid_list);
 }

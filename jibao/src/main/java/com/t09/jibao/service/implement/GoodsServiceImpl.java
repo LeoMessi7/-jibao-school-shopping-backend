@@ -118,6 +118,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public String update(Long uid, Long gid, String sub_category, String name,
                      int price, String description, MultipartFile image) throws IOException {
+        System.out.println(image);
         Goods goods = goodsDAO.findById(gid).get();
         Category cate = categoryService.findBySubCategory(sub_category);
         goods.setCategory(cate);
@@ -130,10 +131,12 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         String image_name = image.getOriginalFilename();
+        System.out.println(image_name);
         // ignore this warning
         // because the image must exist
         int split_index = image_name.lastIndexOf(".");
         String suffix = image_name.substring(split_index + 1);
+        System.out.println(suffix);
         String goods_path = String.format(goods_path_template + "/goods.png", gid);
         if ("jpg".equals(suffix) || "jpeg".equals(suffix) || "png".equals(suffix)) {
             goods_path = goods_path.substring(0, goods_path.lastIndexOf(".")) + "." + suffix;
