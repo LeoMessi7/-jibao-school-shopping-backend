@@ -103,7 +103,7 @@ public class GoodsUtil {
             goodsVoInfo.put("category_id", goodsVo.getGoods().getCategory().getId().toString());
             goodsVoInfo.put("category", goodsVo.getGoods().getCategory().getCategory());
             goodsVoInfo.put("sub_category", goodsVo.getGoods().getCategory().getSubCategory());
-            goodsVoInfo.put("user_name", goodsVo.getGoods().getName());
+            goodsVoInfo.put("goods_name", goodsVo.getGoods().getName());
             goodsVoInfo.put("goods_url", goodsVo.getGoods().getImagePath());
             goodsVoInfo.put("price", Integer.toString(goodsVo.getGoods().getPrice()));
             // the status of goods
@@ -117,7 +117,7 @@ public class GoodsUtil {
             goodsVoInfo.put("status", goods_status);
             if(goods_status.equals("已售出")){
                 goodsVoInfo.put("date", goodsVo.getPurchase().getPurchase_time().toString());
-                goodsVoInfo.put("goods_name", goodsVo.getUser().getName());
+                goodsVoInfo.put("user_name", goodsVo.getUser().getName());
             }
             goodsVoInfoList.add(goodsVoInfo);
         }
