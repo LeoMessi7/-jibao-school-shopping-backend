@@ -131,7 +131,7 @@ public class GoodsInfoController {
         Long uid = (long) request.getSession().getAttribute("uid");
         List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
         for(GoodsVo goodsVo: purchaseList){
-
+            System.out.println(goodsVo);
         }
         return response.toJSONString();
     }
@@ -148,13 +148,10 @@ public class GoodsInfoController {
         JSONObject response = new JSONObject();
 
         Long uid = (long) request.getSession().getAttribute("uid");
-        List<Goods> purchaseList = purchaseService.findGoodsByUid(uid);
+        List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
         // information
-        Pair<List<User>, List<List<Comment>>> sellerList = uploadService.findSellersInfoListByGoodsList(purchaseList);
-        response.put("goodsInfoList", GoodsUtil.fillGoods(purchaseList));
-        response.put("sellersInfoList", GoodsUtil.fillSeller(sellerList));
+        response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(purchaseList));
         response.put("length", purchaseList.size());
-        response.put("code", 0);
         return response.toJSONString();
     }
 
