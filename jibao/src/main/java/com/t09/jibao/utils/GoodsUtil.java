@@ -116,8 +116,8 @@ public class GoodsUtil {
                 goods_status = "已下架";
             goodsVoInfo.put("status", goods_status);
             if(goods_status.equals("已售出")){
-                goodsVoInfo.put("buy_date", goodsVo.getPurchase().getPurchase_time().toString());
-                goodsVoInfo.put("buyer_name", goodsVo.getBuyer().getName());
+                goodsVoInfo.put("date", goodsVo.getPurchase().getPurchase_time().toString());
+                goodsVoInfo.put("name", goodsVo.getUser().getName());
             }
             goodsVoInfoList.add(goodsVoInfo);
         }

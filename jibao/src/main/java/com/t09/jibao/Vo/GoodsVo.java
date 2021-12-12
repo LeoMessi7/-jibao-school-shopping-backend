@@ -9,10 +9,10 @@ import lombok.Data;
 public class GoodsVo {
     private Goods goods;
     private Purchase purchase;
-    private User buyer;
+    private User user;
     public GoodsVo(Goods g, Purchase p, User u) {
         this.goods = g;
         this.purchase = p;
-        this.buyer = u;
+        this.user = u;
     }
 }
