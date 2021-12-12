@@ -14,4 +14,6 @@ public interface SelectionService {
 
     int select(Long uid, Long gid);
 
+    void delete(Long uid, Long gid);
+
 }

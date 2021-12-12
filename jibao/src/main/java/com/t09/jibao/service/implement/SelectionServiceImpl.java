@@ -57,4 +57,16 @@ public class SelectionServiceImpl implements SelectionService {
         save(selection);
         return 0;
     }
+
+    @Override
+    public void delete(Long uid, Long gid) {
+        User user = userDAO.findById(uid).get();
+        Goods goods = goodsDAO.findById(gid).get();
+        SelectionPK selectionPK = new SelectionPK();
+        selectionPK.setGoods(goods);
+        selectionPK.setUser(user);
+        selectionDAO.deleteById(selectionPK);
+    }
+
+
 }

@@ -144,10 +144,9 @@ public class GoodsInfoController {
      * note that user should be logged in
      * @return response purchase list
      */
-    @PostMapping("/getPurchase")
+    @PostMapping("/goods/getPurchase")
     public String getPurchase() {
         JSONObject response = new JSONObject();
-
         Long uid = (long) request.getSession().getAttribute("uid");
         List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
         // information
@@ -228,13 +227,13 @@ public class GoodsInfoController {
 
 
     /**
-     * get category group by category
+     * get shopcart
      * @return response
      */
-    @PostMapping("/getSelection")
+    @PostMapping("/goods/getSelection")
     public String getSelection(@RequestParam Map<String,String> params) {
         Object uid_object = request.getSession().getAttribute("uid");
-        Long uid = 1L;//(long) uid_object;
+        Long uid = (long) uid_object;
         JSONObject response = new JSONObject();
         List<SelectionVo> selectionVoList = selectionService.findByUid(uid);
         response.put("selection", GoodsUtil.fillSelection(selectionVoList));
@@ -242,6 +241,22 @@ public class GoodsInfoController {
         return response.toJSONString();
     }
 
+
+    /**
+     * get shopcart
+     * @return response
+     */
+    @PostMapping("/goods/deleteSelection")
+    public String deleteSelection(@RequestParam Map<String,String> params) {
+        Object uid_object = request.getSession().getAttribute("uid");
+        Long uid = (long) uid_object;
+        JSONObject response = new JSONObject();
+        Long gid = (long) Integer.parseInt(params.get("gid"));
+        System.out.println(gid);
+        selectionService.delete(uid, gid);
+        response.put("code", 0);
+        return response.toJSONString();
+    }
 
 
     @PostMapping("/goods/update")
@@ -261,7 +276,7 @@ public class GoodsInfoController {
     }
 
 
-    @PostMapping("/goods/buyall")
+    @PostMapping("/goods/buyAll")
     public String goodsBuyAll(@RequestParam(value = "total") String total_str,
                               @RequestParam(value = "gid_list") List<String> gid_list_str) {
         Long uid = (long) request.getSession().getAttribute("uid");

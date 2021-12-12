@@ -146,6 +146,7 @@ public class GoodsUtil {
             selectionInfo.put("select_time", selectionVo.getSelection().getSelect_time().toString());
             // the status of goods
             String goods_status;
+            System.out.println(selectionVo.getGoods());
             if(selectionVo.getGoods().getStatus() == 0)
                 goods_status = "售卖中";
             else if(selectionVo.getGoods().getStatus() == 1)

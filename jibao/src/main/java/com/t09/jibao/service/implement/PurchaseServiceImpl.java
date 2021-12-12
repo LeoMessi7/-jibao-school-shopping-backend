@@ -5,10 +5,7 @@ import com.t09.jibao.dao.GoodsDAO;
 import com.t09.jibao.dao.PurchaseDAO;
 import com.t09.jibao.dao.SelectionDAO;
 import com.t09.jibao.dao.UserDAO;
-import com.t09.jibao.domain.Goods;
-import com.t09.jibao.domain.Purchase;
-import com.t09.jibao.domain.Selection;
-import com.t09.jibao.domain.User;
+import com.t09.jibao.domain.*;
 import com.t09.jibao.service.PurchaseService;
 import com.t09.jibao.service.SelectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +24,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     private UserDAO userDAO;
     @Autowired
     private GoodsDAO goodsDAO;
+    @Autowired
+    private SelectionDAO selectionDAO;
 
     /**
      * save
@@ -112,15 +111,28 @@ public class PurchaseServiceImpl implements PurchaseService {
         if(user.getBalance() < total)
             return 1;
         List<Goods> goodsList = goodsDAO.findAllByIdIn(gid_list);
+        boolean flag = false;
         for(Goods goods: goodsList){
-            if(goods.getStatus() != 0)
-                return 2;
+            if(goods.getStatus() != 0){
+                flag = true;
+                SelectionPK selectionPK = new SelectionPK();
+                selectionPK.setGoods(goods);
+                selectionPK.setUser(user);
+                selectionDAO.deleteById(selectionPK);
+            }
         }
+        if(flag)
+            return 2;
         for(Goods goods: goodsList){
+            SelectionPK selectionPK = new SelectionPK();
+            selectionPK.setUser(user);
+            selectionPK.setGoods(goods);
+            selectionDAO.deleteById(selectionPK);
             goods.setStatus(1);
             goodsDAO.save(goods);
         }
         user.setBalance(user.getBalance() - total);
+        userDAO.save(user);
         return 0;
     }
 }
