@@ -1,5 +1,6 @@
 package com.t09.jibao.service;
 
+import com.t09.jibao.Vo.GoodsVo;
 import com.t09.jibao.domain.Goods;
 import com.t09.jibao.domain.Purchase;
 import com.t09.jibao.domain.Selection;
@@ -15,6 +16,9 @@ public interface PurchaseService {
 
     // find goods from purchase table by uid
     List<Goods> findGoodsByUid(Long uid);
+
+    // find goodsVo from purchase table by uid
+    List<GoodsVo> findGoodsVoByUid(Long uid);
 
     // purchase goods
     int purchase(Long uid, Long gid);

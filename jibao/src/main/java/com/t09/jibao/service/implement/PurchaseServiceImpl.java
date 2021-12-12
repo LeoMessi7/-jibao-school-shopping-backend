@@ -1,5 +1,6 @@
 package com.t09.jibao.service.implement;
 
+import com.t09.jibao.Vo.GoodsVo;
 import com.t09.jibao.dao.GoodsDAO;
 import com.t09.jibao.dao.PurchaseDAO;
 import com.t09.jibao.dao.SelectionDAO;
@@ -62,6 +63,11 @@ public class PurchaseServiceImpl implements PurchaseService {
             goodsList.add(goods);
         }
         return goodsList;
+    }
+
+    @Override
+    public List<GoodsVo> findGoodsVoByUid(Long uid) {
+        return purchaseDAO.findPurchaseAndGoodsByUid(uid);
     }
 
 
