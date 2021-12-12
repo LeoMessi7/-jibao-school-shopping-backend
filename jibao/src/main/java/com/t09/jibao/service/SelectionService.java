@@ -11,5 +11,6 @@ public interface SelectionService {
 
     List<Selection> findByUid(Long uid);
 
+    int select(Long uid, Long gid);
 
 }

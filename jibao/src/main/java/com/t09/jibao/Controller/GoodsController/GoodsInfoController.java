@@ -38,6 +38,9 @@ public class GoodsInfoController {
     private PurchaseService purchaseService;
 
     @Autowired
+    private SelectionService selectionService;
+
+    @Autowired
     private HttpServletRequest request;
 
 
@@ -125,11 +128,11 @@ public class GoodsInfoController {
      * note that user should be logged in
      * @return response purchase list
      */
-    @PostMapping("/goods/getPurchase")
+    @PostMapping("/getPurchase")
     public String getPurchase() {
         JSONObject response = new JSONObject();
 
-        Long uid = (long) request.getSession().getAttribute("uid");
+        Long uid = 1L;//(long) request.getSession().getAttribute("uid");
         List<GoodsVo> purchaseList = purchaseService.findGoodsVoByUid(uid);
         // information
         response.put("goodsInfoList", GoodsUtil.fillGoodsAndBuyer(purchaseList));
@@ -202,6 +205,7 @@ public class GoodsInfoController {
         Object uid_object = request.getSession().getAttribute("uid");
         Long uid = (long) uid_object;
         Long gid = (long) Integer.parseInt(params.get("gid"));
+        response.put("code", selectionService.select(uid, gid));
         return response.toJSONString();
     }
 
