@@ -124,12 +124,17 @@ public class PurchaseServiceImpl implements PurchaseService {
         if(flag)
             return 2;
         for(Goods goods: goodsList){
+            Purchase purchase = new Purchase();
             SelectionPK selectionPK = new SelectionPK();
             selectionPK.setUser(user);
             selectionPK.setGoods(goods);
             selectionDAO.deleteById(selectionPK);
             goods.setStatus(1);
             goodsDAO.save(goods);
+            purchase.setPurchaseTime(new Date());
+            purchase.setUser(user);
+            purchase.setGoods(goods);
+            purchaseDAO.save(purchase);
         }
         user.setBalance(user.getBalance() - total);
         userDAO.save(user);

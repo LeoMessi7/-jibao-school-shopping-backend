@@ -72,7 +72,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Goods add(Long uid, String sub_category, String name,
-                     int price, String description, MultipartFile image) throws IOException {
+                     int price, String description,String campus, MultipartFile image) throws IOException {
         Goods goods = new Goods();
         Category cate = categoryService.findBySubCategory(sub_category);
         goods.setCategory(cate);
@@ -81,6 +81,7 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setStatus(0);
         goods.setImagePath("null");
         goods.setName(name);
+        goods.setCampus(campus);
         goods = save(goods);
         String goods_dir_path = String.format(goods_path_template, goods.getId());
         File file = new File(goods_dir_path);
@@ -123,7 +124,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public String update(Long uid, Long gid, String sub_category, String name,
-                     int price, String description, MultipartFile image) throws IOException {
+                     int price, String description, String campus, MultipartFile image) throws IOException {
         System.out.println(image);
         Goods goods = goodsDAO.findById(gid).get();
         Category cate = categoryService.findBySubCategory(sub_category);
@@ -131,6 +132,7 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setDescription(description);
         goods.setName(name);
         goods.setPrice(price);
+        goods.setCampus(campus);
         if(image == null) {
             save(goods);
             return goods.getImagePath();
