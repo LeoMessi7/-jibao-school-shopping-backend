@@ -67,6 +67,7 @@ public class LoginController {
                     response.put("mark", userService.getMark(user.getId()));
                     response.put("campus", user.getCampus());
                     response.put("major", user.getMajor());
+                    response.put("balance", user.getBalance());
                     request.getSession().setAttribute("uid", user.getId());
                 }else
                     response.put("code", 3);

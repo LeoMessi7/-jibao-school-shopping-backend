@@ -95,6 +95,7 @@ public class GoodsUtil {
         List<Map<String, String>> goodsVoInfoList = new ArrayList<>();
         // traverse
         for(GoodsVo goodsVo: goodsVoList){
+            System.out.println(goodsVo);
             Map<String, String> goodsVoInfo = new HashMap<>();
             goodsVoInfo.put("goods_id", goodsVo.getGoods().getId().toString());
             goodsVoInfo.put("description", goodsVo.getGoods().getDescription());

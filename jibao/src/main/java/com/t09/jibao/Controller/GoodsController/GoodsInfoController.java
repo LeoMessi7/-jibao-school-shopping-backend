@@ -156,6 +156,7 @@ public class GoodsInfoController {
         String name = params.get("name");
         String sub_category = params.get("sub_category");
         String price_str = params.get("price");
+        System.out.println(description+name+sub_category+price_str);
         int price = Integer.parseInt(price_str);
         Goods goods = goodsService.add(uid, sub_category, name, price, description, image);
         JSONObject response = new JSONObject();
@@ -319,5 +320,16 @@ public class GoodsInfoController {
         response.put("code", purchaseService.purchaseAll(uid, total, gid_list));
         return response.toJSONString();
     }
+
+    @PostMapping("/goods/purchase")
+    public String goodsBuyAll(@RequestParam Map<String,String> params) {
+        Long uid = (long) request.getSession().getAttribute("uid");
+        Long gid = (long) Integer.parseInt(params.get("gid"));
+        int code = purchaseService.purchase(uid, gid);
+        JSONObject response = new JSONObject();
+        response.put("code", code);
+        return response.toJSONString();
+    }
+
 
 }
