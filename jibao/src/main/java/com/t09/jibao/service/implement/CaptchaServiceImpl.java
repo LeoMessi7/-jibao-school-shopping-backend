@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class CaptchaServiceImpl implements CaptchaService {
@@ -35,8 +36,8 @@ public class CaptchaServiceImpl implements CaptchaService {
         return save(captcha);
     }
     public void deleteCaptcha(Long image_id){
-        Captcha captcha = captchaDAO.findById(image_id).get();
-        captchaDAO.delete(captcha);
+        Optional<Captcha> captcha = captchaDAO.findById(image_id);
+        captcha.ifPresent(value -> captchaDAO.delete(value));
     }
 
     public Captcha findById(Long image_id){
