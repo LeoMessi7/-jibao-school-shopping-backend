@@ -156,9 +156,10 @@ public class GoodsInfoController {
         String name = params.get("name");
         String sub_category = params.get("sub_category");
         String price_str = params.get("price");
+        String campus = params.get("campus");
         System.out.println(description+name+sub_category+price_str);
         int price = Integer.parseInt(price_str);
-        Goods goods = goodsService.add(uid, sub_category, name, price, description, image);
+        Goods goods = goodsService.add(uid, sub_category, name, price, description, campus, image);
         JSONObject response = new JSONObject();
         if(goods == null)
             response.put("code", 1);
@@ -297,9 +298,10 @@ public class GoodsInfoController {
         String name = params.get("name");
         String sub_category = params.get("sub_category");
         String price_str = params.get("price");
+        String campus = params.get("campus");
         int price = Integer.parseInt(price_str);
         Long gid = (long) Integer.parseInt(params.get("gid"));
-        String image_url = goodsService.update(uid, gid, sub_category, name, price, description, image);
+        String image_url = goodsService.update(uid, gid, sub_category, name, price, description, campus, image);
         JSONObject response = new JSONObject();
         response.put("image_url", image_url);
         return response.toJSONString();

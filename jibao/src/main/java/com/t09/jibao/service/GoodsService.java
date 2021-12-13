@@ -15,9 +15,9 @@ public interface GoodsService {
     List<Goods> search(String content);
 
     Goods add(Long uid, String sub_category, String name,
-              int price, String description, MultipartFile image) throws IOException;
+              int price, String description, String campus, MultipartFile image) throws IOException;
 
     String update(Long uid, Long gid, String sub_category, String name,
-                 int price, String description, MultipartFile image) throws IOException;
+                 int price, String description, String campus, MultipartFile image) throws IOException;
 
 }

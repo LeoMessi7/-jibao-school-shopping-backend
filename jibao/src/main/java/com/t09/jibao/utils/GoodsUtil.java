@@ -32,6 +32,7 @@ public class GoodsUtil {
             goodsInfo.put("goods_name", goods.getName());
             goodsInfo.put("goods_url", goods.getImagePath());
             goodsInfo.put("price", Integer.toString(goods.getPrice()));
+            goodsInfo.put("campus", goods.getCampus());
             // Upload upload = uploadService
             // the status of goods
             String goods_status;
@@ -105,6 +106,7 @@ public class GoodsUtil {
             goodsVoInfo.put("goods_name", goodsVo.getGoods().getName());
             goodsVoInfo.put("goods_url", goodsVo.getGoods().getImagePath());
             goodsVoInfo.put("price", Integer.toString(goodsVo.getGoods().getPrice()));
+            goodsVoInfo.put("campus", goodsVo.getGoods().getCampus());
             // the status of goods
             String goods_status;
             if(goodsVo.getGoods().getStatus() == 0)
