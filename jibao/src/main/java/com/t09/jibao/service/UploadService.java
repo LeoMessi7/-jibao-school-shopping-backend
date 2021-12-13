@@ -15,7 +15,7 @@ public interface UploadService {
 
     Upload findByGid(Long gid);
 
-    Pair<List<User>, List<List<Comment>>> findSellersInfoListByGoodsList(List<Goods> goodsList);
+    Pair<User, List<Comment>> findSellersInfoByGid(Long gid);
 
     List<Goods> findUploadGoods(Long uid);
 

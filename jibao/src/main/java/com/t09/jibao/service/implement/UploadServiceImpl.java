@@ -50,15 +50,11 @@ public class UploadServiceImpl implements UploadService {
     }
 
     @Override
-    public Pair<List<User>, List<List<Comment>>> findSellersInfoListByGoodsList(List<Goods> goodsList) {
-        List<User> sellers = new ArrayList<>();
-        List<List<Comment>> comments = new ArrayList<>();
-        for(Goods goods: goodsList){
-            User seller = uploadDAO.findFirstByGoods(goods).getUser();
-            sellers.add(seller);
-            comments.add(commentDAO.findCommentBySid(seller.getId()));
-        }
-        return new Pair<>(sellers, comments);
+    public Pair<User, List<Comment>> findSellersInfoByGid(Long gid) {
+        Goods goods = goodsDAO.findById(gid).get();
+        User seller = uploadDAO.findFirstByGoods(goods).getUser();
+        List<Comment> comments = commentDAO.findCommentBySid(seller.getId());
+        return new Pair<>(seller, comments);
     }
 
     @Override

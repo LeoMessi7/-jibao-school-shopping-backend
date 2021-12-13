@@ -8,6 +8,7 @@ import com.t09.jibao.domain.*;
 import com.t09.jibao.service.*;
 import com.t09.jibao.utils.CategoryUtil;
 import com.t09.jibao.utils.GoodsUtil;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,6 +88,30 @@ public class GoodsInfoController {
         response.put("length", goodsList.size());
         return response.toJSONString();
     }
+
+
+
+    @PostMapping("/get/detail")
+    public String getSellerDetail(@RequestParam Map<String,String> params){
+        String gid_str = params.get("gid");
+        Long gid = (long) Integer.parseInt(gid_str);
+        JSONObject response = new JSONObject();
+        Pair<User, List<Comment>> sellerInfo = uploadService.findSellersInfoByGid(gid);
+        User seller = sellerInfo.getKey();
+        List<Comment> comments = sellerInfo.getValue();
+        response.put("seller_name", seller.getName());
+        double mark = 0;
+        for(Comment comment: comments)
+            mark += comment.getMark();
+        if(comments.isEmpty())
+            mark = 5;
+        else
+            mark /= comments.size();
+        response.put("mark", mark);
+        response.put("comments", comments);
+        return response.toJSONString();
+    }
+
 
 
 
