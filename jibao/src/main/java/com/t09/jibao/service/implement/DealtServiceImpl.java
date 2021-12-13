@@ -36,7 +36,7 @@ public class DealtServiceImpl implements DealtService {
         Feedback feedback = feedbackDAO.findById(fid).get();
         Dealt dealt = new Dealt();
         dealt.setContent(content);
-        dealt.setDealt_time(new Date());
+        dealt.setDealtTime(new Date());
         dealt.setAdministrator(administrator);
         dealt.setFeedback(feedback);
         feedback.setStatus(1);

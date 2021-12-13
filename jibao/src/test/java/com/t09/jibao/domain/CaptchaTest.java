@@ -18,15 +18,15 @@ public class CaptchaTest {
     @Test
     void testInsert(){
         Captcha captcha = new Captcha();
-        captcha.setEmail_captcha("123456");
-        captcha.setImage_captcha("1234");
+        captcha.setEmailCaptcha("123456");
+        captcha.setImageCaptcha("1234");
         captcha.setUser(userService.findById(1L));
-        captcha.setCreate_time(new Date());
+        captcha.setCreateTime(new Date());
         captchaService.save(captcha);
     }
 
     @Test
     void testQuery(){
-        System.out.println(captchaService.findByUid(1L).create_time);
+        System.out.println(captchaService.findByUid(1L).createTime);
     }
 }

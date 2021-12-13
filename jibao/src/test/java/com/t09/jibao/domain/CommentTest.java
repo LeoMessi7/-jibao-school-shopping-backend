@@ -18,7 +18,7 @@ class CommentTest {
     @Test
     void testInsert(){
         Comment comment = new Comment();
-        comment.setComment_time(new Date());
+        comment.setCommentTime(new Date());
         CommentPK commentPK = new CommentPK();
         commentPK.setBuyer(userService.findById(1L));
         commentPK.setSeller(userService.findById(2L));

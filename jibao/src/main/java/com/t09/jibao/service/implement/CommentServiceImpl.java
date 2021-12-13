@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
         commentPK.setSeller(userDAO.findFirstByName(seller_name));
         commentPK.setBuyer(userDAO.findById(uid).get());
         comment.setPk(commentPK);
-        comment.setComment_time(new Date());
+        comment.setCommentTime(new Date());
         comment.setContent(content);
         comment.setMark(mark);
         return save(comment) == null ? 1 : 0;

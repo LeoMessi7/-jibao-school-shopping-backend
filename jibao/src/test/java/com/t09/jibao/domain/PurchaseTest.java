@@ -23,7 +23,7 @@ class PurchaseTest {
     @Test
     void testInsert(){
         Purchase purchase = new Purchase();
-        purchase.setPurchase_time(new Date());
+        purchase.setPurchaseTime(new Date());
         purchase.setGoods(goodsService.findById(1L));
         purchase.setUser(userService.findById(1L));
         purchaseService.save(purchase);

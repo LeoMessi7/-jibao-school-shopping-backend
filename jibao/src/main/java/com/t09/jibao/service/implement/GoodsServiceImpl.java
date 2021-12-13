@@ -58,8 +58,14 @@ public class GoodsServiceImpl implements GoodsService {
         content = "%" + content + "%";
         List<Goods> goodsList1 = goodsDAO.findAllByCategoryInAndStatusEquals(categories, 0);
         List<Goods> goodsList2 = goodsDAO.findAllByNameLikeAndStatusEquals(content, 0);
+        List<Goods> goodsList3 = goodsDAO.findAllByCampusLikeAndStatusEquals(content, 0);
+        List<Goods> goodsList4 = goodsDAO.findAllByDescriptionLikeAndStatusEquals(content, 0);
         goodsList1.removeAll(goodsList2);
         goodsList1.addAll(goodsList2);
+        goodsList3.removeAll(goodsList4);
+        goodsList3.addAll(goodsList4);
+        goodsList1.removeAll(goodsList3);
+        goodsList1.addAll(goodsList3);
         return goodsList1;
     }
 
@@ -91,7 +97,7 @@ public class GoodsServiceImpl implements GoodsService {
         else {
             String image_name = image.getOriginalFilename();
             int split_index = image_name.lastIndexOf(".");
-            String suffix = image_name.substring(split_index + 1, image_name.length());
+            String suffix = image_name.substring(split_index + 1);
             if ("jpg".equals(suffix) || "jpeg".equals(suffix) || "png".equals(suffix)) {
                 goods_path = goods_path.substring(0, goods_path.lastIndexOf(".")) + "." + suffix;
                 goods_image_file = new File(goods_path);
@@ -106,7 +112,7 @@ public class GoodsServiceImpl implements GoodsService {
         goods = save(goods);
         Upload upload = new Upload();
         upload.setGoods(goods);
-        upload.setUpload_time(new Date());
+        upload.setUploadTime(new Date());
         User user = userDAO.findById(uid).get();
         upload.setUser(user);
         uploadDAO.save(upload);

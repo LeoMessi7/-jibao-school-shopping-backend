@@ -28,8 +28,8 @@ public class Withdraw {
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @Column(name = "withdraw_time")
-    private Date withdraw_time;
+    @Column(name = "withdrawTime")
+    private Date withdrawTime;
 
 
 }

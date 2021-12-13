@@ -31,6 +31,9 @@ public class Goods {
     @Column(name = "status")
     private int status;
 
+    @Column(name = "campus", length=30)
+    private String campus;
+
 
 }
 

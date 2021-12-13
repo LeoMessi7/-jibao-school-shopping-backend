@@ -76,7 +76,7 @@ public class WithdrawServiceImpl implements WithdrawService {
         goods.setStatus(2);
         withdraw.setGoods(goods);
         withdraw.setUser(user);
-        withdraw.setWithdraw_time(new Date());
+        withdraw.setWithdrawTime(new Date());
         goodsDAO.save(goods);
         save(withdraw);
         // success

@@ -79,4 +79,16 @@ public class UserInfoController {
         response.put("code", userService.changePassword(uid, password));
         return response.toJSONString();
     }
+
+    @PostMapping("/user/info/update")
+    public String userInfoUpdate(@RequestParam Map<String, String> params){
+        Long uid = (long) request.getSession().getAttribute("uid");
+        String major = params.get("major");
+        String campus = params.get("campus");
+        userService.updateInfo(uid, major, campus);
+        JSONObject response = new JSONObject();
+        response.put("code", 0);
+        return response.toJSONString();
+    }
+
 }

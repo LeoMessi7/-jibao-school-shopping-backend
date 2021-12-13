@@ -36,4 +36,8 @@ public interface UserService {
 
     // get mark
     double getMark(Long uid);
+
+    // update info
+    void updateInfo(Long uid, String major, String campus);
+
 }

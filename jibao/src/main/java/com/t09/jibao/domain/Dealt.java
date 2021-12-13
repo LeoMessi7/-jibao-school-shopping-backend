@@ -27,8 +27,8 @@ public class Dealt {
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @Column(name = "dealt_time")
-    private Date dealt_time;
+    @Column(name = "dealtTime")
+    private Date dealtTime;
 
     @Column(name = "content", length = 512)
     private String content;

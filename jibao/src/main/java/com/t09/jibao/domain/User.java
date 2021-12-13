@@ -42,5 +42,12 @@ public class User {
     private boolean active = false;
 
 
+    @Column(name = "campus", length = 30)
+    private String campus;
+
+    @Column(name = "major", length = 30)
+    private String major;
+
+
 }
 

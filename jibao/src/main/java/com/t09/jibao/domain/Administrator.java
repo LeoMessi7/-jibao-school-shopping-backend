@@ -27,11 +27,11 @@ public class Administrator {
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @Column(name = "create_time", updatable = false, nullable = false)
-    private Date create_time;
+    @Column(name = "createTime")
+    private Date createTime;
 
-    @Column(name = "avatar_path", length = 40)
-    private String avatar_path;
+    @Column(name = "avatarPath", length = 40)
+    private String avatarPath;
 
 }
 

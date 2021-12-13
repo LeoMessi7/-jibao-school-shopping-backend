@@ -27,7 +27,7 @@ public class Upload{
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @Column(name = "upload_time")
-    private Date upload_time;
+    @Column(name = "uploadTime")
+    private Date uploadTime;
 }
 

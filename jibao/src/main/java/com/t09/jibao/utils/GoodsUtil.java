@@ -64,7 +64,7 @@ public class GoodsUtil {
             Map<String, List<String>> commentsInfo = new HashMap<>();
             sellerInfo.put("name", sellers.get(i).getName());
             sellerInfo.put("create_time", sellers.get(i).getCreateTime().toString());
-            sellerInfo.put("email", sellers.get(i).getEmail().toString());
+            sellerInfo.put("email", sellers.get(i).getEmail());
             sellerInfo.put("avatar_url", sellers.get(i).getAvatarPath());
             List<Comment> comment = comments.get(i);
             sellerInfo.put("comments_total", Integer.toString(comment.size()));
@@ -114,7 +114,7 @@ public class GoodsUtil {
                 goods_status = "已下架";
             goodsVoInfo.put("status", goods_status);
             if(goods_status.equals("已售出")){
-                goodsVoInfo.put("date", goodsVo.getPurchase().getPurchase_time().toString());
+                goodsVoInfo.put("date", goodsVo.getPurchase().getPurchaseTime().toString());
                 goodsVoInfo.put("user_name", goodsVo.getUser().getName());
                 goodsVoInfo.put("avatar_url", goodsVo.getUser().getAvatarPath());
             }
@@ -143,7 +143,7 @@ public class GoodsUtil {
             selectionInfo.put("goods_name", selectionVo.getGoods().getName());
             selectionInfo.put("goods_url", selectionVo.getGoods().getImagePath());
             selectionInfo.put("price", Integer.toString(selectionVo.getGoods().getPrice()));
-            selectionInfo.put("select_time", selectionVo.getSelection().getSelect_time().toString());
+            selectionInfo.put("select_time", selectionVo.getSelection().getSelectTime().toString());
             // the status of goods
             String goods_status;
             System.out.println(selectionVo.getGoods());

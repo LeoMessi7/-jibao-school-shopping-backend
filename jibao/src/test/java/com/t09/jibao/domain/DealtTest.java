@@ -20,7 +20,7 @@ class DealtTest {
     void testInsert(){
         Administrator administrator = administratorService.findById(1L);
         Dealt dealt = new Dealt();
-        dealt.setDealt_time(new Date());
+        dealt.setDealtTime(new Date());
         dealt.setAdministrator(administrator);
         dealt.setContent("holl");
         dealt.setFeedback(feedbackService.findById(1L));

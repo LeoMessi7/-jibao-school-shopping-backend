@@ -12,6 +12,7 @@ import java.util.List;
 public interface GoodsDAO extends JpaRepository<Goods, Long> {
     List<Goods> findAllByCategoryInAndStatusEquals(List<Category> categories, int status);
     List<Goods> findAllByNameLikeAndStatusEquals(String content, int status);
-
+    List<Goods> findAllByDescriptionLikeAndStatusEquals(String content, int status);
+    List<Goods> findAllByCampusLikeAndStatusEquals(String content, int status);
     List<Goods> findAllByIdIn(List<Long> gid_list);
 }

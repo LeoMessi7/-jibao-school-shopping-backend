@@ -20,7 +20,7 @@ public class FeedbackTest {
         User user = userService.findById(1L);
         Feedback feedback = new Feedback();
         feedback.setContent("hello");
-        feedback.setCreate_time(new Date());
+        feedback.setCreateTime(new Date());
         feedback.setUser(user);
         feedbackService.save(feedback);
     }

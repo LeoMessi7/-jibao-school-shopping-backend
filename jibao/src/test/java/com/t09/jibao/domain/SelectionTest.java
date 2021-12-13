@@ -25,7 +25,7 @@ class SelectionTest {
     @Test
     void testInsert(){
         Selection selection = new Selection();
-        selection.setSelect_time(new Date());
+        selection.setSelectTime(new Date());
         SelectionPK selectionPK = new SelectionPK();
         selectionPK.setGoods(goodsService.findById(2L));
         selectionPK.setUser(userService.findById(1L));

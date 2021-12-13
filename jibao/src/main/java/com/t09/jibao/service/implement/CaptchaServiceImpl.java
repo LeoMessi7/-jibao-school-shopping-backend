@@ -30,8 +30,8 @@ public class CaptchaServiceImpl implements CaptchaService {
 
     public Captcha createImageCaptcha(String image_captcha){
         Captcha captcha = new Captcha();
-        captcha.setCreate_time(new Date());
-        captcha.setImage_captcha(image_captcha);
+        captcha.setCreateTime(new Date());
+        captcha.setImageCaptcha(image_captcha);
         return save(captcha);
     }
     public void deleteCaptcha(Long image_id){
@@ -47,8 +47,8 @@ public class CaptchaServiceImpl implements CaptchaService {
     public Captcha createEmailCaptcha(User user, String email_captcha){
         Captcha captcha = new Captcha();
         captcha.setUser(user);
-        captcha.setEmail_captcha(email_captcha);
-        captcha.setCreate_time(new Date());
+        captcha.setEmailCaptcha(email_captcha);
+        captcha.setCreateTime(new Date());
         return save(captcha);
     }
 }

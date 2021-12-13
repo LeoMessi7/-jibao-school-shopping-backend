@@ -14,13 +14,13 @@ class AdministratorTest {
     @Test
     void testInsert(){
         Administrator administrator = new Administrator();
-        administrator.setAvatar_path("123");
+        administrator.setAvatarPath("123");
         administrator.setEmail("123");
         administrator.setName("123");
         administrator.setPassword("123");
         Date date = new Date();
         System.out.println(date.getTime());
-        administrator.setCreate_time(date);
+        administrator.setCreateTime(date);
         System.out.println(administrator);
         System.out.println(administratorService.save(administrator));
     }

@@ -45,7 +45,7 @@ public class LoginController {
         String password = params.get("password");
         String email = params.get("email");
         String captcha_code = params.get("captcha_code");
-        System.out.println(captcha_code);
+        Long image_id = (long) request.getSession().getAttribute("image_id");
         JSONObject response = new JSONObject();
         // find by email
         User user = userService.findByEmail(email);
@@ -57,11 +57,10 @@ public class LoginController {
         else{
             // email matches password
             if(user.getPassword().equals(password)) {
-                Long image_id = (long) request.getSession().getAttribute("image_id");
                 Captcha captcha = captchaService.findById(image_id);
-                Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
+                Date time_limit = new Date(captcha.getCreateTime().getTime() + expiredTime);
                 // captcha input should be correct and before ddl
-                if(captcha.getImage_captcha().equals(captcha_code) && captcha.getCreate_time().before(time_limit)) {
+                if(captcha.getImageCaptcha().equals(captcha_code) && captcha.getCreateTime().before(time_limit)) {
                     response.put("code", 0);
                     response.put("avatar_url", user.getAvatarPath());
                     response.put("user_name", user.getName());
@@ -73,6 +72,7 @@ public class LoginController {
             else
                 response.put("code", 2);
         }
+        captchaService.deleteCaptcha(image_id);
         return response.toJSONString();
     }
 }

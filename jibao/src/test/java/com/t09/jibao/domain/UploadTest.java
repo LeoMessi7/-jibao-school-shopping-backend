@@ -23,7 +23,7 @@ class UploadTest {
         Upload upload = new Upload();
         Goods goods = goodsService.findById(1L);
         User user = userService.findById(1L);
-        upload.setUpload_time(new Date());
+        upload.setUploadTime(new Date());
         upload.setUser(user);
         upload.setGoods(goods);
         uploadService.save(upload);

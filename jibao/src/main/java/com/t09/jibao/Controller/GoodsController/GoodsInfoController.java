@@ -111,7 +111,7 @@ public class GoodsInfoController {
             mark /= comments.size();
         response.put("avg_mark", mark);
         response.put("comments", comments.stream().map(Comment::getContent).collect(Collectors.toList()));
-        response.put("comment_time", comments.stream().map(Comment::getComment_time).collect(Collectors.toList()));
+        response.put("comment_time", comments.stream().map(Comment::getCommentTime).collect(Collectors.toList()));
         response.put("marks", comments.stream().map(Comment::getMark).collect(Collectors.toList()));
         return response.toJSONString();
     }

@@ -24,13 +24,14 @@ public class Captcha {
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @Column(name = "create_time")
-    Date create_time;
+    @Column(name = "createTime")
+    Date createTime;
 
-    @Column(name = "image_captcha", length = 10)
-    private String image_captcha;
-    @Column(name = "email_captcha", length = 10)
-    private String email_captcha;
+    @Column(name = "imageCaptcha", length = 10)
+    private String imageCaptcha;
+
+    @Column(name = "emailCaptcha", length = 10)
+    private String emailCaptcha;
 
 
 }

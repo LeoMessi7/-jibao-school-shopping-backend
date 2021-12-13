@@ -14,7 +14,7 @@ public class AdminUtil {
             Map<String, String> feedbackInfo = new HashMap<>();
             feedbackInfo.put("user_name", feedbackVo.getUser().getName());
             feedbackInfo.put("content", feedbackVo.getFeedback().getContent());
-            feedbackInfo.put("time", feedbackVo.getFeedback().getCreate_time().toString());
+            feedbackInfo.put("time", feedbackVo.getFeedback().getCreateTime().toString());
             feedbackInfo.put("fid", feedbackVo.getFeedback().getId().toString());
             feedbackInfoList.add(feedbackInfo);
         }

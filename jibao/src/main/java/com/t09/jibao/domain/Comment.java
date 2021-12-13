@@ -19,8 +19,8 @@ public class Comment implements Serializable {
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @Column(name = "comment_time")
-    private Date comment_time;
+    @Column(name = "commentTime")
+    private Date commentTime;
 
     @Column(name = "content", length = 512)
     private String content;

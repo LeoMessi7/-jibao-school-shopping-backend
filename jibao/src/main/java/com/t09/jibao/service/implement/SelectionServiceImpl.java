@@ -53,7 +53,7 @@ public class SelectionServiceImpl implements SelectionService {
         selectionPK.setGoods(goods);
         Selection selection = new Selection();
         selection.setPk(selectionPK);
-        selection.setSelect_time(new Date());
+        selection.setSelectTime(new Date());
         save(selection);
         return 0;
     }

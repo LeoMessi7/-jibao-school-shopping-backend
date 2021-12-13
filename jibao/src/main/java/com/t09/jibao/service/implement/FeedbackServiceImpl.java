@@ -46,7 +46,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         Feedback feedback = new Feedback();
         feedback.setUser(user);
         feedback.setContent(content);
-        feedback.setCreate_time(new Date());
+        feedback.setCreateTime(new Date());
         return save(feedback) == null ? 1 : 0;
     }
 

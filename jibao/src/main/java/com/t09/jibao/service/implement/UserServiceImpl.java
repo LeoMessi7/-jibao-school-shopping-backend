@@ -98,13 +98,13 @@ public class UserServiceImpl implements UserService {
             return 1;
         List<Captcha> captchaList = captchaDAO.findCaptchaByUser(user);
         Captcha captcha = captchaList.get(captchaList.size() - 1);
-        Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
+        Date time_limit = new Date(captcha.getCreateTime().getTime() + expiredTime);
         // out of time
-        if(captcha.getCreate_time().after(time_limit))
+        if(captcha.getCreateTime().after(time_limit))
             return 2;
-        System.out.println(captcha.getEmail_captcha());
+        System.out.println(captcha.getEmailCaptcha());
         // not equal
-        if(!captcha.getEmail_captcha().equals(captcha_input))
+        if(!captcha.getEmailCaptcha().equals(captcha_input))
             return 3;
 
         Long uid = user.getId();
@@ -182,7 +182,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    @Override
+    public void updateInfo(Long uid, String major, String campus) {
+        User user = userDAO.findById(uid).get();
+        user.setCampus(campus);
+        user.setMajor(major);
+        save(user);
+    }
 
 
 }

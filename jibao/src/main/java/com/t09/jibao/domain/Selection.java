@@ -20,8 +20,8 @@ public class Selection implements Serializable {
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @Column(name = "select_time")
-    private Date select_time;
+    @Column(name = "selectTime")
+    private Date selectTime;
 
 
 }

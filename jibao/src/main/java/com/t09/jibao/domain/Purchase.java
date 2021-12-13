@@ -27,7 +27,7 @@ public class Purchase{
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @Column(name = "purchase_time")
-    private Date purchase_time;
+    @Column(name = "purchaseTime")
+    private Date purchaseTime;
 }
 

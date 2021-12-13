@@ -90,7 +90,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         Purchase purchase = new Purchase();
 
         // Purchase object
-        purchase.setPurchase_time(new Date());
+        purchase.setPurchaseTime(new Date());
         purchase.setUser(user);
         purchase.setGoods(goods);
 

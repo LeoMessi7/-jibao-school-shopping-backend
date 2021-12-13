@@ -24,7 +24,7 @@ class WithdrawTest {
         Withdraw withdraw = new Withdraw();
         Goods goods = goodsService.findById(1L);
         User user = userService.findById(1L);
-        withdraw.setWithdraw_time(new Date());
+        withdraw.setWithdrawTime(new Date());
         withdraw.setUser(user);
         withdraw.setGoods(goods);
         withdrawService.save(withdraw);
