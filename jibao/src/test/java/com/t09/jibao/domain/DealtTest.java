@@ -23,7 +23,6 @@ class DealtTest {
         dealt.setDealt_time(new Date());
         dealt.setAdministrator(administrator);
         dealt.setContent("holl");
-        dealt.setStatus(1);
         dealt.setFeedback(feedbackService.findById(1L));
         dealtService.save(dealt);
     }

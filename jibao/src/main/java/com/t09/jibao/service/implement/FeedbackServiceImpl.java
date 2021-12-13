@@ -1,5 +1,6 @@
 package com.t09.jibao.service.implement;
 
+import com.t09.jibao.Vo.FeedbackVo;
 import com.t09.jibao.dao.FeedbackDAO;
 import com.t09.jibao.dao.GoodsDAO;
 import com.t09.jibao.dao.UserDAO;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
@@ -56,6 +58,11 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public Feedback findById(Long id) {
         return feedbackDAO.findById(id).get();
+    }
+
+    @Override
+    public List<FeedbackVo> findAll() {
+        return feedbackDAO.findAllFeedbackVo();
     }
 
 }

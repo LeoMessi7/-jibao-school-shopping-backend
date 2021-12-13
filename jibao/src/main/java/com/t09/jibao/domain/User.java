@@ -4,6 +4,7 @@ package com.t09.jibao.domain;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class User {
     private String password;
 
     @CreatedDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "createTime")
     private Date createTime;
 

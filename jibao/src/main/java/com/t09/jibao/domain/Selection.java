@@ -3,6 +3,7 @@ package com.t09.jibao.domain;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class Selection implements Serializable {
     SelectionPK pk;
 
     @CreatedDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "select_time")
     private Date select_time;
 

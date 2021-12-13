@@ -3,6 +3,7 @@ package com.t09.jibao.domain;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public class Comment implements Serializable {
     CommentPK pk;
 
     @CreatedDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "comment_time")
     private Date comment_time;
 

@@ -3,6 +3,7 @@ package com.t09.jibao.domain;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Purchase{
     Goods goods;
 
     @CreatedDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "purchase_time")
     private Date purchase_time;
 }

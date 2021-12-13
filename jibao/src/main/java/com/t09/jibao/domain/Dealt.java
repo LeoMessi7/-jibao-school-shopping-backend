@@ -3,6 +3,7 @@ package com.t09.jibao.domain;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,14 +26,12 @@ public class Dealt {
     Administrator administrator;
 
     @CreatedDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "dealt_time")
     private Date dealt_time;
 
     @Column(name = "content", length = 512)
     private String content;
-
-    @Column(name = "status")
-    private int status;
 
 }
 
