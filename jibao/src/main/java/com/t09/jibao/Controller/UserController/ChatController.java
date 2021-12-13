@@ -134,11 +134,15 @@ public class ChatController {
             map1.put("content", content);
             map1.put("from_username", from_username);
             map1.put("avatar_url", avatar_url);
+            if(Objects.equals(to_username, "all")){
+                Map<String, Object> mapAll = new HashMap<>();
+                mapAll.put("content", content);
+                mapAll.put("from_username", "all");
+                sendMessageAll(JSON.toJSONString(mapAll), from_username);
+            }
             if (clients.get(to_username) != null) {
                 map1.put("to_username", to_username);
                 sendMessageTo(JSON.toJSONString(map1), to_username);
-            } else if (clients.get(to_username) == null) {
-                chatService.add(from_username, to_username, content);
             }
         } catch (Exception e) {
             System.out.println("发生了错误了");
@@ -147,8 +151,10 @@ public class ChatController {
 
     @PostMapping("/add/chat")
     public void saveChat(@RequestParam Map<String,String> params){
-        String from_username = params.get("from_username");
         String to_username = params.get("to_username");
+        if(Objects.equals(to_username, "all"))
+            return;
+        String from_username = params.get("from_username");
         String content = params.get("content");
         chatService.add(from_username, to_username, content);
     }
@@ -158,8 +164,9 @@ public class ChatController {
         chatController.session.getBasicRemote().sendText(message);
     }
 
-    public void sendMessageAll(String message, String FromUserName) throws IOException {
+    public void sendMessageAll(String message, String from_user) throws IOException {
         for (ChatController item : clients.values()) {
+            if(!Objects.equals(item.username, from_user))
             item.session.getAsyncRemote().sendText(message);
         }
     }
