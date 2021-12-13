@@ -43,7 +43,7 @@ public class AdminLoginController {
      * @return response
      */
     @PostMapping("/administrator/login")
-    public String feedback(@RequestParam Map<String, String> params){
+    public String adminLogin(@RequestParam Map<String, String> params) {
         String password = params.get("password");
         String email = params.get("email");
         String captcha_code = params.get("captcha_code");
@@ -51,26 +51,16 @@ public class AdminLoginController {
         JSONObject response = new JSONObject();
         // find by email
         Administrator administrator = administratorService.findByEmail(email);
-        if(administrator == null){
+        if (administrator == null) {
             // administrator does not exist
             response.put("code", 1);
-        }
-        else{
+        } else {
             // email matches password
-            if(administrator.getPassword().equals(password)) {
-                Long image_id = (long) request.getSession().getAttribute("image_id");
-                Captcha captcha = captchaService.findById(image_id);
-                Date time_limit = new Date(captcha.getCreate_time().getTime() + expiredTime);
-                // captcha input should be correct and before ddl
-                if(captcha.getImage_captcha().equals(captcha_code) && captcha.getCreate_time().before(time_limit)) {
-                    response.put("code", 0);
-                    response.put("avatar_url", administrator.getAvatar_path());
-                    response.put("user_name", administrator.getName());
-                    request.getSession().setAttribute("aid", administrator.getId());
-                }else
-                    response.put("code", 3);
-            }
-            else
+            if (administrator.getPassword().equals(password)) {
+                response.put("code", 0);
+                response.put("user_name", administrator.getName());
+                request.getSession().setAttribute("aid", administrator.getId());
+            } else
                 response.put("code", 2);
         }
         return response.toJSONString();
