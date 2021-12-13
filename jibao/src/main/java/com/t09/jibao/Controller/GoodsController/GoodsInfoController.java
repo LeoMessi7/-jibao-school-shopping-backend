@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class GoodsInfoController {
@@ -100,6 +101,7 @@ public class GoodsInfoController {
         User seller = sellerInfo.getKey();
         List<Comment> comments = sellerInfo.getValue();
         response.put("seller_name", seller.getName());
+        response.put("avatar_url", seller.getAvatarPath());
         double mark = 0;
         for(Comment comment: comments)
             mark += comment.getMark();
@@ -107,8 +109,10 @@ public class GoodsInfoController {
             mark = 5;
         else
             mark /= comments.size();
-        response.put("mark", mark);
-        response.put("comments", comments);
+        response.put("avg_mark", mark);
+        response.put("comments", comments.stream().map(Comment::getContent).collect(Collectors.toList()));
+        response.put("comment_time", comments.stream().map(Comment::getComment_time).collect(Collectors.toList()));
+        response.put("marks", comments.stream().map(Comment::getMark).collect(Collectors.toList()));
         return response.toJSONString();
     }
 
