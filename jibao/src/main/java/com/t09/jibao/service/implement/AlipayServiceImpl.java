@@ -6,11 +6,13 @@ package com.t09.jibao.service.implement;
  * @date 2021/12/7
  */
 
+import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.domain.AlipayFundTransToaccountTransferModel;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
+import com.alipay.api.domain.SpiOutputObject;
 import com.alipay.api.request.AlipayFundTransToaccountTransferRequest;
 import com.alipay.api.request.AlipayTradeCloseRequest;
 import com.alipay.api.request.AlipayTradePagePayRequest;
@@ -60,6 +62,7 @@ public class AlipayServiceImpl implements AlipayService {
         //请求
         String result = alipayClient.pageExecute(pagePayRequest).getBody();
         return result;
+
     }
 
     /***查看支付流水*/
