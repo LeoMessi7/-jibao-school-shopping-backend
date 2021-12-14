@@ -156,7 +156,7 @@ public class AlipayController {
                 Long uid = AlipayConfig.alipayUid;
                 User user = userService.findById(uid);
                 int balance = user.getBalance();
-                int amount = (int) Double.parseDouble(total_amount);
+                int amount = (int) Double.parseDouble(total_amount) * 100;
                 user.setBalance(amount + balance);
                 userService.save(user);
                 //判断该笔订单是否在商户网站中已经做过处理
