@@ -91,4 +91,10 @@ public class UserInfoController {
         return response.toJSONString();
     }
 
+    @PostMapping("/user/info/getBalance")
+    public int getBalance(){
+        Long uid = (long) request.getSession().getAttribute("uid");
+        return userService.findById(uid).getBalance();
+    }
+
 }

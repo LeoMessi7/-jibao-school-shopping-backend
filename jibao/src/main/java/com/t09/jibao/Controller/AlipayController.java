@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -89,7 +90,7 @@ public class AlipayController {
     /*** 同步回调*/
     @RequestMapping("/return_url")
     @ResponseBody
-    public String return_url(HttpServletRequest req) throws IOException, AlipayApiException {
+    public String return_url(HttpServletResponse res, HttpServletRequest req) throws IOException, AlipayApiException {
         log.info(">>>>>>>>支付成功, 进入同步通知接口...");
         boolean verifyResult = AlipayUtil.getInstance().rsaCertCheckV1(req);
         if (verifyResult) {
@@ -99,9 +100,9 @@ public class AlipayController {
             String trade_no = AlipayUtil.getInstance().getByte(req.getParameter("trade_no"));
             log.info("商户订单号：{}，支付宝交易号，{}", out_trade_no, trade_no);
         } else {
-            return "failed";
+            return "success";
         }
-        return "redirect:http://localhost:8080/Infor";
+        return "failed";
     }
 
     /*** 异步回调*/
