@@ -29,7 +29,7 @@ public interface CategoryService {
     void deleteCategory(String sub_category);
 
     // update
-    int updateCategory(String category, String sub_category, String description);
+    int updateCategory(Long cid, String category, String sub_category, String description);
 
     List<Category> getCategory();
 }

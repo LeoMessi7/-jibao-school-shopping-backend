@@ -108,8 +108,8 @@ public class CategoryServiceImpl implements CategoryService {
      * @return error code
      */
     @Override
-    public int updateCategory(String category, String sub_category, String description) {
-        Category cate = categoryDAO.findFirstBySubCategory(sub_category);
+    public int updateCategory(Long cid, String category, String sub_category, String description) {
+        Category cate = categoryDAO.findById(cid).get();
         cate.setCategory(category);
         cate.setSubCategory(sub_category);
         cate.setDescription(description);

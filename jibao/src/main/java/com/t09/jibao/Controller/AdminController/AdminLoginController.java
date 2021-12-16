@@ -4,6 +4,7 @@ package com.t09.jibao.Controller.AdminController;
 import com.alibaba.fastjson.JSONObject;
 import com.t09.jibao.domain.Administrator;
 import com.t09.jibao.domain.Captcha;
+import com.t09.jibao.domain.Category;
 import com.t09.jibao.domain.User;
 import com.t09.jibao.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class AdminLoginController {
@@ -99,14 +99,17 @@ public class AdminLoginController {
      * @param params request params
      *               contains:
      *                  category & sub_category & description : category information
+     *                  cid : category id
      * @return response
      */
     @PostMapping("/administrator/updateCategory")
     public String updateCategory(@RequestParam Map<String, String> params) {
+        String cid_str = params.get("cid");
         String category = params.get("category");
         String sub_category = params.get("sub_category");
         String description = params.get("description");
-        int code = categoryService.updateCategory(category, sub_category, description);
+        Long cid = (long) Integer.parseInt(cid_str);
+        int code = categoryService.updateCategory(cid, category, sub_category, description);
         JSONObject response = new JSONObject();
         response.put("code", code);
         return response.toJSONString();
@@ -119,7 +122,17 @@ public class AdminLoginController {
     @PostMapping("/administrator/getCategory")
     public String getCategory() {
         JSONObject response = new JSONObject();
-        response.put("category", categoryService.getCategory());
+        List<Map<String, String>> categories = new ArrayList<>();
+        List<Category> categoryList = categoryService.getCategory();
+        for(Category category: categoryList){
+            Map<String, String> categoryInfo = new HashMap<>();
+            categoryInfo.put("category", category.getCategory());
+            categoryInfo.put("sub_category", category.getSubCategory());
+            categoryInfo.put("cid", category.getId().toString());
+            categoryInfo.put("description", category.getDescription());
+            categories.add(categoryInfo);
+        }
+        response.put("category", categories);
         return response.toJSONString();
     }
 
