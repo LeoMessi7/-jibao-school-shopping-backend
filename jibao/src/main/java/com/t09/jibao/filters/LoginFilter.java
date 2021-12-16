@@ -8,11 +8,6 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * static resource filter
- * allow: visit goods image
- * not allow: visit others avatar
- */
 @WebFilter(urlPatterns = {"/user/info/*", "/goods/*", "/feedback"}, filterName = "loginFilter")
 public class LoginFilter implements Filter {
     @Override
