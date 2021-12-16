@@ -10,9 +10,6 @@ public interface WithdrawService {
     // find withdraw object by id
     Withdraw findById(Long id);
 
-    // find withdraw object by id of goods
-    Withdraw findByGid(Long gid);
-
     // withdraw goods
     int withdrawGoods(Long uid, Long gid);
 }

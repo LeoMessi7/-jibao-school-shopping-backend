@@ -1,9 +1,5 @@
 package com.t09.jibao.Controller;
 
-/*
- * @Author Yuanhao Pei
- * @Date 2021/12/7
- */
 
 import com.t09.jibao.domain.Captcha;
 import com.google.code.kaptcha.impl.DefaultKaptcha;

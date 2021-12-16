@@ -24,11 +24,23 @@ public class ChatServiceImpl implements ChatService {
     @Autowired
     private UserDAO userDAO;
 
+    /**
+     * save
+     * @param chat object
+     * @return chat object
+     */
     @Override
     public Chat save(Chat chat) {
         return chatDAO.save(chat);
     }
 
+    /**
+     * add chat message
+     * @param from_username form user
+     * @param to_username to user
+     * @param content message
+     * @return chat object
+     */
     @Override
     public Chat add(String from_username, String to_username, String content) {
         Chat chat = new Chat();
@@ -43,6 +55,12 @@ public class ChatServiceImpl implements ChatService {
         return save(chat);
     }
 
+    /**
+     * find by both from user and to user
+     * @param uid user id
+     * @param seller_name seller name
+     * @return list
+     */
     @Override
     public List<ChatUser> findByBoth(Long uid, String seller_name) {
         User seller = userDAO.findFirstByName(seller_name);

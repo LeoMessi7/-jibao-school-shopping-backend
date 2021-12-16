@@ -42,6 +42,12 @@ public class SelectionServiceImpl implements SelectionService {
         return selectionDAO.findSelectionByUid(uid);
     }
 
+    /**
+     * select goods
+     * @param uid user id
+     * @param gid goods id
+     * @return error code
+     */
     @Override
     public int select(Long uid, Long gid) {
         Goods goods = goodsDAO.findById(gid).get();
@@ -58,6 +64,11 @@ public class SelectionServiceImpl implements SelectionService {
         return 0;
     }
 
+    /**
+     * delete shopping cart
+     * @param uid user id
+     * @param gid goods id
+     */
     @Override
     public void delete(Long uid, Long gid) {
         User user = userDAO.findById(uid).get();

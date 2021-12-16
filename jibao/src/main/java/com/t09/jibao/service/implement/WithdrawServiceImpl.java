@@ -48,16 +48,6 @@ public class WithdrawServiceImpl implements WithdrawService {
     }
 
 
-    /**
-     * find withdraw object by id of goods
-     * @param gid goods id
-     * @return withdraw object
-     */
-    @Override
-    public Withdraw findByGid(Long gid){
-        Goods goods = goodsDAO.findById(gid).get();
-        return withdrawDAO.findWithdrawByGoods(goods).get(0);
-    }
 
     /**
      * withdraw goods

@@ -1,4 +1,4 @@
-package com.t09.jibao.Controller;
+package com.t09.jibao.Controller.PaymentController;
 
 /*
  * @Author Yuanhao Pei
@@ -10,7 +10,6 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayFundTransToaccountTransferModel;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
-import com.alipay.api.domain.SpiOutputObject;
 import com.t09.jibao.config.AlipayConfig;
 import com.t09.jibao.domain.User;
 import com.t09.jibao.service.AlipayService;
@@ -46,8 +45,6 @@ public class AlipayController {
      * @param outBizNo     商户端的唯一订单号，对于同一笔转账请求，商户需保证该订单号唯一。
      * @param transAmount  订单总金额，单位为元，精确到小数点后两位，（单笔最低转账0.1元）
      * @param payeeAccount 收钱的账号
-     * @throws AlipayApiException
-     * @return
      */
     @RequestMapping(value = "/transfer")
     @ResponseBody

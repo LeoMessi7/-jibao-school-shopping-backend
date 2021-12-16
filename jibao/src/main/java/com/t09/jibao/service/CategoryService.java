@@ -7,16 +7,22 @@ import java.util.Map;
 
 public interface CategoryService {
 
+    // save
     Category save(Category category);
 
+    // find by category id
     Category findById(Long id);
 
+    // add category
     Category add(String category, String sub_category, String description);
 
+    // search category
     List<Category> search(String content);
 
+    // find by sub category
     Category findBySubCategory(String sub_category);
 
+    // find all
     Map<String, List<String>> findAll();
 
 }

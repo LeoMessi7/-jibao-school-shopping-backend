@@ -24,11 +24,23 @@ public class DealtServiceImpl implements DealtService {
     @Autowired
     private AdministratorDAO administratorDAO;
 
+    /**
+     * save
+     * @param dealt object
+     * @return dealt object
+     */
     @Override
     public Dealt save(Dealt dealt) {
         return dealtDAO.save(dealt);
     }
 
+    /**
+     * add dealt
+     * @param user_name user name
+     * @param aid administrator id
+     * @param fid feedback id
+     * @param content content
+     */
     @Override
     public void add(String user_name, Long aid, Long fid, String content) {
         User user = userDAO.findFirstByName(user_name);

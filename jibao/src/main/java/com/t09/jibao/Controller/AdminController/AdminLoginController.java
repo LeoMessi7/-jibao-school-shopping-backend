@@ -30,24 +30,19 @@ public class AdminLoginController {
 
     @Autowired
     private HttpServletRequest request;
-    @Value("${expiredTime}")
-    private int expiredTime;
-
-
 
     /**
-     * feedback
+     * administrator login
      * @param params request params
      *               contains:
-     *                  content: the content of feedback
+     *                  email: administrator email
+     *                  password: administrator password
      * @return response
      */
     @PostMapping("/administrator/login")
     public String adminLogin(@RequestParam Map<String, String> params) {
         String password = params.get("password");
         String email = params.get("email");
-        String captcha_code = params.get("captcha_code");
-        System.out.println(captcha_code);
         JSONObject response = new JSONObject();
         // find by email
         Administrator administrator = administratorService.findByEmail(email);

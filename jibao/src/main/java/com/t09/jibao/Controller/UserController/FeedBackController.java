@@ -1,11 +1,6 @@
 package com.t09.jibao.Controller.UserController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.code.kaptcha.impl.DefaultKaptcha;
-import com.t09.jibao.Controller.Utils;
-import com.t09.jibao.domain.Captcha;
-import com.t09.jibao.domain.Feedback;
-import com.t09.jibao.domain.User;
 import com.t09.jibao.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +18,6 @@ public class FeedBackController {
 
     @Autowired
     private CommentService commentService;
-
-    @Autowired
-    private MailService mailService;
 
     @Autowired
     private HttpServletRequest request;
@@ -49,10 +41,14 @@ public class FeedBackController {
     }
 
 
-
-
-
-
+    /**
+     * comment check
+     * one user can comment only once
+     * @param params request params
+     *                  contains:
+     *                     seller_name: seller name
+     * @return response
+     */
     @PostMapping("/comment/check")
     public String commentCheck(@RequestParam Map<String,String> params){
         Long uid = (long) request.getSession().getAttribute("uid");
@@ -63,7 +59,15 @@ public class FeedBackController {
         return response.toJSONString();
     }
 
-
+    /**
+     * comment
+     * @param params request params
+     *                  contains:
+     *                      seller_name: seller name
+     *                      mark: mark
+     *                      content: the content of feedback
+     * @return response
+     */
     @PostMapping("/comment")
     public String comment(@RequestParam Map<String,String> params){
         Long uid = (long) request.getSession().getAttribute("uid");

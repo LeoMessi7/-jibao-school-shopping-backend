@@ -39,17 +39,31 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * save
+     * @param goods goods
+     * @return goods
+     */
     @Override
     public Goods save(Goods goods) {
         return goodsDAO.save(goods);
     }
 
+    /**
+     * find goods by id
+     * @param id goods id
+     * @return goods
+     */
     @Override
     public Goods findById(Long id) {
         return goodsDAO.findById(id).get();
     }
 
-
+    /**
+     * search goods
+     * @param content key word
+     * @return list
+     */
     @Override
     public List<Goods> search(String content)
     {
@@ -69,7 +83,17 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsList1;
     }
 
-
+    /**
+     * add goods
+     * @param uid user id
+     * @param sub_category sub category
+     * @param name goods name
+     * @param price goods price
+     * @param description goods description
+     * @param campus campus
+     * @param image image
+     * @return goods
+     */
     @Override
     public Goods add(Long uid, String sub_category, String name,
                      int price, String description,String campus, MultipartFile image) throws IOException {
@@ -91,6 +115,7 @@ public class GoodsServiceImpl implements GoodsService {
         File common_goods_file = new File(common_goods_path);
         String goods_path = String.format(goods_path_template + "/goods.png", goods.getId());
         File goods_image_file = new File(goods_path);
+        // copy image
         if(image == null){
             if(!goods_image_file.exists())
                 Files.copy(common_goods_file.toPath(), goods_image_file.toPath());
@@ -99,6 +124,7 @@ public class GoodsServiceImpl implements GoodsService {
             String image_name = image.getOriginalFilename();
             int split_index = image_name.lastIndexOf(".");
             String suffix = image_name.substring(split_index + 1);
+            // check
             if ("jpg".equals(suffix) || "jpeg".equals(suffix) || "png".equals(suffix)) {
                 goods_path = goods_path.substring(0, goods_path.lastIndexOf(".")) + "." + suffix;
                 goods_image_file = new File(goods_path);

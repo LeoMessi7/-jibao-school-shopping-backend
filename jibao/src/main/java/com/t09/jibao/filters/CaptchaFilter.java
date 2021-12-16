@@ -6,11 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * static resource filter
- * allow: visit goods image
- * not allow: visit others avatar
- */
 @WebFilter(urlPatterns = {"/login/checkAccount"}, filterName = "captchaFilter")
 public class CaptchaFilter implements Filter {
     @Override

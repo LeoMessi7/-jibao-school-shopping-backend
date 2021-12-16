@@ -20,9 +20,9 @@ public class UserInfoController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private PurchaseService purchaseService;
-
 
     @Autowired
     private HttpServletRequest request;
@@ -80,6 +80,14 @@ public class UserInfoController {
         return response.toJSONString();
     }
 
+    /**
+     * update user
+     * @param params request params
+     *                  contains:
+     *                     major: user major
+     *                     campus: like 嘉定、 四平、 彰武 or 沪西
+     * @return response
+     */
     @PostMapping("/user/info/update")
     public String userInfoUpdate(@RequestParam Map<String, String> params){
         Long uid = (long) request.getSession().getAttribute("uid");
@@ -91,6 +99,10 @@ public class UserInfoController {
         return response.toJSONString();
     }
 
+    /**
+     * get balance
+     * @return response
+     */
     @PostMapping("/user/info/getBalance")
     public int getBalance(){
         Long uid = (long) request.getSession().getAttribute("uid");

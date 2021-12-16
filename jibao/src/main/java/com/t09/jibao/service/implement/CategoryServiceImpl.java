@@ -18,16 +18,33 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryDAO categoryDAO;
 
+    /**
+     * save
+     * @param category category object
+     * @return category object
+     */
     @Override
     public Category save(Category category) {
         return categoryDAO.save(category);
     }
 
+    /**
+     * find category by id
+     * @param id category id
+     * @return category
+     */
     @Override
     public Category findById(Long id) {
         return categoryDAO.findById(id).get();
     }
 
+    /**
+     * add category
+     * @param category category
+     * @param sub_category sub category
+     * @param description description
+     * @return category object
+     */
     @Override
     public Category add(String category, String sub_category, String description){
         Category cate = new Category();
@@ -37,6 +54,11 @@ public class CategoryServiceImpl implements CategoryService {
         return save(cate);
     }
 
+    /**
+     * search
+     * @param content key word
+     * @return categories
+     */
     @Override
     public List<Category> search(String content){
         content = content.replace("", "%").trim();
@@ -48,16 +70,23 @@ public class CategoryServiceImpl implements CategoryService {
         return categories1;
     }
 
-
+    /**
+     * find category by sub_category
+     * @param sub_category sub category
+     * @return category
+     */
     @Override
     public Category findBySubCategory(String sub_category){
         return categoryDAO.findFirstBySubCategory(sub_category);
     }
 
+    /**
+     * find all
+     * @return all categories
+     */
     @Override
     public Map<String, List<String>> findAll() {
         List<Category> categoryList = categoryDAO.findAll();
-        Map<String, List<String>> categories = categoryList.stream().collect(Collectors.groupingBy(Category::getCategory, Collectors.mapping(Category::getSubCategory, Collectors.toList())));
-        return categories;
+        return categoryList.stream().collect(Collectors.groupingBy(Category::getCategory, Collectors.mapping(Category::getSubCategory, Collectors.toList())));
     }
 }

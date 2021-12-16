@@ -60,6 +60,10 @@ public class FeedbackServiceImpl implements FeedbackService {
         return feedbackDAO.findById(id).get();
     }
 
+    /**
+     * find all feedback
+     * @return list
+     */
     @Override
     public List<FeedbackVo> findAll() {
         return feedbackDAO.findAllFeedbackVo();

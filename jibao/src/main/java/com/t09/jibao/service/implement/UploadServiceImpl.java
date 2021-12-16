@@ -33,22 +33,42 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     private UserDAO userDAO;
 
+    /**
+     * save
+     * @param upload object
+     * @return upload object
+     */
     @Override
     public Upload save(Upload upload) {
         return uploadDAO.save(upload);
     }
 
+    /**
+     * find by id
+     * @param id upload id
+     * @return upload
+     */
     @Override
     public Upload findById(Long id){
         return uploadDAO.findById(id).get();
     }
 
+    /**
+     * find by goods id
+     * @param gid goods id
+     * @return goods
+     */
     @Override
     public Upload findByGid(Long gid){
         Goods goods = goodsDAO.findById(gid).get();
         return uploadDAO.findFirstByGoods(goods);
     }
 
+    /**
+     * find seller information
+     * @param gid goods id
+     * @return seller information
+     */
     @Override
     public Pair<User, List<Comment>> findSellersInfoByGid(Long gid) {
         Goods goods = goodsDAO.findById(gid).get();
@@ -57,12 +77,6 @@ public class UploadServiceImpl implements UploadService {
         return new Pair<>(seller, comments);
     }
 
-    @Override
-    public List<Goods> findUploadGoods(Long uid) {
-        User user = userDAO.findById(uid).get();
-        List<Upload> uploads = uploadDAO.findAllByUser(user);
-        return uploads.stream().map(Upload::getGoods).filter(goods -> goods.getStatus() < 2).collect(Collectors.toList());
-    }
 
     @Override
     public List<GoodsVo> findGoodsVoInfoByUid(Long uid){

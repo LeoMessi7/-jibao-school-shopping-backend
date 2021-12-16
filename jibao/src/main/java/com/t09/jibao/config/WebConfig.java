@@ -7,7 +7,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-
+/**
+ * WebConfig
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Override

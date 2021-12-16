@@ -81,17 +81,19 @@ public class GoodsInfoController {
         String key_word = params.get("key_word");
         JSONObject response = new JSONObject();
         List<Goods> goodsList = goodsService.search(key_word);
-        // Pair<List<User>, List<List<Comment>>> sellerList = uploadService.findSellersInfoListByGoodsList(goodsList);
-        // information
         response.put("goodsInfoList", GoodsUtil.fillGoods(goodsList));
-        // response.put("sellersInfoList", GoodsUtil.fillSeller(sellerList));
-        // the length of the list
         response.put("length", goodsList.size());
         return response.toJSONString();
     }
 
 
-
+    /**
+     * get goods detail
+     * @param params request params
+     *               contains:
+     *                  gid: goods id
+     * @return response
+     */
     @PostMapping("/get/detail")
     public String getSellerDetail(@RequestParam Map<String,String> params){
         String gid_str = params.get("gid");
@@ -117,15 +119,16 @@ public class GoodsInfoController {
     }
 
 
-
-
+    /**
+     * random search
+     * @return response
+     */
     @PostMapping("/randomSearch")
     public String randomSearch(){
         // key word
         JSONObject response = new JSONObject();
         List<Goods> goodsList = goodsService.search("");
         Random random = new Random();
-        int length = goodsList.size();
         Set<Goods> randomSet = new HashSet<>();
         while (randomSet.size() < 9 && randomSet.size() != goodsList.size()) {
             randomSet.add(goodsList.get(random.nextInt(goodsList.size())));
@@ -258,7 +261,7 @@ public class GoodsInfoController {
 
 
     /**
-     * get shopcart
+     * get shopping cart
      * @return response
      */
     @PostMapping("/goods/getSelection")
@@ -274,7 +277,7 @@ public class GoodsInfoController {
 
 
     /**
-     * get shopcart
+     * delete shopping cart
      * @return response
      */
     @PostMapping("/goods/deleteSelection")
@@ -289,7 +292,18 @@ public class GoodsInfoController {
         return response.toJSONString();
     }
 
-
+    /**
+     * update goods information
+     * @param params request params
+     *               contains:
+     *                  description: the description of goods
+     *                  name: the name of goods
+     *                  price: the price of goods
+     *                  category & sub_category: the category of goods
+     *
+     * @param image item picture
+     * @return response
+     */
     @PostMapping("/goods/update")
     public String goodsUpdate(@RequestParam Map<String,String> params,
                          @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
@@ -307,7 +321,12 @@ public class GoodsInfoController {
         return response.toJSONString();
     }
 
-
+    /**
+     * clear shopping cart (buy all of them)
+     * @param total_str total price
+     * @param gid_list_str goods list
+     * @return response
+     */
     @PostMapping("/goods/buyAll")
     public String goodsBuyAll(@RequestParam(value = "total") String total_str,
                               @RequestParam(value = "gid_list") List<String> gid_list_str) {
@@ -317,12 +336,18 @@ public class GoodsInfoController {
         for(String gid_str: gid_list_str){
             gid_list.add((long) Integer.parseInt(gid_str));
         }
-
         JSONObject response = new JSONObject();
         response.put("code", purchaseService.purchaseAll(uid, total, gid_list));
         return response.toJSONString();
     }
 
+    /**
+     * purchase goods
+     * @param params request params:
+     *                  contains:
+     *                      gid: goods id
+     * @return response
+     */
     @PostMapping("/goods/purchase")
     public String goodsBuyAll(@RequestParam Map<String,String> params) {
         Long uid = (long) request.getSession().getAttribute("uid");

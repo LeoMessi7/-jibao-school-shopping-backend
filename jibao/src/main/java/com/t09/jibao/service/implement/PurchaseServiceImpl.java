@@ -105,6 +105,13 @@ public class PurchaseServiceImpl implements PurchaseService {
         return 0;
     }
 
+    /**
+     * purchase all
+     * @param uid user id
+     * @param total total price
+     * @param gid_list goods list
+     * @return error code
+     */
     @Override
     public int purchaseAll(Long uid, int total, List<Long> gid_list) {
         User user = userDAO.findById(uid).get();

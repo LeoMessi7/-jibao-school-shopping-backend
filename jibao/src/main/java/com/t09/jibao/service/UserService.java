@@ -31,9 +31,6 @@ public interface UserService {
     // change password
     int changePassword(Long uid, String password);
 
-    // change password
-    String getAvatarPathByName(String name);
-
     // get mark
     double getMark(Long uid);
 

@@ -26,16 +26,34 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private UserDAO userDAO;
 
+    /**
+     * save
+     * @param comment comment content
+     * @return comment
+     */
     @Override
     public Comment save(Comment comment) {
         return commentDAO.save(comment);
     }
 
+    /**
+     * find comment by seller id
+     * @param sid seller id
+     * @return list
+     */
     @Override
     public List<Comment> findBySid(Long sid){
         return commentDAO.findCommentBySid(sid);
     }
 
+    /**
+     * add comment
+     * @param uid user id
+     * @param seller_name seller name
+     * @param content content
+     * @param mark mark
+     * @return error code
+     */
     @Override
     public int add(Long uid, String seller_name, String content, double mark) {
         Comment comment = new Comment();
@@ -49,6 +67,12 @@ public class CommentServiceImpl implements CommentService {
         return save(comment) == null ? 1 : 0;
     }
 
+    /**
+     * check
+     * @param uid user id
+     * @param seller_name seller name
+     * @return error code
+     */
     @Override
     public int check(Long uid, String seller_name) {
         CommentPK commentPK = new CommentPK();

@@ -41,7 +41,9 @@ public class ReplyController {
      * feedback
      * @param params request params
      *               contains:
+     *                  user_name: user name
      *                  content: the content of feedback
+     *                  fid: feedback id
      * @return response
      */
     @PostMapping("/administrator/feedback")
