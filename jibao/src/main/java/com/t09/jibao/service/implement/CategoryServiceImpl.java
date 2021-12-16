@@ -43,15 +43,15 @@ public class CategoryServiceImpl implements CategoryService {
      * @param category category
      * @param sub_category sub category
      * @param description description
-     * @return category object
+     * @return error code
      */
     @Override
-    public Category add(String category, String sub_category, String description){
+    public int add(String category, String sub_category, String description){
         Category cate = new Category();
         cate.setCategory(category);
         cate.setSubCategory(sub_category);
         cate.setDescription(description);
-        return save(cate);
+        return save(cate) == null ? 1 : 0;
     }
 
     /**
@@ -89,4 +89,35 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = categoryDAO.findAll();
         return categoryList.stream().collect(Collectors.groupingBy(Category::getCategory, Collectors.mapping(Category::getSubCategory, Collectors.toList())));
     }
+
+    /**
+     * delete
+     * @param sub_category sub category
+     */
+    @Override
+    public void deleteCategory(String sub_category) {
+        Category category = categoryDAO.findFirstBySubCategory(sub_category);
+        categoryDAO.delete(category);
+    }
+
+    /**
+     * update
+     * @param category category
+     * @param sub_category sub category
+     * @param description description
+     * @return error code
+     */
+    @Override
+    public int updateCategory(String category, String sub_category, String description) {
+        Category cate = categoryDAO.findFirstBySubCategory(sub_category);
+        cate.setCategory(category);
+        cate.setSubCategory(sub_category);
+        cate.setDescription(description);
+        return save(cate) == null ? 1 : 0;
+    }
+
+    public List<Category> getCategory(){
+        return categoryDAO.findAll();
+    }
+
 }

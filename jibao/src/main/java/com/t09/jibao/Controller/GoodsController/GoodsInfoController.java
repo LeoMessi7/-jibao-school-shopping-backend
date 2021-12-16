@@ -44,28 +44,7 @@ public class GoodsInfoController {
     private HttpServletRequest request;
 
 
-    /**
-     * add a new category
-     * @param params request params
-     *                  contains:
-     *                      category & sub_category: the category of goods
-     *                      description: the description of goods
-     * @return response
-     */
-    @PostMapping("/goods/info/addCategory")
-    public String addCategory(@RequestParam Map<String,String> params){
-        String category = params.get("category");
-        String sub_category = params.get("sub_category");
-        String description = params.get("description");
-        Category cate = categoryService.add(category, sub_category, description);
-        JSONObject response = new JSONObject();
-        // it has been created
-        if(cate == null)
-            response.put("code", 1);
-        else
-            response.put("code", 0);
-        return response.toJSONString();
-    }
+
 
 
     /**

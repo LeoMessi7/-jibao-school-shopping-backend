@@ -16,13 +16,13 @@ public class CategoryUtil {
      * @return map
      */
     public static List<Map<String, String>> fillCategory(Map<String, List<String>> categoryList){
-        List<Map<String, String>> chatInfoList = new ArrayList<>();
+        List<Map<String, String>> categoryInfoList = new ArrayList<>();
         for (Map.Entry<String, List<String>> entry : categoryList.entrySet()) {
             Map<String, String> categoryInfo = new HashMap<>();
             categoryInfo.put("category", entry.getKey());
             categoryInfo.put("sub_category", entry.getValue().toString());
-            chatInfoList.add(categoryInfo);
+            categoryInfoList.add(categoryInfo);
         }
-        return chatInfoList;
+        return categoryInfoList;
     }
 }

@@ -14,7 +14,7 @@ public interface CategoryService {
     Category findById(Long id);
 
     // add category
-    Category add(String category, String sub_category, String description);
+    int add(String category, String sub_category, String description);
 
     // search category
     List<Category> search(String content);
@@ -25,4 +25,11 @@ public interface CategoryService {
     // find all
     Map<String, List<String>> findAll();
 
+    // delete
+    void deleteCategory(String sub_category);
+
+    // update
+    int updateCategory(String category, String sub_category, String description);
+
+    List<Category> getCategory();
 }

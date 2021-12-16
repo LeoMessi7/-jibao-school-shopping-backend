@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.t09.jibao.domain.Administrator;
 import com.t09.jibao.domain.Captcha;
 import com.t09.jibao.domain.User;
-import com.t09.jibao.service.AdministratorService;
-import com.t09.jibao.service.CaptchaService;
-import com.t09.jibao.service.MailService;
-import com.t09.jibao.service.UserService;
+import com.t09.jibao.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +23,7 @@ public class AdminLoginController {
     private AdministratorService administratorService;
 
     @Autowired
-    private CaptchaService captchaService;
+    private CategoryService categoryService;
 
     @Autowired
     private HttpServletRequest request;
@@ -60,4 +57,72 @@ public class AdminLoginController {
         }
         return response.toJSONString();
     }
+
+    /**
+     * add category
+     * @param params request params
+     *               contains:
+     *                  category & sub_category & description : category information
+     * @return response
+     */
+    @PostMapping("/administrator/addCategory")
+    public String addCategory(@RequestParam Map<String, String> params) {
+        String category = params.get("category");
+        String sub_category = params.get("sub_category");
+        String description = params.get("description");
+        int code = categoryService.add(category, sub_category, description);
+        JSONObject response = new JSONObject();
+        response.put("code", code);
+        return response.toJSONString();
+    }
+
+
+    /**
+     * add category
+     * @param params request params
+     *               contains:
+     *                  sub_category
+     * @return response
+     */
+    @PostMapping("/administrator/deleteCategory")
+    public String deleteCategory(@RequestParam Map<String, String> params) {
+        String sub_category = params.get("sub_category");
+        categoryService.deleteCategory(sub_category);
+        JSONObject response = new JSONObject();
+        response.put("code", 0);
+        return response.toJSONString();
+    }
+
+
+    /**
+     * add category
+     * @param params request params
+     *               contains:
+     *                  category & sub_category & description : category information
+     * @return response
+     */
+    @PostMapping("/administrator/updateCategory")
+    public String updateCategory(@RequestParam Map<String, String> params) {
+        String category = params.get("category");
+        String sub_category = params.get("sub_category");
+        String description = params.get("description");
+        int code = categoryService.updateCategory(category, sub_category, description);
+        JSONObject response = new JSONObject();
+        response.put("code", code);
+        return response.toJSONString();
+    }
+
+    /**
+     * get category
+     * @return response
+     */
+    @PostMapping("/administrator/getCategory")
+    public String getCategory() {
+        JSONObject response = new JSONObject();
+        response.put("category", categoryService.getCategory());
+        return response.toJSONString();
+    }
+
+
+
 }

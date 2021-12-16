@@ -25,9 +25,5 @@ public class Category {
 
     @Column(name = "description", length = 512)
     private String description;
-
-    @Column(name = "totalSold")
-    private int totalSold;
-
 }
 
